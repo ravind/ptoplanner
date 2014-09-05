@@ -1,0 +1,80 @@
+body {
+    font-family: Segoe UI, Arial;
+    font-size: 12px;
+    margin:0;
+}
+#container {
+    width: 1000px;
+    margin: 0 auto;
+}
+.row {
+    margin-right: 8px;
+    margin-left: 8px;
+}
+#placeholder {
+    margin: auto;
+    height: 300px;
+}
+.ui-datepicker {
+    font-size: 8pt;
+}
+fieldset{
+    border: 1px solid #ccc;
+}
+#notes {
+    margin-top: 15px;
+}
+#notes span{
+    display: inline-block;
+    padding: 0.5em;
+    margin-right:5px;
+}
+.danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+}
+.info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border:1px solid #bce8f1;
+}
+.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border:1px solid #faebcc;
+}
+#dataEntry {
+    margin-top: 1em;
+}
+#fstAddPto {
+    float: left;
+    margin: 1em 0;
+}
+#tblPto {
+    clear: both;
+    border-collapse: collapse;
+    border-bottom: 1px solid #888;
+}
+#tblPto td {
+    border-top: 1px solid #888;
+    padding: 3px 10px;
+}
+#tooltip {
+    position: absolute;
+    border: 1px solid #fdd;
+    padding: 2px;
+    background-color: #fee;
+    background-color: rgba(255, 221, 221, 0.65);
+}
+div#tooltip:before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: -1px;
+    height: 0;
+    width: 0;
+    border: 10px solid transparent;
+    border-left-width:0;
+    border-right-color: #555;
+}

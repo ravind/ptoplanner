@@ -1,49 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>PTO Planner</title>
+    <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+</head>
+<body data-ng-app="ptoPlanner">
+    <div id="container" data-ng-controller="ptoController">
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Ptoplanner : ptoplanner">
+        <h1>PTO Planner</h1>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+        <div id="placeholder" data-chart=""></div>
+        <fieldset id="notes" class="row" data-ng-show="floatingHolidayResult.length">
+            <legend>Alerts!</legend>
+            <span ng-repeat="i in floatingHolidayResult" class="{{i.type}}">
+                {{i.info}}
+            </span>
+        </fieldset>
 
-    <title>Ptoplanner</title>
-  </head>
+        <form name="ptoForm" id="dataEntry" class="row">
+            <div id="divStartingBalance">
+                <span class="label">Starting Balance:</span>
+                <input type="number" step="0.01" id="numStartingBalance" data-ng-model="startingBalance" data-ng-change="startingBalanceChanged()" />
+            </div>
 
-  <body>
+            <fieldset id="fstAddPto">
+                <legend>Add PTO:</legend>
+                <span class="label">From:</span>
+                <input type="text" name="dateFrom" data-ng-model="newPto.dateFrom" data-ng-change="dateFromChanged()" class="date" />
+                <span class="label">To:</span>
+                <input type="text" name="dateTo" data-ng-model="newPto.dateTo" data-ng-change="dateToChanged()" class="date" />
+                <span class="label">Type:</span>
+                <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
+                    <option value="">-- Select PTO Type --</option>
+                </select>
+                <button type="button" data-ng-click="addPto()"
+                    data-ng-disabled="!newPto.dateFrom || !newPto.dateTo || !newPto.ptoType">Add</button>
+                <br />
+                Note: <input type="text" size="51" data-ng-model="newPto.note" />
+            </fieldset>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/getsetbro/ptoplanner">View on GitHub</a>
-
-          <h1 id="project_title">Ptoplanner</h1>
-          <h2 id="project_tagline">ptoplanner</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/getsetbro/ptoplanner/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/getsetbro/ptoplanner/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+            <table id="tblPto" data-ng-hide="ptoList.length == 0">
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Type</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr data-ng-repeat="pto in ptoList track by pto.id | orderBy:'dateFrom'">
+                    <td>{{ pto.dateFrom | date:'shortDate' }}</td>
+                    <td>{{ pto.dateTo | date:'shortDate' }}</td>
+                    <td>{{ ptoTypes[pto.ptoType] }}</td>
+                    <td>{{ pto.comment }}</td>
+                    <td><button data-ng-click="removePto(pto.id)">&times;</button></td>
+                </tr>
+            </table>
+        </form>
     </div>
+    <div id='tooltip'></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.flot.time.min.js"></script>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>ptoplanner</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Ptoplanner maintained by <a href="https://github.com/getsetbro">getsetbro</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers.js"></script>
+    <script src="app/directives.js"></script>
+    <script src="app/services.js"></script>
+</body>
 </html>
