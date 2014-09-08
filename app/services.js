@@ -1,4 +1,5 @@
 app.service('dataStore', function () {
+    "use strict";
 
     var defaults = [];
 
@@ -22,6 +23,7 @@ app.service('dataStore', function () {
 });
 
 app.factory('ptoManager', function (dataStore) {
+    "use strict";
     var factory, ptoKey, sbKey, ptoList;
 
     function init() {
@@ -79,6 +81,7 @@ app.factory('ptoManager', function (dataStore) {
 });
 
 app.factory('chartGenerator', function (ptoManager) {
+    "use strict";
 
     var factory = {};
     var ptoList, startingBalance;
@@ -208,6 +211,7 @@ app.factory('chartGenerator', function (ptoManager) {
 });
 
 app.factory('floatingHolidayChecker', function (ptoManager) {
+    "use strict";
     var factory = {};
     var ptoList;
 

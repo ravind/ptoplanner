@@ -3,6 +3,8 @@
 var app = angular.module('ptoPlanner', []);
 
 app.run(function() {
+    "use strict";
+
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
@@ -15,7 +17,7 @@ app.run(function() {
     //$("input.date").datepicker();
     $("#from").datepicker({
         //defaultDate: "+1w",
-        //changeMonth: true,
+        changeMonth: true,
         //showButtonPanel: true,
         onClose: function(selectedDate) {
             $("#to").datepicker("option", "minDate", selectedDate);
@@ -23,7 +25,7 @@ app.run(function() {
     });
     $("#to").datepicker({
         //defaultDate: "+1w",
-        //changeMonth: true,
+        changeMonth: true,
         //showButtonPanel: true,
         onClose: function(selectedDate) {
             $("#from").datepicker("option", "maxDate", selectedDate);

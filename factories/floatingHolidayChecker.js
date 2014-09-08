@@ -2,7 +2,6 @@ app.factory('floatingHolidayChecker', function(ptoManager) {
     "use strict";
     var factory = {};
     var ptoList;
-        console.log(ptoManager);
     function init() {
         ptoList = ptoManager.getPtoList();
     }
@@ -27,7 +26,6 @@ app.factory('floatingHolidayChecker', function(ptoManager) {
         while (q < 4) { //for (q; q < 4; q++) {
             var startDate = new Date(ptoManager.curYear, q * 3, 1);
             var endDate = new Date(ptoManager.curYear, q * 3 + 3, 0);
-                            console.log(ptoManager.curQuarter);
 
             var filt = getSearchFilter(startDate.valueOf(), endDate.valueOf());
             var qname = q + 1;

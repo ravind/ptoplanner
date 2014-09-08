@@ -1,4 +1,6 @@
 app.directive('chart', function (chartGenerator) {
+    "use strict";
+
     return {
         restrict: 'A',
         link: function (scope, elem, attrs) {

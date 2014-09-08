@@ -1,4 +1,6 @@
 app.controller('ptoController', function ($scope, ptoManager, floatingHolidayChecker) {
+    "use strict";
+
     $scope.startingBalance = ptoManager.getStartingBalance();
     $scope.ptoList = ptoManager.getPtoList();
     $scope.ptoTypes = ptoManager.getPtoTypes();
