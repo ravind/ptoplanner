@@ -29,7 +29,7 @@ app.factory('floatingHolidayChecker', function(ptoManager) {
 
             var filt = getSearchFilter(startDate.valueOf(), endDate.valueOf());
             var qname = q + 1;
-            var qType = ( q >= ptoManager.curQuarter) ? "info" : "danger";
+            var qType = ( q < ptoManager.curQuarter ) ? "danger" : "info";
             qname = "Q" + qname;
 
             var floatingHolidays = ptoList.filter(filt);

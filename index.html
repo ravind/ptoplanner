@@ -21,7 +21,7 @@
             </span>
         </fieldset>
 
-        <form name="ptoForm" id="dataEntry" class="row">
+        <form name="ptoForm" id="dataEntry" class="row clearfix">
             <div id="divStartingBalance">
                 <span class="label">Starting Balance:</span>
                 <input type="number" step="0.01" id="numStartingBalance" data-ng-model="startingBalance" data-ng-change="startingBalanceChanged()" />
@@ -29,19 +29,27 @@
 
             <fieldset id="fstAddPto">
                 <legend>Add PTO:</legend>
-                <span class="label">Type:</span>
-                <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
+                <label class="label">Type:</label>
+<!--                 <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
                     <option value="">-- Select PTO Type --</option>
-                </select>
+                </select> -->
+                <label data-ng-repeat="ptotype in ptoTypes" data-ng-init="$parent.newPto.ptoType = 0">
+                    <input type="radio" name="pt" data-ng-model="$parent.newPto.ptoType" data-ng-value="{{$index}}" />
+                    {{ptotype}}
+                </label>
                 <br/>
-                <span class="label">From:</span>
+                <label class="label">From:</label>
                 <input type="text" id="from" name="dateFrom" data-ng-model="newPto.dateFrom" data-ng-change="dateFromChanged()" class="date" />
                 <span class="label">To:</span>
                 <input type="text" id="to" name="dateTo" data-ng-model="newPto.dateTo" data-ng-change="dateToChanged()" class="date" />
                 <br/>
-                Note: <input type="text" size="51" data-ng-model="newPto.note" />
+                <label class="label">Note:</label>
+                <input type="text" size="51" data-ng-model="newPto.note" />
                 <br>
-                <button type="button" data-ng-click="addPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo || !newPto.ptoType">Add</button>
+                <label class="label">&nbsp;</label>
+                <button type="button" data-ng-click="addPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo || newPto.ptoType == null">
+                    &plus; Add
+                </button>
             </fieldset>
 
             <table id="tblPto" data-ng-hide="ptoList.length == 0">

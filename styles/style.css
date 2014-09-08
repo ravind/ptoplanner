@@ -1,13 +1,17 @@
 body {
     font-family: Segoe UI, Arial;
     font-size: 12px;
-    margin:0;
+    margin:0 0 22px;
+}
+body *{
+    box-sizing:border-box;
 }
 #container {
     width: 1000px;
     margin: 0 auto;
 }
 .row {
+    margin-top: 1em;
     margin-right: 8px;
     margin-left: 8px;
 }
@@ -20,6 +24,17 @@ body {
 }
 fieldset{
     border: 1px solid #ccc;
+}
+label.label{
+    display: inline-block;
+    width:45px;
+}
+.clearfix:after{
+    content: '';
+    clear:both;
+    display: block;
+    overflow: hidden;
+    height: 0;
 }
 #notes {
     margin-top: 15px;
@@ -44,23 +59,22 @@ fieldset{
     background-color: #fcf8e3;
     border:1px solid #faebcc;
 }
-#dataEntry {
-    margin-top: 1em;
+#divStartingBalance{
+    margin-bottom: 1em;
 }
 #fstAddPto {
     float: left;
-    margin: 1em 0;
-    width:45%;
+    width:48%;
 }
 #tblPto {
     float: right;
     border-collapse: collapse;
-    border-bottom: 1px solid #888;
-    width:45%;
+    width:50%;
 }
 th{
     text-align: left;
     padding: 3px 10px;
+
 }
 #tblPto td {
     border-top: 1px solid #888;
