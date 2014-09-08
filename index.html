@@ -30,9 +30,11 @@
             <fieldset id="fstAddPto">
                 <legend>Add PTO:</legend>
                 <label class="label">Type:</label>
-<!--                 <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
+                <!--
+                <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
                     <option value="">-- Select PTO Type --</option>
-                </select> -->
+                </select>
+                -->
                 <label data-ng-repeat="ptotype in ptoTypes" data-ng-init="$parent.newPto.ptoType = 0">
                     <input type="radio" name="pt" data-ng-model="$parent.newPto.ptoType" data-ng-value="{{$index}}" />
                     {{ptotype}}

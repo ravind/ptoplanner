@@ -22,8 +22,8 @@ app.factory('ptoManager', function(dataStore) {
     factory.getPtoTypes = function() {
         var ptoTypes = [];
         ptoTypes[0] = "PTO";
-        ptoTypes[1] = "Floating Holiday";
-        //ptoTypes[2] = "Standard Holiday";
+        ptoTypes[1] = "Standard Holiday";
+        ptoTypes[2] = "Floating Holiday";
         return ptoTypes;
     };
 
