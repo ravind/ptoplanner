@@ -1,9 +1,11 @@
+@charset "UTF-8";
 body {
     font-family: "Segoe UI", Helvetica, Arial;
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 21px;
     margin:0 0 22px;
-    padding-top: 10px
+    color:#333;
+
 }
 body *{
     box-sizing:border-box;
@@ -14,8 +16,13 @@ body *{
     max-width: 1000px;
     margin: 0 auto;
 }
+
 .row {
-    margin: 12px 8px 0 20px;
+    margin: 12px 10px 0 24px;
+}
+h1.row{
+    margin-bottom: 10px;
+    font-weight: 300
 }
 .clearfix:after{
     content: '';
@@ -29,17 +36,19 @@ body *{
 }
 input,button{
     margin:0;
-    padding: 0 3px;
+    padding: 0 6px;
     border:1px solid #eee;
     background-color: #eee;
-    border-bottom-color: #ccc
+    border-bottom-color: #ccc;
+    font-size: 1em;
+
 }
 button{
     border:0 none;
     background-color: #cb4b4b;
     color:#fff;
     border-radius: 3px;
-    padding: 0 3px 2px;
+    padding: 0 6px 2px;
     cursor: pointer;
 }
 button:hover{
@@ -50,8 +59,8 @@ fieldset{
     margin:0;
     padding:0 10px 10px;
 }
-legend{
-    font-weight: bold
+legend,th{
+    font-weight: 700
 }
 label.label{
     display: inline-block;
@@ -68,8 +77,10 @@ label.label{
 .legend{
     position: absolute;
     right: 0;
-    top: -42px;
+    top: -45px;
     width: 115px;
+    font-size: 12px;
+    line-height: 1
 }
 /*alerts*/
 
@@ -101,9 +112,7 @@ label.label{
     margin-right: 2%;
     margin-top: 10px
 }
-#newPtoNote{
-    width: 274px;
-}
+
 
 /*table*/
 #tblPto tr:nth-child(even){
@@ -116,12 +125,12 @@ label.label{
 }
 th{
     text-align: left;
-    padding: 0 10px;
+    padding: 0 0 0 10px;
     border-bottom: 1px solid #ccc;
 }
 #tblPto td {
     border-bottom: 1px solid #ccc;
-    padding: 0 10px;
+    padding: 0 0 0 10px;
 }
 #tblPto tr:hover{
     background-color: #d9edf7
@@ -148,5 +157,6 @@ th{
 }
 
 .ui-datepicker{
-    line-height: 1
+    line-height: 1;
+    font-size: 12px;
 }

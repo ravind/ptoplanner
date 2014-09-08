@@ -77,7 +77,7 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                         },
                         shadowSize:0
                     },
-                    colors: ["orange", "#31708f", "#cb4b4b", "#4da74d", "#9440ed"]
+                    colors: ["orange", "#19f", "#cb4b4b", "#4da74d", "#9440ed"]
                 });
 
                 $(elem).bind("plothover", function(event, pos, item) {
