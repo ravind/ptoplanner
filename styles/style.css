@@ -1,5 +1,5 @@
 body {
-    font-family: Segoe UI, Arial;
+    font-family: "Segoe UI", Helvetica, Arial;
     font-size: 12px;
     line-height: 20px;
     margin:0 0 22px;
@@ -29,8 +29,9 @@ body *{
 input,button{
     margin:0;
     padding: 0 3px;
-    border:1px solid #ddd;
-    background-color: #ddd;
+    border:1px solid #eee;
+    background-color: #eee;
+    border-bottom-color: #ccc
 }
 button{
     border:0 none;
@@ -63,7 +64,12 @@ label.label{
 #placeholder {
     height: 300px;
 }
-
+.legend{
+    position: absolute;
+    right: 0;
+    top: -52px;
+    width: 125px;
+}
 /*alerts*/
 
 #notes span{
@@ -118,7 +124,7 @@ th{
 }
 
 /*tooltip*/
-#tooltip {
+.tooltip {
     position: absolute;
     top:0;
     border: 1px solid #fdd;
@@ -126,7 +132,7 @@ th{
     background-color: #fee;
     background-color: rgba(255, 221, 221, 0.65);
 }
-div#tooltip:before {
+.tooltip:before {
     content: '';
     position: absolute;
     right: 100%;

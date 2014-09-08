@@ -1,4 +1,4 @@
-app.factory('chartGenerator', function(ptoManager) {
+app.factory('chartGenerator', function(ptoManager,$rootScope) {
     "use strict";
     var factory = {};
     var ptoList, startingBalance;
@@ -87,7 +87,7 @@ app.factory('chartGenerator', function(ptoManager) {
         var balanceData = [];
         var lossData = [];
         var ptoIterator = getPtoIterator(0);
-        var curYear = new Date().getFullYear();
+        var curYear = $rootScope.getFullYear;
         var curDate = new Date(curYear, 0, 1);
         var curPto = ptoIterator.next();
         var accrued = balanceTracker(startingBalance);

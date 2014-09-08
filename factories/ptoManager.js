@@ -3,10 +3,7 @@ app.factory('ptoManager', function(dataStore) {
     var factory, ptoKey, sbKey, ptoList;
 
     function init() {
-        factory = {
-            curYear:dataStore.curYear,
-            curQuarter:dataStore.curQuarter
-        };
+        factory = {};
         ptoKey = "ptoList";
         sbKey = "startingBalance";
         dataStore.setDefault(ptoKey, {

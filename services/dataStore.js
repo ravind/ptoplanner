@@ -21,8 +21,4 @@ app.service('dataStore', function() {
         localStorage.setObject(key, object);
     };
 
-    var newDate = new Date();
-    this.curYear = newDate.getFullYear();
-    this.curQuarter = parseInt(newDate.getMonth() / 3 ) + 1;
-
 });

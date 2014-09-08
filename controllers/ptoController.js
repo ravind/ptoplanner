@@ -53,7 +53,7 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
         var parsed = Date.parse(input);
         if (!isNaN(parsed)) {
             var tempDate = new Date(parsed);
-            if (tempDate.getFullYear() == new Date().getFullYear()) {
+            if (tempDate.getFullYear() == $rootScope.getFullYear) {
                 isValid = true;
             }
         }

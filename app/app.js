@@ -2,7 +2,7 @@
 
 var app = angular.module('ptoPlanner', []);
 
-app.run(function() {
+app.run(function($rootScope) {
     "use strict";
 
     Storage.prototype.setObject = function(key, value) {
@@ -31,4 +31,18 @@ app.run(function() {
             $("#from").datepicker("option", "maxDate", selectedDate);
         }
     });
+    var newDate = new Date();
+    var curYear = newDate.getFullYear();
+    $rootScope.getFullYear = curYear;
+    $rootScope.curQuarter = parseInt(newDate.getMonth() / 3 ) + 1;
+    $rootScope.nowDateToTime = newDate.getTime();
+    $rootScope.gettime = newDate.getTime();
+    var lat = 0;
+    $rootScope.holidays = [
+        [new Date(curYear,0,1).getTime(), lat],//1st
+        [new Date(curYear,4,25).getTime(), lat], //memorial
+        [new Date(curYear,8,1).getTime(), lat], //labor
+        [new Date(curYear,10,27).getTime(), lat],//thanks
+        [new Date(curYear,11,25).getTime(), lat]//xmas
+    ];
 });
