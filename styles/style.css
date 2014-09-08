@@ -3,6 +3,7 @@ body {
     font-size: 12px;
     line-height: 20px;
     margin:0 0 22px;
+    padding-top: 10px
 }
 body *{
     box-sizing:border-box;
@@ -35,7 +36,7 @@ input,button{
 }
 button{
     border:0 none;
-    background-color: #f66;
+    background-color: #cb4b4b;
     color:#fff;
     border-radius: 3px;
     padding: 0 3px 2px;

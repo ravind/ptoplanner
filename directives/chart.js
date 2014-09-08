@@ -10,39 +10,40 @@ app.directive('chart', function(chartGenerator,$rootScope) {
             function updateChart() {
                 var data = chartGenerator.getChartData();
 
-                $.plot(elem, [{
-                    data: data.ptoBalance,
+                $.plot(elem,
+                [
+                    {
+                        data: data.ptoBalance,
 
-                    label: "PTO Balance",
-                    lines: {
-                        show: true
-                    },
-                    points: {
-                        symbol: "diamond" // or "diamond", "triangle", "cross"
+                        label: "PTO Balance",
+                        lines: {
+                            show: true
+                        },
+                        points: {
+                            //symbol: "diamond"
+                        }
+                    }, {
+                        data: data.lostBalance,
+                        label: "Unused Balance",
+                        lines: {
+                            show: true
+                        },
+                        points: {
+                            symbol: "triangle"
+                        }
+                    }, {
+                        data: $rootScope.holidays,
+                        label: "Holiday",
+                        points: {
+                            symbol: "diamond"
+                        }
                     }
-                }, {
-                    data: data.lostBalance,
-                    label: "Unused Balance",
-                    lines: {
-                        show: true
-                    },
-                    points: {
-                        symbol: "square" // or "diamond", "triangle", "cross"
-                    }
-                },
+                ],
                 {
-                    data: $rootScope.holidays,
-                    label: "Holiday",
-                    points: {
-                        symbol: "triangle" // or "diamond", "triangle", "cross"
-                    }
-                }
-                ], {
                     xaxis: {
                         //tickSize:[".5", "month"],
                         mode: "time"
                     },
-
                     grid: {
                         markings: [{
                             yaxis: {
@@ -68,13 +69,15 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                     series: {
                         points: {
                             //symbol: "square", // or "diamond", "triangle", "cross"
-                            show: true
+                            show: true,
+                            fill:true
                         },
                         lines:{
                             lineWidth:2
                         },
                         shadowSize:0
-                    }
+                    },
+                    colors: ["orange", "#31708f", "#cb4b4b", "#4da74d", "#9440ed"]
                 });
 
                 $(elem).bind("plothover", function(event, pos, item) {
