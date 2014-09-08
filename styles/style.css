@@ -122,7 +122,9 @@ th{
     border-bottom: 1px solid #ccc;
     padding: 0 10px;
 }
-
+#tblPto tr:hover{
+    background-color: #d9edf7
+}
 /*tooltip*/
 .tooltip {
     position: absolute;

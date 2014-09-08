@@ -12,6 +12,7 @@ app.directive('chart', function(chartGenerator,$rootScope) {
 
                 $.plot(elem, [{
                     data: data.ptoBalance,
+
                     label: "PTO Balance",
                     lines: {
                         show: true
@@ -48,14 +49,14 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                                 from: 80,
                                 to: 80
                             },
-                            lineWidth:5,
-                            color: "#ccc"
+                            lineWidth:8,
+                            color: "#eee"
                         }, {
                             xaxis: {
                                 from: $rootScope.gettime,
                                 to: $rootScope.gettime
                             },
-                            lineWidth:5,
+                            lineWidth:4,
                             color: "#ddd"
                         }],
                         borderWidth: {top: 1, right: 1, bottom: 1, left: 1},
@@ -68,7 +69,11 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                         points: {
                             //symbol: "square", // or "diamond", "triangle", "cross"
                             show: true
-                        }
+                        },
+                        lines:{
+                            lineWidth:2
+                        },
+                        shadowSize:0
                     }
                 });
 
