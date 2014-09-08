@@ -50,16 +50,23 @@ fieldset{
 #fstAddPto {
     float: left;
     margin: 1em 0;
+    width:45%;
 }
 #tblPto {
-    clear: both;
+    float: right;
     border-collapse: collapse;
     border-bottom: 1px solid #888;
+    width:45%;
+}
+th{
+    text-align: left;
+    padding: 3px 10px;
 }
 #tblPto td {
     border-top: 1px solid #888;
     padding: 3px 10px;
 }
+
 #tooltip {
     position: absolute;
     border: 1px solid #fdd;

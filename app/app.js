@@ -2,15 +2,31 @@
 
 var app = angular.module('ptoPlanner', []);
 
-app.run(function () {
-    Storage.prototype.setObject = function (key, value) {
+app.run(function() {
+    Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
 
-    Storage.prototype.getObject = function (key) {
+    Storage.prototype.getObject = function(key) {
         var value = this.getItem(key);
         return value && JSON.parse(value);
     };
 
-    $("input.date").datepicker();
+    //$("input.date").datepicker();
+    $("#from").datepicker({
+        //defaultDate: "+1w",
+        //changeMonth: true,
+        //showButtonPanel: true,
+        onClose: function(selectedDate) {
+            $("#to").datepicker("option", "minDate", selectedDate);
+        }
+    });
+    $("#to").datepicker({
+        //defaultDate: "+1w",
+        //changeMonth: true,
+        //showButtonPanel: true,
+        onClose: function(selectedDate) {
+            $("#from").datepicker("option", "maxDate", selectedDate);
+        }
+    });
 });
