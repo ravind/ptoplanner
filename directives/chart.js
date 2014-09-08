@@ -3,20 +3,6 @@ app.directive('chart', function(chartGenerator,$rootScope) {
     return {
         restrict: 'A',
         link: function(scope, elem, attrs) {
-            var nowDateToTime = $rootScope.gettime;
-            var gridMarks = [{
-                yaxis: {
-                    from: 80,
-                    to: 80
-                },
-                color: "green"
-            }, {
-                xaxis: {
-                    from: nowDateToTime,
-                    to: nowDateToTime
-                },
-                color: "navy"
-            }];
 
             scope.$watch('ptoList', updateChart, true);
             scope.$watch('startingBalance', updateChart, true);
@@ -29,17 +15,26 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                     label: "PTO Balance",
                     lines: {
                         show: true
+                    },
+                    points: {
+                        symbol: "diamond" // or "diamond", "triangle", "cross"
                     }
                 }, {
                     data: data.lostBalance,
                     label: "Unused Balance",
                     lines: {
                         show: true
+                    },
+                    points: {
+                        symbol: "square" // or "diamond", "triangle", "cross"
                     }
                 },
                 {
                     data: $rootScope.holidays,
-                    label: "Holiday"
+                    label: "Holiday",
+                    points: {
+                        symbol: "triangle" // or "diamond", "triangle", "cross"
+                    }
                 }
                 ], {
                     xaxis: {
@@ -48,13 +43,30 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                     },
 
                     grid: {
-                        markings: gridMarks,
+                        markings: [{
+                            yaxis: {
+                                from: 80,
+                                to: 80
+                            },
+                            lineWidth:5,
+                            color: "#ccc"
+                        }, {
+                            xaxis: {
+                                from: $rootScope.gettime,
+                                to: $rootScope.gettime
+                            },
+                            lineWidth:5,
+                            color: "#ddd"
+                        }],
+                        borderWidth: {top: 1, right: 1, bottom: 1, left: 1},
+                        borderColor: {top: "#ccc", right: "#ccc", bottom: "#ccc", left: "#ccc"},
                         //clickable: true,
                         //autoHighlight: true,
                         hoverable: true
                     },
                     series: {
                         points: {
+                            //symbol: "square", // or "diamond", "triangle", "cross"
                             show: true
                         }
                     }
@@ -63,9 +75,9 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                 $(elem).bind("plothover", function(event, pos, item) {
                     if (item) {
                         var x = new Date(item.datapoint[0]),
-                            y = item.datapoint[1].toFixed(2);
+                            y = (item.series.label !== "Holiday") ? " = " + item.datapoint[1].toFixed(2) : '';
 
-                        $("#tooltip").html(item.series.label + " on " + x.toDateString() + " = " + y)
+                        $("#tooltip").html(item.series.label + " - " + x.toDateString() + y)
                             .css({
                                 top: item.pageY - 12,
                                 left: item.pageX + 18
