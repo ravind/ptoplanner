@@ -56,8 +56,8 @@ app.directive('chart', function(chartGenerator) {
 
                         $("#tooltip").html(item.series.label + " on " + x.toDateString() + " = " + y)
                             .css({
-                                top: item.pageY - 9,
-                                left: item.pageX + 15
+                                top: item.pageY - 12,
+                                left: item.pageX + 18
                             })
                             .fadeIn(200);
                     } else {

@@ -1,33 +1,20 @@
 body {
     font-family: Segoe UI, Arial;
     font-size: 12px;
+    line-height: 20px;
     margin:0 0 22px;
 }
 body *{
     box-sizing:border-box;
 }
+
+/*setup*/
 #container {
-    width: 1000px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 .row {
-    margin-top: 1em;
-    margin-right: 8px;
-    margin-left: 8px;
-}
-#placeholder {
-    margin: auto;
-    height: 300px;
-}
-.ui-datepicker {
-    font-size: 8pt;
-}
-fieldset{
-    border: 1px solid #ccc;
-}
-label.label{
-    display: inline-block;
-    width:45px;
+    margin: 12px 8px 0 20px;
 }
 .clearfix:after{
     content: '';
@@ -36,13 +23,53 @@ label.label{
     overflow: hidden;
     height: 0;
 }
-#notes {
-    margin-top: 15px;
+.nowrap{
+    white-space: nowrap;
 }
+input,button{
+    margin:0;
+    padding: 0 3px;
+    border:1px solid #ddd;
+    background-color: #ddd;
+}
+button{
+    border:0 none;
+    background-color: #f66;
+    color:#fff;
+    border-radius: 3px;
+    padding: 0 3px 2px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #a94442
+}
+fieldset{
+    border: 1px solid #ccc;
+    margin:0;
+    padding:0 10px 10px;
+}
+legend{
+    font-weight: bold
+}
+label.label{
+    display: inline-block;
+    width:35px;
+}
+.radiolabel{
+    margin-right: 5px;
+    cursor: pointer;
+}
+/*chart area*/
+#placeholder {
+    height: 300px;
+}
+
+/*alerts*/
+
 #notes span{
     display: inline-block;
-    padding: 0.5em;
-    margin-right:5px;
+    margin-right: 5px;
+    padding: 0 5px;
 }
 .danger {
     color: #a94442;
@@ -57,32 +84,43 @@ label.label{
 .warning {
     color: #8a6d3b;
     background-color: #fcf8e3;
-    border:1px solid #faebcc;
+    border:1px solid gold;
 }
-#divStartingBalance{
-    margin-bottom: 1em;
-}
+
+/*form*/
 #fstAddPto {
     float: left;
-    width:48%;
+    width: 48%;
+    margin-right: 2%;
+    margin-top: 10px
+}
+#newPtoNote{
+    width: 274px;
+}
+
+/*table*/
+#tblPto tr:nth-child(even){
+    background-color: #eee;
 }
 #tblPto {
-    float: right;
+    float: left;
     border-collapse: collapse;
-    width:50%;
+    width: 50%;
 }
 th{
     text-align: left;
-    padding: 3px 10px;
-
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
 }
 #tblPto td {
-    border-top: 1px solid #888;
-    padding: 3px 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
 }
 
+/*tooltip*/
 #tooltip {
     position: absolute;
+    top:0;
     border: 1px solid #fdd;
     padding: 2px;
     background-color: #fee;
@@ -95,7 +133,11 @@ div#tooltip:before {
     top: -1px;
     height: 0;
     width: 0;
-    border: 10px solid transparent;
+    border: 13px solid transparent;
     border-left-width:0;
     border-right-color: #555;
+}
+
+.ui-datepicker{
+    line-height: 1
 }
