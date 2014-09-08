@@ -49,8 +49,8 @@
                     <th>From</th>
                     <th>To</th>
                     <th>Type</th>
-                    <th>Comment</th>
-                    <th>Remove</th>
+                    <th>Note</th>
+                    <th>&nbsp;</th>
                 </tr>
                 <tr data-ng-repeat="pto in ptoList track by pto.id | orderBy:'dateFrom'">
                     <td>{{ pto.dateFrom | date:'shortDate' }}</td>
@@ -70,8 +70,11 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/controllers.js"></script>
-    <script src="app/directives.js"></script>
-    <script src="app/services.js"></script>
+    <script src="services/dataStore.js"></script>
+    <script src="factories/ptoManager.js"></script>
+    <script src="factories/chartGenerator.js"></script>
+    <script src="factories/floatingHolidayChecker.js"></script>
+    <script src="controllers/ptoController.js"></script>
+    <script src="directives/chart.js"></script>
 </body>
 </html>
