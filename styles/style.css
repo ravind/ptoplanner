@@ -54,6 +54,9 @@ button{
 button:hover{
     background-color: #a94442
 }
+[type="text"]:focus{
+    outline-width: 2px;
+}
 fieldset{
     border: 1px solid #ccc;
     margin:0;

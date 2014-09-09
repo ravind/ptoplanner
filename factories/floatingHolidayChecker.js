@@ -23,12 +23,11 @@ app.factory('floatingHolidayChecker', function(ptoManager,$rootScope) {
         var result = [];
         var q = 0;
         while (q < 4) { //for (q; q < 4; q++) {
-            var startDate = new Date($rootScope.getFullYear, q * 3, 1);
-            var endDate = new Date($rootScope.getFullYear, q * 3 + 3, 0);
-
-            var filt = getSearchFilter(startDate.valueOf(), endDate.valueOf());
-            var qname = q + 1;
-            var qType = ( q < $rootScope.curQuarter ) ? "danger" : "info";
+            var startDate = new Date($rootScope.getFullYear, q * 3, 1),
+                endDate = new Date($rootScope.getFullYear, q * 3 + 3, 0),
+                filt = getSearchFilter(startDate.valueOf(), endDate.valueOf()),
+                qname = q + 1,
+                qType = ( q < $rootScope.curQuarter ) ? "danger" : "info";
             qname = "Q" + qname;
 
             var floatingHolidays = ptoList.filter(filt);

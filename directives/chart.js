@@ -69,8 +69,8 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                     series: {
                         points: {
                             //symbol: "square", // or "diamond", "triangle", "cross"
-                            show: true,
-                            fill:true
+                            //radius: 3,
+                            show: true
                         },
                         lines:{
                             lineWidth:2
@@ -88,9 +88,9 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                         $("#tooltip").html(item.series.label + " - " + x.toDateString() + y)
                             .css({
                                 top: item.pageY - 12,
-                                left: item.pageX + 18
+                                left: item.pageX + 22
                             })
-                            .fadeIn(200);
+                            .show();
                     } else {
                         $("#tooltip").hide();
                     }

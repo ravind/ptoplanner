@@ -45,7 +45,6 @@ app.factory('chartGenerator', function(ptoManager,$rootScope) {
     function balanceTracker(initialValue) {
         var curBalance = initialValue;
         var oldBalance = -1;
-
         var retObj = {
             getBalance: function() {
                 return curBalance;
@@ -84,14 +83,14 @@ app.factory('chartGenerator', function(ptoManager,$rootScope) {
 
     factory.getChartData = function() {
         init();
-        var balanceData = [];
-        var lossData = [];
-        var ptoIterator = getPtoIterator(0);
-        var curYear = $rootScope.getFullYear;
-        var curDate = new Date(curYear, 0, 1);
-        var curPto = ptoIterator.next();
-        var accrued = balanceTracker(startingBalance);
-        var lost = balanceTracker(0);
+        var balanceData = [],
+            lossData = [],
+            ptoIterator = getPtoIterator(0),
+            curYear = $rootScope.getFullYear,
+            curDate = new Date(curYear, 0, 1),
+            curPto = ptoIterator.next(),
+            accrued = balanceTracker(startingBalance),
+            lost = balanceTracker(0);
         lost.commit();
         while (curDate.getFullYear() == curYear) {
             if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
