@@ -31,13 +31,14 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                         points: {
                             symbol: "triangle"
                         }
-                    }, {
-                        data: $rootScope.holidays,
-                        label: "Holiday",
-                        points: {
-                            symbol: "diamond"
-                        }
                     }
+                    //, {
+                    //     data: $rootScope.holidays,
+                    //     label: "Holiday",
+                    //     points: {
+                    //         symbol: "diamond"
+                    //     }
+                    // }
                 ],
                 {
                     xaxis: {
@@ -51,7 +52,7 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                                 to: 80
                             },
                             lineWidth:8,
-                            color: "#eee"
+                            color: "#ddd"
                         }, {
                             xaxis: {
                                 from: $rootScope.gettime,

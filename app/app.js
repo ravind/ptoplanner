@@ -14,10 +14,11 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
-    //$("input.date").datepicker();
+    $("input.date").datepicker();
+
     $("#from").datepicker({
         //defaultDate: "+1w",
-        changeMonth: true,
+        //changeMonth: true,
         //showButtonPanel: true,
         onClose: function(selectedDate) {
             $("#to").datepicker("option", "minDate", selectedDate);
@@ -25,12 +26,13 @@ app.run(function($rootScope) {
     });
     $("#to").datepicker({
         //defaultDate: "+1w",
-        changeMonth: true,
+        //changeMonth: true,
         //showButtonPanel: true,
         onClose: function(selectedDate) {
             $("#from").datepicker("option", "maxDate", selectedDate);
         }
     });
+
     var newDate = new Date();
     var curYear = newDate.getFullYear();
     $rootScope.getFullYear = curYear;

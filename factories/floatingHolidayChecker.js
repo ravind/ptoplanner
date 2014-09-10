@@ -1,4 +1,4 @@
-app.factory('floatingHolidayChecker', function(ptoManager,$rootScope) {
+app.factory('floatingHolidayChecker', function(ptoManager, $rootScope) {
     "use strict";
     var factory = {};
     var ptoList;

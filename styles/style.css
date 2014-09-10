@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-    font-family: "Segoe UI", Helvetica, Arial;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 21px;
     margin:0 0 22px;
@@ -16,11 +16,11 @@ body *{
     max-width: 1000px;
     margin: 0 auto;
 }
-
-.row {
-    margin: 12px 10px 0 24px;
+hr {
+    border: 1px solid#ccc;
+    border-width: 1px 0 0;
 }
-h1.row{
+h1{
     margin-bottom: 10px;
     font-weight: 300
 }
@@ -34,16 +34,23 @@ h1.row{
 .nowrap{
     white-space: nowrap;
 }
-input,button{
+select, button, input{
     margin:0;
-    padding: 0 6px;
-    border:1px solid #eee;
-    background-color: #eee;
-    border-bottom-color: #ccc;
-    font-size: 1em;
-
 }
+select, [type="submit"], [type="text"], [type="number"]{
+    width:160px;
+}
+select, button, [type="text"], [type="number"]{
+    max-width: 100%;
+    border:1px solid #fff;
+    background-color: #fff;
+    font-size: 1em;
+    line-height: 19px;
+    padding: 0 6px;
+}
+
 button{
+    font-family: "Segoe UI", Helvetica, Arial;
     border:0 none;
     background-color: #cb4b4b;
     color:#fff;
@@ -54,21 +61,29 @@ button{
 button:hover{
     background-color: #a94442
 }
-[type="text"]:focus{
-    outline-width: 2px;
+[type="text"]:focus,[type="number"]:focus{
+    outline-style: dotted;
+}
+[disabled]{
+    background-color: #ddd;
+    color:#fff;
+    cursor: not-allowed;
+}
+[disabled]:hover{
+    background-color: #eee
 }
 fieldset{
-    border: 1px solid #ccc;
+    border: 1px solid #eee;
+    background-color: #eee;
     margin:0;
-    padding:0 10px 10px;
 }
-legend,th{
-    font-weight: 700
+legend{
+    background-color: #fff;
+    text-align: center;
+    padding: 0 10px;
+    text-transform: uppercase;
 }
-label.label{
-    display: inline-block;
-    width:35px;
-}
+
 .radiolabel{
     margin-right: 5px;
     cursor: pointer;
@@ -76,14 +91,12 @@ label.label{
 /*chart area*/
 #placeholder {
     height: 300px;
+    background-color: #eee;
 }
+
 .legend{
-    position: absolute;
-    right: 0;
-    top: -45px;
-    width: 115px;
     font-size: 12px;
-    line-height: 1
+    line-height: 1;
 }
 /*alerts*/
 
@@ -107,35 +120,36 @@ label.label{
     background-color: #fcf8e3;
     border:1px solid gold;
 }
-
-/*form*/
-#fstAddPto {
-    float: left;
-    width: 48%;
-    margin-right: 2%;
-    margin-top: 10px
-}
-
-
-/*table*/
-#tblPto tr:nth-child(even){
-    background-color: #eee;
-}
-#tblPto {
-    float: left;
-    border-collapse: collapse;
+.float50{
     width: 50%;
+    float: left;
+    padding-right: 10px
 }
-th{
+.float50 + .float50{
+    padding-right: 0
+}
+.tbl {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #eee;
+    margin-top:10px;
+    border-bottom: 1px solid #eee;
+
+}
+.tbl th{
     text-align: left;
     padding: 0 0 0 10px;
-    border-bottom: 1px solid #ccc;
+    text-transform: uppercase;
+    font-weight: 400
 }
-#tblPto td {
-    border-bottom: 1px solid #ccc;
+.tbl td {
     padding: 0 0 0 10px;
 }
-#tblPto tr:hover{
+/*table*/
+.tbl tbody tr:nth-child(odd){
+    background-color: #f9f9f9;
+}
+.tbl tbody tr:hover{
     background-color: #d9edf7
 }
 /*tooltip*/
@@ -146,6 +160,7 @@ th{
     padding: 2px;
     background-color: #fee;
     background-color: rgba(255, 221, 221, 0.65);
+    display: none;
 }
 .tooltip:before {
     content: '';
