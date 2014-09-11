@@ -22,17 +22,25 @@ app.factory('ptoManager', function(dataStore) {
     factory.getPtoTypes = function() {
         var ptoTypes = [];
         ptoTypes[0] = "PTO";
-        //ptoTypes[1] = "Standard Holiday";
+        ptoTypes[1] = "Standard Holiday";
         ptoTypes[2] = "Floating Holiday";
         return ptoTypes;
     };
 
-    factory.getItems = function() {
-        return ptoList;
-    };
+    // factory.getItems = function() {
+    //     return ptoList;
+    // };
 
     factory.getPtoList = function() {
         return ptoList.items;
+    };
+
+    factory.getFloats = function() {
+        return ptoList.floats;
+    };
+
+    factory.getHolidays = function() {
+        return ptoList.holidays;
     };
 
     factory.getStartingBalance = function() {
@@ -73,9 +81,24 @@ app.factory('ptoManager', function(dataStore) {
         dataStore.setObject(ptoKey, ptoList);
     };
 
-    factory.getHolidays = function() {
-        return ptoList.holidays;
+
+    factory.addFloat = function(id, qdate) {
+        if(!ptoList.floats){
+            ptoList.floats = {};
+        }
+        ptoList.floats[id].used = true;
+        if(qdate){
+            ptoList.floats[id].date = qdate;
+        }
+        dataStore.setObject(ptoKey, ptoList);
     };
+
+    factory.offFloat = function(id) {
+        ptoList.floats[id].used = false;
+        ptoList.floats[id].date = null;
+        dataStore.setObject(ptoKey, ptoList);
+    };
+
 
     factory.addHoliday = function(id) {
         if(!ptoList.holidays){
@@ -88,22 +111,5 @@ app.factory('ptoManager', function(dataStore) {
         ptoList.holidays[id] = false;
         dataStore.setObject(ptoKey, ptoList);
     };
-
-    factory.getFloats = function() {
-        return ptoList.floats;
-    };
-
-    factory.addFloat = function(id) {
-        if(!ptoList.floats){
-            ptoList.floats = {};
-        }
-        ptoList.floats[id] = true;
-        dataStore.setObject(ptoKey, ptoList);
-    };
-    factory.delFloat = function(id) {
-        ptoList.floats[id] = false;
-        dataStore.setObject(ptoKey, ptoList);
-    };
-
     return factory;
 });

@@ -63,6 +63,8 @@ button:hover{
 }
 [type="text"]:focus,[type="number"]:focus{
     outline-style: dotted;
+    outline-width: 2px;
+    outline-color: #ccc
 }
 [disabled]{
     background-color: #ddd;

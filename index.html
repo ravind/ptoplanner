@@ -36,16 +36,29 @@
                 </fieldset>
                 <fieldset>
                     <legend>Holidays - Floating</legend>
-                    <div class="float---50">
-                    <label><input type="checkbox" data-ng-model="floatsList.q1" data-ng-change="changeFloats('q1')" />&nbsp;Q1</label>
-                        <input type="text" class="date" placeholder="date" disabled /><br>
-                    <label><input type="checkbox" data-ng-model="floatsList.q2" data-ng-change="changeFloats('q2')" />&nbsp;Q2</label>
-                        <input type="text" class="date" placeholder="date" disabled/><br>
-                    <label><input type="checkbox" data-ng-model="floatsList.q3" data-ng-change="changeFloats('q3')" />&nbsp;Q3</label>
-                        <input type="text" class="date" placeholder="date" disabled/><br>
-                    <label><input type="checkbox" data-ng-model="floatsList.q4" data-ng-change="changeFloats('q4')" />&nbsp;Q4</label>
-                        <input type="text" class="date" placeholder="date" disabled/>
-                    </div>
+                    <label>
+                        <input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" />&nbsp;Q1
+                    </label>
+                        <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')"/>
+                        Used
+                        <br>
+                    <label>
+                        <input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" />&nbsp;Q2
+                    </label>
+                        <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')"/>
+                        Used
+                        <br>
+                    <label>
+                        <input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" />&nbsp;Q3
+                    </label>
+                        <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')"/>
+                        Missed?
+                        <br>
+                    <label>
+                        <input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" />&nbsp;Q4
+                    </label>
+                        <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')"/>
+                        <span>?</span>
                     <!--
                     <div id="notes" data-ng-show="floatingHolidayResult.length" class="float50">
                         <span ng-repeat="i in floatingHolidayResult" class="{{i.type}}">
@@ -107,16 +120,16 @@
                         <tr>
                             <th>From</th>
                             <th>To</th>
-                            <!-- <th>Type</th>-->
+                            <th>Type</th>
                             <th>Note</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-ng-repeat="pto in ptoList track by pto.id | orderBy:'dateFrom'">
+                        <tr data-ng-repeat="pto in ptoList | orderBy:'dateFrom' track by pto.id">
                             <td>{{ pto.dateFrom | date:'shortDate' }}</td>
                             <td>{{ pto.dateTo | date:'shortDate' }}</td>
-                            <!-- <td>{{ ptoTypes[pto.ptoType] }}</td> -->
+                            <td>{{ ptoTypes[pto.ptoType] }}</td>
                             <td>{{ pto.comment }}</td>
                             <td>
                                 <button data-ng-click="removePto(pto.id)">&times;</button>
@@ -158,6 +171,7 @@
 <!--     <script src="scripts/jquery.ba-bbq.min.js"></script>
  -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+
     <script src="app/app.js"></script>
     <script src="services/dataStore.js"></script>
     <script src="factories/ptoManager.js"></script>

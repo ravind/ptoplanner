@@ -18,19 +18,24 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
         ptoManager.removePto(id);
     };
 
+    $scope.changeFloats = function(id) {
+        if( $scope.floatsList[id].used ){
+            ptoManager.addFloat(id);
+        }else{
+            ptoManager.offFloat(id);
+        }
+    };
+    $scope.dateFloats = function(id) {
+        if( isValidDate($scope.floatsList[id].date) ){
+            ptoManager.addFloat(id, $scope.floatsList[id].date);
+        }
+    };
+
     $scope.changeHoliday = function(id) {
         if( $scope.holidayList[id] ){
             ptoManager.addHoliday(id);
         }else{
             ptoManager.delHoliday(id);
-        }
-    };
-
-    $scope.changeFloats = function(id) {
-        if( $scope.floatsList[id] ){
-            ptoManager.addFloat(id);
-        }else{
-            ptoManager.delFloat(id);
         }
     };
 
