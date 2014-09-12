@@ -40,26 +40,10 @@
         </fieldset>
         <fieldset>
           <legend>Holidays - Floating</legend>
-          <label>
-            <input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" />&nbsp;Q1
-          </label>
-          <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" />Used
-          <br>
-          <label>
-            <input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" />&nbsp;Q2
-          </label>
-          <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" />Used
-          <br>
-          <label>
-            <input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" />&nbsp;Q3
-          </label>
-          <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" />Missed?
-          <br>
-          <label>
-            <input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" />&nbsp;Q4
-          </label>
-          <input type="text" class="date" placeholder="date" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" />
-          <span>?</span>
+          <label><input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" />&nbsp;Q1</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}'/>Used<br>
+          <label><input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" />&nbsp;Q2</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}'/>Used<br>
+          <label><input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" />&nbsp;Q3</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}'/>Missed?<br>
+          <label><input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" />&nbsp;Q4</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}'/><span>?</span>
           <!--
 <div id="notes" data-ng-show="floatingHolidayResult.length" class="float50">
 <span ng-repeat="i in floatingHolidayResult" class="{{i.type}}">

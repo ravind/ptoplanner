@@ -14,38 +14,20 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
-    $("input.date").datepicker();
-
-    $("#from").datepicker({
-        //defaultDate: "+1w",
-        //changeMonth: true,
-        //showButtonPanel: true,
-        onClose: function(selectedDate) {
-            $("#to").datepicker("option", "minDate", selectedDate);
-        }
-    });
-    $("#to").datepicker({
-        //defaultDate: "+1w",
-        //changeMonth: true,
-        //showButtonPanel: true,
-        onClose: function(selectedDate) {
-            $("#from").datepicker("option", "maxDate", selectedDate);
-        }
-    });
-
-    var newDate = new Date();
-    var curYear = newDate.getFullYear();
-    $rootScope.getFullYear = curYear;
-    $rootScope.curQuarter = parseInt(newDate.getMonth() / 3) + 1;
-    $rootScope.nowDateToTime = newDate.getTime();
-    $rootScope.gettime = newDate.getTime();
     var thanksDay = function(year) {
         var first = new Date(year, 10, 1);
         var day_of_week = first.getDay();
         return 22 + (11 - day_of_week) % 7;
     };
-
     var lat = 0;
+    var newDate = new Date();
+    var curYear = newDate.getFullYear();
+    var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
+
+    $rootScope.getFullYear = curYear;
+    $rootScope.curQuarter = curQuarter;
+    $rootScope.nowDateToTime = newDate.getTime();
+    $rootScope.gettime = newDate.getTime();
     $rootScope.holidays = [
         [new Date(curYear, 0, 1).getTime(), lat], //1st
         [new Date(curYear, 4, 25).getTime(), lat], //memorial
@@ -53,4 +35,30 @@ app.run(function($rootScope) {
         [new Date(curYear, 10, thanksDay(curYear)).getTime(), lat], //thanks
         [new Date(curYear, 11, 25).getTime(), lat] //xmas
     ];
+
+    // var quarter = 1;
+    // $("input.date").datepicker({
+    //   minDate: new Date(curYear, this.dataset.quarter - 1, 1),
+    //   maxDate: new Date(curYear, this.dataset.quarter + 1, 31)
+    // });
+    $('[data-dp]').each(function() {
+      var $this = $(this);
+        var dpData = $this.data("dp");
+        $this.datepicker({
+          minDate: new Date(curYear, dpData.qEnd - 3, 1),
+          maxDate: new Date(curYear, dpData.qEnd, 0)
+        });
+    });
+
+    $("#from").datepicker({
+        onClose: function(selectedDate) {
+            $("#to").datepicker("option", "minDate", selectedDate);
+        }
+    });
+    $("#to").datepicker({
+        onClose: function(selectedDate) {
+            $("#from").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+
 });
