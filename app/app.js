@@ -60,5 +60,4 @@ app.run(function($rootScope) {
             $("#from").datepicker("option", "maxDate", selectedDate);
         }
     });
-
 });

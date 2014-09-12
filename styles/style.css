@@ -216,23 +216,28 @@ legend{
   line-height: 1;
 }
 
-#holidaysSTD{
+.holiday-section{
   text-align: center;
   padding-right: 0;
   padding-left: 0;
 }
-#holidaysSTD input[type="checkbox"] {
+.holiday-section input[type="checkbox"] {
   display: none;
 }
 
-#holidaysSTD label {
+.holiday-section label {
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
-  width: 16%;
   padding: 0 2px;
 }
-#holidaysSTD span{
+#holidaysFLT label{
+  width: 24%;
+}
+#holidaysSTD label{
+  width: 16%;
+}
+.holiday-section span{
   display: inline-block;
   background-color: #eee;
   border-radius: 7px;
@@ -241,21 +246,26 @@ legend{
   overflow: hidden;
   text-overflow:ellipsis;
 }
-#holidaysSTD :checked + span {
+.holiday-section :checked + span {
   background-color: #ccc;
 }
 
-#holidaysSTD span:hover{
+.holiday-section span:hover{
   background-color: #ccc;
 }
-#holidaysSTD :checked + span:hover {
+.holiday-section :checked + span:hover {
   background-color: #eee;
 }
 
-#holidaysSTD span:before{
+.holiday-section span:before{
   content: "\002610";
   font-size: 2rem;
 }
-#holidaysSTD :checked + span:before{
+.holiday-section :checked + span:before{
   content: "\002611"
+}
+.holiday-section i{
+  font-style: normal;
+  display: block;
+  transform: rotate(90deg);
 }

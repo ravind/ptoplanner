@@ -7,6 +7,7 @@
   <!--     <meta name="viewport" content="width=device-width" /> -->
   <title>PTO Planner</title>
   <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>-->
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 <body data-ng-app="ptoPlanner">
@@ -37,48 +38,28 @@
             </select>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset id="holidaysFLT" class="holiday-section">
           <legend>Holidays - Floating</legend>
-          <label><input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" />&nbsp;Q1</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}'/> <span>Used</span><br>
-          <label><input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" />&nbsp;Q2</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}'/> <span>Used</span><br>
-          <label><input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" />&nbsp;Q3</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}'/> <span>Missed?</span><br>
-          <label><input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" />&nbsp;Q4</label><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}'/> <span>TBD</span>
-            <!--
-            <div id="notes" data-ng-show="floatingHolidayResult.length" class="float50">
-            <span ng-repeat="i in floatingHolidayResult" class="{{i.type}}">
-            {{i.info}}
-            </span>
-            </div>
-            -->
+            <label><input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" /><span><br>Q1</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}'/><i data-ng-bind="'q1' | floatStatus"></i></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" /><span><br>Q2</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}'/><i data-ng-bind="'q2' | floatStatus"></i></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" /><span><br>Q3</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}'/><i data-ng-bind="'q3' | floatStatus"></i></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" /><span><br>Q4</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}'/><i data-ng-bind="'q4'| floatStatus"></i></label>
         </fieldset>
-        <fieldset id="holidaysSTD">
+        <fieldset id="holidaysSTD" class="holiday-section">
           <legend>Holidays - Standard</legend>
-          <label><input type="checkbox" data-ng-model="holidayList.h1" data-ng-change="changeHoliday('h1')" /><span><br>New Years<br>Jan 1</span></label><!-- sp
-sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h2" data-ng-change="changeHoliday('h2')" /><span><br>Memorial<br>May 1</span></label><!-- sp
-sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h3" data-ng-change="changeHoliday('h3')" /><span><br>4th of July<br>Jul 4</span></label><!-- sp
-sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h4" data-ng-change="changeHoliday('h4')" /><span><br>Labor<br>Sep 1</span></label><!-- sp
-sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h5" data-ng-change="changeHoliday('h5')" /><span><br>Thanksgiving<br>Nov 27</span></label><!-- sp
-sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-change="changeHoliday('h6')" /><span><br>Christmas<br>Dec 25</span></label>
+           <label><input type="checkbox" data-ng-model="holidayList.h1" data-ng-change="changeHoliday('h1')" /><span><br>New Years<br>Jan 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h2" data-ng-change="changeHoliday('h2')" /><span><br>Memorial<br>May 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h3" data-ng-change="changeHoliday('h3')" /><span><br>4th of July<br>Jul 4</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h4" data-ng-change="changeHoliday('h4')" /><span><br>Labor<br>Sep 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h5" data-ng-change="changeHoliday('h5')" /><span><br>Thanksgiving<br>Nov 27</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-change="changeHoliday('h6')" /><span><br>Christmas<br>Dec 25</span></label>
         </fieldset>
       </div>
       <div class="float50">
         <form name="ptoForm">
           <fieldset id="fstAddPto">
             <legend>Add PTO</legend>
-            <!--
-            <label class="label">Type:</label>
-            -->
-            <!--
-            <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
-                <option value="">-- Select PTO Type --</option>
-            </select>
-            -->
-            <!--
-            <label data-ng-repeat="ptotype in ptoTypes" data-ng-init="$parent.newPto.ptoType = 0" class="radiolabel">
-                <input type="radio" name="pt" data-ng-model="$parent.newPto.ptoType" data-ng-value="{{$index}}" />
-                {{ptotype}}
-            </label>
-            -->
+
             <div class="float50">
               <label class="label">From</label>
               <br>
@@ -141,8 +122,7 @@ sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h6" data
             </tr>
           </tbody>
         </table>
-        <!--                 <a data-ng-href="mailto:?Subject=ptoplanner_link&Body='{{mailto}}">email this to myself</a>
--->
+        <!--<a data-ng-href="mailto:?Subject=ptoplanner_link&Body='{{mailto}}">email this to myself</a>-->
       </div>
     </div>
   </div>
@@ -159,12 +139,13 @@ sp sp sp sp --><label><input type="checkbox" data-ng-model="holidayList.h6" data
   <!--     <script src="scripts/jquery.ba-bbq.min.js"></script>
 -->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
-
+  <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.js"></script>-->
   <script src="app/app.js"></script>
   <script src="services/dataStore.js"></script>
   <script src="factories/ptoManager.js"></script>
   <script src="factories/chartGenerator.js"></script>
   <script src="factories/floatingHolidayChecker.js"></script>
+  <script src="filters/floatStatus.js"></script>
   <script src="controllers/ptoController.js"></script>
   <script src="directives/chart.js"></script>
 </body>
