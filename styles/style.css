@@ -266,6 +266,6 @@ legend{
 }
 .holiday-section i{
   font-style: normal;
-  display: block;
+  display: inline-block;
   transform: rotate(90deg);
 }
