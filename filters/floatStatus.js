@@ -6,20 +6,20 @@ app.filter('floatStatus', function (ptoManager, $rootScope) {
   return function (item) {
     var floatsList = ptoManager.getFloats();
     if( !floatsList[item] ){
-       return '=s';
+       return ':?';
     }
     //if used good job
     if( floatsList[item].used === true ){
-       return '=)';
+       return ':)';
     }
     var q = item.split('q')[1];
     //if unused and quarter passed
     if( q < $rootScope.curQuarter ){
-      return '=(';
+      return ':(';
     }
     //if unused and quarter is not yet
     if( q > $rootScope.curQuarter ){
-      return '=|';
+      return ':|';
     }
     return '=/';
 
