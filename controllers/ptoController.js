@@ -19,22 +19,22 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
     };
 
     $scope.changeFloats = function(id) {
-        if( $scope.floatsList[id].used ){
+        if ($scope.floatsList[id].used) {
             ptoManager.addFloat(id);
-        }else{
+        } else {
             ptoManager.offFloat(id);
         }
     };
     $scope.dateFloats = function(id) {
-        if( isValidDate($scope.floatsList[id].date) ){
+        if (isValidDate($scope.floatsList[id].date)) {
             ptoManager.addFloat(id, $scope.floatsList[id].date);
         }
     };
 
     $scope.changeHoliday = function(id) {
-        if( $scope.holidayList[id] ){
+        if ($scope.holidayList[id]) {
             ptoManager.addHoliday(id);
-        }else{
+        } else {
             ptoManager.delHoliday(id);
         }
     };
@@ -88,7 +88,7 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
     //$scope.$watch('ptoList', updateFloatingHolidays, true);
 
     //function updateFloatingHolidays() {
-        //$scope.floatingHolidayResult = floatingHolidayChecker.getResults();
+    //$scope.floatingHolidayResult = floatingHolidayChecker.getResults();
     //}
 
     // $scope.$watch('ptoList', updateMailto, true);
