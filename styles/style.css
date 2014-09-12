@@ -215,3 +215,47 @@ legend{
   font-size: 12px;
   line-height: 1;
 }
+
+#holidaysSTD{
+  text-align: center;
+  padding-right: 0;
+  padding-left: 0;
+}
+#holidaysSTD input[type="checkbox"] {
+  display: none;
+}
+
+#holidaysSTD label {
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+  width: 16%;
+  padding: 0 2px;
+}
+#holidaysSTD span{
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 7px;
+  border: 2px solid #ccc;
+  width: 100%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+#holidaysSTD :checked + span {
+  background-color: #ccc;
+}
+
+#holidaysSTD span:hover{
+  background-color: #ccc;
+}
+#holidaysSTD :checked + span:hover {
+  background-color: #eee;
+}
+
+#holidaysSTD span:before{
+  content: "\002610";
+  font-size: 2rem;
+}
+#holidaysSTD :checked + span:before{
+  content: "\002611"
+}

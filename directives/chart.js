@@ -51,15 +51,15 @@ app.directive('chart', function(chartGenerator,$rootScope) {
                                 from: 80,
                                 to: 80
                             },
-                            lineWidth:8,
-                            color: "#ddd"
+                            lineWidth:4,
+                            color: "#dbb"
                         }, {
                             xaxis: {
                                 from: $rootScope.gettime,
                                 to: $rootScope.gettime
                             },
                             lineWidth:4,
-                            color: "#ddd"
+                            color: "#bdb"
                         }],
                         borderWidth: {top: 1, right: 1, bottom: 1, left: 1},
                         borderColor: {top: "#ccc", right: "#ccc", bottom: "#ccc", left: "#ccc"},
