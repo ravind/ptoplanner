@@ -6,14 +6,19 @@ app.filter('floatStatus', function (ptoManager, $rootScope) {
   return function (item) {
     var q = item.split('q')[1];
     var floatsList = ptoManager.getFloats();
+    //no data
+    if( !floatsList && q < $rootScope.curQuarter){
+       return '=(';
+    }
+      //no data
+    if( !floatsList){
+       return '=|';
+    }
     //no data for quarters passed
     if( !floatsList[item] && q < $rootScope.curQuarter){
        return '=(';
     }
-    //no data
-    if( !floatsList || !floatsList[item] ){
-       return '=|';
-    }
+
     //if used good job
     if( floatsList[item].used === true ){
        return '=)';
