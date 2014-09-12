@@ -10,17 +10,18 @@ app.filter('floatStatus', function (ptoManager, $rootScope) {
     if( !floatsList && q < $rootScope.curQuarter){
        return '=(';
     }
-      //no data
-    if( !floatsList){
-       return '=|';
-    }
     //no data for quarters passed
     if( !floatsList[item] && q < $rootScope.curQuarter){
        return '=(';
     }
+      //no data
+    if( !floatsList || !floatsList[item] || !floatsList[item].used ){
+       return '=|';
+    }
+
 
     //if used good job
-    if( floatsList[item].used === true ){
+    if(floatsList[item].used){
        return '=)';
     }
     //if unused and quarter passed
