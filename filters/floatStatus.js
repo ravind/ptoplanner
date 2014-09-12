@@ -5,6 +5,9 @@ app.filter('floatStatus', function (ptoManager, $rootScope) {
   // pass in `item` which is the single Object we'll manipulate
   return function (item) {
     var floatsList = ptoManager.getFloats();
+    if( !floatsList[item] ){
+       return '=s';
+    }
     //if used good job
     if( floatsList[item].used === true ){
        return '=)';
