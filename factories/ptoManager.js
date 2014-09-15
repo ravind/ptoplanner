@@ -53,14 +53,15 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
 
-  factory.addPto = function(from, to, type, note) {
+  factory.addPto = function(from, to, type, note, hasFloat) {
     ptoList.cnt += 1;
     var newPto = {
       id: ptoList.cnt,
       dateFrom: from,
       dateTo: to,
       ptoType: type,
-      comment: note
+      comment: note,
+      hasFloat: hasFloat
     };
     ptoList.items.push(newPto);
     ptoList.items.sort(function(a, b) {
@@ -89,7 +90,6 @@ app.factory('ptoManager', function(dataStore) {
     if (qdate) {
       ptoList.floats[id].date = qdate;
     }
-
     dataStore.setObject(ptoKey, ptoList);
   };
 
@@ -98,7 +98,6 @@ app.factory('ptoManager', function(dataStore) {
     ptoList.floats[id].date = null;
     dataStore.setObject(ptoKey, ptoList);
   };
-
 
   factory.addHoliday = function(id) {
     if (!ptoList.holidays) {

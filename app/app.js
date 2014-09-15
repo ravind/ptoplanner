@@ -14,12 +14,12 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
-    var thanksDay = function(year) {
-        var first = new Date(year, 10, 1);
-        var day_of_week = first.getDay();
-        return 22 + (11 - day_of_week) % 7;
-    };
-    var lat = 0;
+    // var thanksDay = function(year) {
+    //     var first = new Date(year, 10, 1);
+    //     var day_of_week = first.getDay();
+    //     return 22 + (11 - day_of_week) % 7;
+    // };
+    // var lat = 0;
     var newDate = new Date();
     var curYear = newDate.getFullYear();
     var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
@@ -28,13 +28,13 @@ app.run(function($rootScope) {
     $rootScope.curQuarter = curQuarter;
     $rootScope.nowDateToTime = newDate.getTime();
     $rootScope.gettime = newDate.getTime();
-    $rootScope.holidays = [
-        [new Date(curYear, 0, 1).getTime(), lat], //1st
-        [new Date(curYear, 4, 25).getTime(), lat], //memorial
-        [new Date(curYear, 8, 1).getTime(), lat], //labor
-        [new Date(curYear, 10, thanksDay(curYear)).getTime(), lat], //thanks
-        [new Date(curYear, 11, 25).getTime(), lat] //xmas
-    ];
+    // $rootScope.holidays = [
+    //     [new Date(curYear, 0, 1).getTime(), lat], //1st
+    //     [new Date(curYear, 4, 25).getTime(), lat], //memorial
+    //     [new Date(curYear, 8, 1).getTime(), lat], //labor
+    //     [new Date(curYear, 10, thanksDay(curYear)).getTime(), lat], //thanks
+    //     [new Date(curYear, 11, 25).getTime(), lat] //xmas
+    // ];
 
     // var quarter = 1;
     // $("input.date").datepicker({

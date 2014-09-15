@@ -58,9 +58,8 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
       <div class="float50">
         <form name="ptoForm">
           <fieldset id="fstAddPto">
-            <legend>Add PTO</legend>
-
-            <div class="float50">
+            <legend>Add / Edit PTO</legend>
+            <div class="float-lil">
               <label class="label">From</label>
               <br>
               <input type="text" id="from" name="dateFrom" data-ng-model="newPto.dateFrom" data-ng-change="dateFromChanged()" placeholder="date" />
@@ -69,14 +68,15 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <br>
               <input type="text" id="newPtoNote" data-ng-model="newPto.note" />
             </div>
-            <div class="float50">
+            <div class="float-big">
               <label class="label">To</label>
               <br>
               <input type="text" id="to" name="dateTo" data-ng-model="newPto.dateTo" data-ng-change="dateToChanged()" placeholder="date" />
               <br>
-              <label class="label">&nbsp;</label>
+              <label><input type="checkbox" data-ng-model="newPto.hasFloat"/> This contains the quarterly floating holiday.</label>
               <br>
-              <button type="submit" data-ng-click="addPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo || newPto.ptoType == null">Add</button>
+              <button type="button" data-ng-click="resetPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo" class="btn-change">Clear</button>
+              <button type="submit" data-ng-click="addPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo">Save</button>
             </div>
           </fieldset>
         </form>
@@ -87,6 +87,7 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <th>To</th>
               <th>Type</th>
               <th>Note</th>
+              <th>Contains<br>Floating<br>Holiday?</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -96,8 +97,10 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <td>{{ pto.dateTo | date:'shortDate' }}</td>
               <td>{{ ptoTypes[pto.ptoType] }}</td>
               <td>{{ pto.comment }}</td>
+              <td><span data-ng-show="pto.hasFloat">&#x2714;</span></td>
               <td>
-                <button data-ng-click="removePto(pto.id)">&times;</button>
+                <button class="btn-change" data-ng-click="editPto(pto)">Edit</button>
+                <button class="btn-delete" data-ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
