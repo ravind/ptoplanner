@@ -1,6 +1,6 @@
-// filter method, creating `makeUppercase` a globally
 // available filter in our `app` module
 app.filter('floatStatus', function (ptoManager, $rootScope) {
+  "use strict";
   // function that's invoked each time Angular runs $digest()
   // pass in `item` which is the single Object we'll manipulate
   return function (item) {
@@ -15,11 +15,9 @@ app.filter('floatStatus', function (ptoManager, $rootScope) {
        return '=(';
     }
       //no data
-    if( !floatsList || !floatsList[item] || !floatsList[item].used ){
+    if( !floatsList || !floatsList[item] ){
        return '=|';
     }
-
-
     //if used good job
     if(floatsList[item].used){
        return '=)';

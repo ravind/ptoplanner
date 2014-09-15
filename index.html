@@ -40,10 +40,10 @@
         </fieldset>
         <fieldset id="holidaysFLT" class="holiday-section">
           <legend>Holidays - Floating</legend>
-            <label><input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" /><span><br>Q1</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}'/><i data-ng-bind="'q1' | floatStatus">=</i></label><!-- sp
-sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" /><span><br>Q2</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}'/><i data-ng-bind="'q2' | floatStatus">=</i></label><!-- sp
-sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" /><span><br>Q3</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}'/><i data-ng-bind="'q3' | floatStatus">=</i></label><!-- sp
-sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" /><span><br>Q4</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}'/><i data-ng-bind="'q4'| floatStatus">= </i></label>
+            <label><input type="checkbox" data-ng-model="floatsList.q1.used" data-ng-change="changeFloats('q1')" /><span><br>Q1</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q1.date" data-ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}'/> <!-- <i data-ng-bind="'q1' | floatStatus">=</i> --></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q2.used" data-ng-change="changeFloats('q2')" /><span><br>Q2</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q2.date" data-ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}'/> <!-- <i data-ng-bind="'q2' | floatStatus">=</i> --></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q3.used" data-ng-change="changeFloats('q3')" /><span><br>Q3</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q3.date" data-ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}'/> <!-- <i data-ng-bind="'q3' | floatStatus">=</i> --></label><!-- sp
+sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q4.used" data-ng-change="changeFloats('q4')" /><span><br>Q4</span><input type="text" placeholder="dd/mm/yyyy" data-ng-model="floatsList.q4.date" data-ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}'/><!-- <i data-ng-bind="'q4'| floatStatus">= </i> --></label>
         </fieldset>
         <fieldset id="holidaysSTD" class="holiday-section">
           <legend>Holidays - Standard</legend>
@@ -143,7 +143,7 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
   <script src="factories/ptoManager.js"></script>
   <script src="factories/chartGenerator.js"></script>
   <script src="factories/floatingHolidayChecker.js"></script>
-  <script src="filters/floatStatus.js"></script>
+<!--   <script src="filters/floatStatus.js"></script>-->
   <script src="controllers/ptoController.js"></script>
   <script src="directives/chart.js"></script>
 </body>
