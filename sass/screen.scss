@@ -1,21 +1,5 @@
 @import "compass";
 
-/*doc
----
-title: Fieldset
-name: fieldset
-category: basics
----
-
-Any FIELDSET element and LEGEND will be styled as follows:
-
-```html_example
-    <fieldset><legend>Legend</legend>
-      Fieldset content
-    </fieldset>
-```
-*/
-
 body{
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -61,6 +45,23 @@ h1{
     white-space: nowrap;
 }
 
+/*doc
+---
+title: Select & Input
+name: select & input
+category: basics
+---
+
+Style for SELECT & INPUT
+
+```html_example
+<select><option>1</option><select>
+<select disabled><option>1</option><select>
+<input type="text"/>
+<input type="number"/>
+
+```
+*/
 select,
 button,
 input{
@@ -135,6 +136,22 @@ input[type='number']:focus{
 *[disabled]:hover{
     background-color: #eee;
 }
+
+/*doc
+---
+title: Fieldset
+name: fieldset
+category: basics
+---
+
+Any FIELDSET element and LEGEND will be styled as follows:
+
+```html_example
+    <fieldset><legend>Legend</legend>
+      Fieldset content
+    </fieldset>
+```
+*/
 fieldset{
     margin: 0;
     border: 1px solid #eee;

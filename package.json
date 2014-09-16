@@ -1,0 +1,30 @@
+{
+  "name": "ptoplanner",
+  "version": "1.0.0",
+  "description": "planner for pto",
+  //"main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "grunt-hologram": "^0.0.4"
+  },
+  "devDependencies": {
+    "grunt": "0.x.x",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-hologram": "0.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getsetbro/ptoplanner.git"
+  },
+  "author": "getsetbro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/getsetbro/ptoplanner/issues"
+  },
+  "homepage": "https://github.com/getsetbro/ptoplanner"
+}
