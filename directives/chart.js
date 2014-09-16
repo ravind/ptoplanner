@@ -9,7 +9,6 @@ app.directive('chart', function(chartGenerator, $rootScope) {
 
       function updateChart() {
         var data = chartGenerator.getChartData();
-            console.log(data.ptoBalance);
         $.plot(elem, [{
             data: data.ptoBalance,
 

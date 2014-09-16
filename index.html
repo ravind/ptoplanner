@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!--     <meta name="viewport" content="width=device-width" /> -->
+  <!-- <meta name="viewport" content="width=device-width" /> -->
   <title>PTO Planner</title>
   <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
   <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>-->
-  <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/screen.css" />
 </head>
 <body data-ng-app="ptoPlanner">
   <div id="container" data-ng-controller="ptoController">
@@ -99,8 +99,8 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <td>{{ pto.comment }}</td>
               <td><span data-ng-show="pto.hasFloat">&#x2714;</span></td>
               <td>
-                <button class="btn-change" data-ng-click="editPto(pto)">Edit</button>
-                <button class="btn-delete" data-ng-click="removePto(pto.id)">&times;</button>
+                <button type="button" class="btn-change" data-ng-click="editPto(pto)">Edit</button>
+                <button type="button" class="btn-delete" data-ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
