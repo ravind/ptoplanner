@@ -57,7 +57,7 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
         <table class="tbl totals">
           <thead>
             <tr>
-              <th>EOY Totals</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
+              <th>Yr Totals</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
             </tr>
           </thead>
           <tbody>
@@ -86,8 +86,8 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <br>
               <label><input type="checkbox" data-ng-model="newPto.hasFloat"/> This contains the quarterly floating holiday.</label>
               <br>
-              <button type="button" data-ng-click="resetPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo" class="btn-change">Clear</button>
               <button type="submit" data-ng-click="addPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo">Save</button>
+              <button type="button" data-ng-click="resetPto()" data-ng-disabled="!newPto.dateFrom || !newPto.dateTo" class="btn-change">Clear</button>
             </div>
           </fieldset>
         </form>
@@ -96,9 +96,9 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
             <tr>
               <th>From</th>
               <th>To</th>
-              <th>Type</th>
+              <!-- <th>Type</th> -->
               <th>Note</th>
-              <th>*</th>
+              <th class="hasFloat" title="Contains Floating Holiday">*</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -106,16 +106,16 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
             <tr data-ng-repeat="pto in ptoList | orderBy:'dateFrom' track by pto.id">
               <td>{{ pto.dateFrom | date:'shortDate' }}</td>
               <td>{{ pto.dateTo | date:'shortDate' }}</td>
-              <td>{{ ptoTypes[pto.ptoType] }}</td>
+              <!-- <td>{{ ptoTypes[pto.ptoType] }}</td> -->
               <td>{{ pto.comment }}</td>
-              <td><span data-ng-show="pto.hasFloat">&#x2714;</span></td>
+              <td class="hasFloat"><span data-ng-show="pto.hasFloat" >Yes</span><span data-ng-hide="pto.hasFloat" >No</span></td>
               <td>
                 <button type="button" class="btn-change" data-ng-click="editPto(pto)">Edit</button>
                 <button type="button" class="btn-delete" data-ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
-          <tfoot><tr><td colspan="6">* Contains Floating Holiday</td></tr></tfoot>
+          <tfoot><tr><td colspan="5" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
         </table>
       </div>
     </div>
@@ -126,20 +126,15 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="scripts/jquery.flot.min.js"></script>
   <script src="scripts/jquery.flot.time.min.js"></script>
-  <script src="scripts/jquery.flot.symbol.js"></script>
-  <!--     <script src="//code.jquery.com/jquery-migrate-1.2.1.js"></script>
--->
-  <!--<script>$.browser = {};$.browser.msie = null;</script>-->
-  <!--     <script src="scripts/jquery.ba-bbq.min.js"></script>
--->
+  <!-- <script src="scripts/jquery.flot.symbol.js"></script> -->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
-  <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.js"></script>-->
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.js"></script> -->
   <script src="app/app.js"></script>
   <script src="services/dataStore.js"></script>
   <script src="factories/ptoManager.js"></script>
   <script src="factories/chartGenerator.js"></script>
   <script src="factories/floatingHolidayChecker.js"></script>
-<!--   <script src="filters/floatStatus.js"></script>-->
+  <!-- <script src="filters/floatStatus.js"></script>-->
   <script src="controllers/ptoController.js"></script>
   <script src="directives/chart.js"></script>
 </body>

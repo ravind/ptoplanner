@@ -45,14 +45,14 @@
 <h1 id="button">Buttons</h1>
 
 <p>Button styles are applied to the BUTTON element. The class &quot;.btn-change&quot; provides a different back color.</p>
-<div class="codeExample"><div class="exampleOutput"><button type="button">Button</button>
-<button type="submit">Submit</button>
-<button type="reset">Reset</button>
+<div class="codeExample"><div class="exampleOutput"><button type="button">&times;</button>
+<button type="submit">Save</button>
+<button type="reset" class="btn-change">Clear</button>
 <button type="button" class="btn-change">Edit</button>
 <button type="button" disabled>Disabled</button>
-</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>Button<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"reset"</span><span class="nt">&gt;</span>Reset<span class="nt">&lt;/button&gt;</span>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span><span class="ni">&amp;times;</span><span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"reset"</span> <span class="na">class=</span><span class="s">"btn-change"</span><span class="nt">&gt;</span>Clear<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn-change"</span><span class="nt">&gt;</span>Edit<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">disabled</span><span class="nt">&gt;</span>Disabled<span class="nt">&lt;/button&gt;</span>
 </pre></div></div></div>
@@ -84,29 +84,27 @@
 </pre></div></div></div>
 <h1 id="notifications">Notifications</h1>
 
-<p>Styling examples that a few classes provides: &quot;.danger, .info, .warning&quot;;</p>
-<div class="codeExample"><div class="exampleOutput"><div class="info">danger</div><br>
+<p>Styling examples that a few classes provides: &quot;.info, .success, .danger, .warning&quot;;</p>
+<div class="codeExample"><div class="exampleOutput"><div class="info">info</div><br>
+<div class="info success">success</div><br>
 <div class="info danger">danger</div><br>
-<div class="info warning">danger</div>
-</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
+<div class="info warning">warning</div>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info"</span><span class="nt">&gt;</span>info<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info success"</span><span class="nt">&gt;</span>success<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info danger"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info warning"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info warning"</span><span class="nt">&gt;</span>warning<span class="nt">&lt;/div&gt;</span>
 </pre></div></div></div>
 <h1 id="select & input">Select & Input</h1>
 
 <p>Style for SELECT &amp; INPUT</p>
-<div class="codeExample"><div class="exampleOutput"><div class="docsonly-graywrapper">
-<select><option>1</option><select>
-<select disabled><option>1</option><select>
-<input type="text"/>
-<input type="number"/>
-</div>
-</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"docsonly-graywrapper"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;select&gt;&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
-<span class="nt">&lt;select</span> <span class="na">disabled</span><span class="nt">&gt;&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
+<div class="codeExample"><div class="exampleOutput"><select><option>Drop down</option><select>
+<select disabled><option>Disabled</option><select>
+<input type="text" placeholder="Type text"/>
+<input type="number" placeholder="Type number"/>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;select&gt;&lt;option&gt;</span>Drop down<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">disabled</span><span class="nt">&gt;&lt;option&gt;</span>Disabled<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Type text"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">placeholder=</span><span class="s">"Type number"</span><span class="nt">/&gt;</span>
 </pre></div></div></div>
 <h1 id="table">Table</h1>
 
@@ -118,6 +116,7 @@
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
   </tbody>
+  <tfoot><tr><td colspan="3">Table footer</td></tr></tfoot>
 </table>
 </div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">"tbl"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span>
@@ -126,6 +125,7 @@
     <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
     <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
   <span class="nt">&lt;/tbody&gt;</span>
+  <span class="nt">&lt;tfoot&gt;&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">"3"</span><span class="nt">&gt;</span>Table footer<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;</span>
 <span class="nt">&lt;/table&gt;</span>
 </pre></div></div></div>
 <h1 id="tooltip">Tooltip</h1>

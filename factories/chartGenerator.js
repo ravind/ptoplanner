@@ -120,7 +120,10 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
 
     return {
       ptoBalance: balanceData,
-      lostBalance: lossData
+      ptoBalanceEnd: balanceData[balanceData.length - 1],
+      lostBalance: lossData,
+      lostBalanceEnd: lossData[lossData.length - 1]
+
     };
   };
 

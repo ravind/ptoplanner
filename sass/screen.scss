@@ -3,7 +3,7 @@ body {
   font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  margin: 0 0 22px;
+  margin: 0 0 44px;
   color: #333;
 }
 body * {
@@ -39,11 +39,67 @@ h1 {
 
 #placeholder {
   height: 300px;
-  background-color: #eee;
+  border: 1px solid #155185;
+  background-color: #2180d3;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background-image: -moz-linear-gradient(top,  #56a2e4 0%, #2180d3 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#56a2e4), color-stop(100%,#2180d3));
+  background-image: -webkit-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
+  background-image: -o-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
+  background-image: -ms-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
+  background-image: linear-gradient(to bottom,  #56a2e4 0%,#2180d3 100%);
+  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56a2e4', endColorstr='#2180d3',GradientType=0 );*/
+}
+.flot-text{
+  color:#fff!important;
 }
 .legend {
   font-size: 12px;
   line-height: 1;
+  table{
+    color:#555!important;
+  }
+}
+
+/*doc
+---
+title: Buttons
+name: button
+category: basics
+---
+
+Button styles are applied to the BUTTON element. The class ".btn-change" provides a different back color.
+
+```html_example
+<button type="button">&times;</button>
+<button type="submit">Save</button>
+<button type="reset" class="btn-change">Clear</button>
+<button type="button" class="btn-change">Edit</button>
+<button type="button" disabled>Disabled</button>
+```
+
+*/
+
+button {
+  margin: 0;
+  font-size: 1em;
+  line-height: 21px;
+  max-width: 100%;
+  padding: 0 6px;
+  border: 1px solid #fff;
+  background-color: #fff;
+  font-family: 'Segoe UI', Helvetica, Arial;
+  cursor: pointer;
+  color: #fff;
+  border: 0 none;
+  border-radius: 3px;
+  background-color: #cb4b4b;
+  &:hover {
+    background-color: #a94442;
+  }
+}
+.btn-change {
+  background-color: lightslategrey;
 }
 /*doc
 ---
@@ -55,12 +111,10 @@ category: basics
 Style for SELECT & INPUT
 
 ```html_example
-<div class="docsonly-graywrapper">
-<select><option>1</option><select>
-<select disabled><option>1</option><select>
-<input type="text"/>
-<input type="number"/>
-</div>
+<select><option>Drop down</option><select>
+<select disabled><option>Disabled</option><select>
+<input type="text" placeholder="Type text"/>
+<input type="number" placeholder="Type number"/>
 ```
 */
 
@@ -75,62 +129,24 @@ select, input[type='text'], input[type='number'] {
   line-height: 19px;
   max-width: 100%;
   padding: 0 6px;
-  border: 1px solid #fff;
+  border: 1px solid #bbb;
   background-color: #fff;
 }
+/*
 input[type='text']:focus, input[type='number']:focus {
   outline-width: 2px;
   outline-style: dotted;
   outline-color: #ccc;
 }
-/*doc
----
-title: Buttons
-name: button
-category: basics
----
-
-Button styles are applied to the BUTTON element. The class ".btn-change" provides a different back color.
-
-```html_example
-<button type="button">Button</button>
-<button type="submit">Submit</button>
-<button type="reset">Reset</button>
-<button type="button" class="btn-change">Edit</button>
-<button type="button" disabled>Disabled</button>
-```
-
 */
-
-button {
-  margin: 0;
-  font-size: 1em;
-  line-height: 19px;
-  max-width: 100%;
-  padding: 0 6px;
-  border: 1px solid #fff;
-  background-color: #fff;
-  font-family: 'Segoe UI', Helvetica, Arial;
-  padding: 0 6px 2px;
-  cursor: pointer;
-  color: #fff;
-  border: 0 none;
-  border-radius: 3px;
-  background-color: #cb4b4b;
-  &:hover {
-    background-color: #a94442;
-  }
-}
-.btn-change {
-  background-color: darkslateblue;
-}
 *[disabled] {
   cursor: not-allowed;
-  color: #fff;
-  background-color: #ddd;
+  color: #999;
+  background-color: #eee;
+  border: 1px solid #ddd;
 }
 *[disabled]:hover {
-  background-color: #eee;
+  background-color: #ccc;
 }
 /*doc
 ---
@@ -150,15 +166,14 @@ Any FIELDSET element and LEGEND will be styled as follows:
 
 fieldset {
   margin: 0;
-  border: 1px solid #eee;
-  background-color: #eee;
+  border: 1px solid #56a2e4;
+  background-color: #fff;
 }
 legend {
   padding: 0 10px;
   text-align: center;
   text-transform: uppercase;
-  color: #888;
-  background-color: #fff;
+  color: #56a2e4;
 }
 /*doc
 ---
@@ -167,12 +182,13 @@ name: notifications
 category: basics
 ---
 
-Styling examples that a few classes provides: ".danger, .info, .warning";
+Styling examples that a few classes provides: ".info, .success, .danger, .warning";
 
 ```html_example
-<div class="info">danger</div><br>
+<div class="info">info</div><br>
+<div class="info success">success</div><br>
 <div class="info danger">danger</div><br>
-<div class="info warning">danger</div>
+<div class="info warning">warning</div>
 ```
 */
 
@@ -181,6 +197,11 @@ Styling examples that a few classes provides: ".danger, .info, .warning";
   color: #31708f;
   border: 1px solid #bce8f1;
   background-color: #d9edf7;
+  &.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
   &.danger {
     color: #a94442;
     border-color: #ebccd1;
@@ -226,6 +247,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element.
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
   </tbody>
+  <tfoot><tr><td colspan="3">Table footer</td></tr></tfoot>
 </table>
 ```
 
@@ -235,28 +257,36 @@ Table styling applied when a class of "tbl" is added to a TABLE element.
   width: 100%;
   margin-top: 10px;
   border-collapse: collapse;
-  border-bottom: 1px solid #eee;
-  background-color: #eee;
+  table-layout: fixed;
+  thead,tfoot{
+    background-color: #d9edf7;
+  }
+  thead tr,tbody tr{
+    border-bottom: 1px solid #A6D3E9;
+  }
+  th, td{
+    padding: 1px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   th {
     font-weight: 400;
-    padding: 0 0 0 10px;
     text-align: left;
     text-transform: uppercase;
-    color: #888;
+    color: #555;
   }
-  td {
-    padding: 0 0 0 10px;
-  }
-  /*table*/
+
+  .hasFloat {}
+
   tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
+    background-color: #fff;
   }
-  tbody tr:hover {
-    background-color: #d9edf7;
+  tbody tr:hover{
+    background-color: #eee;
   }
 
 }
-.totals th, .totals td{
+.allign-right{
   text-align: right;
 }
 /*doc
@@ -282,19 +312,19 @@ Shows on top of chart during hover of a node.
   top: 0;
   display: none;
   padding: 2px;
-  border: 1px solid #fdd;
-  background-color: #fee;
-  background-color: rgba(255, 221, 221, .65);
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, .70);
 }
 .tooltip:before {
   position: absolute;
-  top: -1px;
+  top: 0;
   right: 100%;
   width: 0;
   height: 0;
   content: '';
   border: 13px solid transparent;
-  border-right-color: #555;
+  border-right-color: #fff;
+  border-right-color: rgba(255, 255, 255, .70);
   border-left-width: 0;
 }
 /*doc
@@ -333,18 +363,21 @@ Holiday box with checkmark and title.
   span {
     display: inline-block;
     width: 100%;
-    border: 1px solid #ccc;
-    background-color: #eee;
-    color: #555;
+    margin-bottom: 1px;
+    color: #8a6d3b;
+    border: 2px solid #fe9;
+    background-color: #fcf8e3;
   }
   :checked + span {
-    background-color: #ccc;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
   }
   span:hover {
-    background-color: #ccc;
+    background-color: #dff0d8;
   }
   :checked + span:hover {
-    background-color: #eee;
+    background-color: #fcf8e3;
   }
   span:before {
     font-size: 2rem;
@@ -353,11 +386,7 @@ Holiday box with checkmark and title.
   :checked + span:before {
     content: '\002611';
   }
-  i {
-    font-style: normal;
-    display: inline-block;
-    transform: rotate(90deg);
-  }
+
 }
 #holidaysFLT label {
   width: 24%;
