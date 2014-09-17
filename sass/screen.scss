@@ -166,7 +166,7 @@ Any FIELDSET element and LEGEND will be styled as follows:
 
 fieldset {
   margin: 0;
-  border: 1px solid #56a2e4;
+  border: 1px solid #b8d6fb;
   background-color: #fff;
 }
 legend {
@@ -237,7 +237,7 @@ name: table
 category: basics
 ---
 
-Table styling applied when a class of "tbl" is added to a TABLE element.
+Table styling applied when a class of "tbl" is added to a TABLE element. The cell in the footer has a class of ".allign-right".
 
 ```html_example
 <table class="tbl">
@@ -247,7 +247,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element.
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
   </tbody>
-  <tfoot><tr><td colspan="3">Table footer</td></tr></tfoot>
+  <tfoot><tr><td colspan="3" class="allign-right">Table footer</td></tr></tfoot>
 </table>
 ```
 
@@ -262,7 +262,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element.
     background-color: #d9edf7;
   }
   thead tr,tbody tr{
-    border-bottom: 1px solid #A6D3E9;
+    border-bottom: 1px solid #b8d6fb;
   }
   th, td{
     padding: 1px 5px;
@@ -334,12 +334,16 @@ name: holiday label
 category: basics
 ---
 
-Holiday box with checkmark and title.
+Holiday box with checkmark and title. Checked and unchecked states.
 
 ```html_example
 <div class="holiday-section">
 <label>
 <input type="checkbox" />
+<span><br>New Years<br>Jan 1</span>
+</label>
+<label>
+<input type="checkbox" checked/>
 <span><br>New Years<br>Jan 1</span>
 </label>
 </div>
@@ -365,7 +369,7 @@ Holiday box with checkmark and title.
     width: 100%;
     margin-bottom: 1px;
     color: #8a6d3b;
-    border: 2px solid #fe9;
+    border: 1px solid #fe9;
     background-color: #fcf8e3;
   }
   :checked + span {

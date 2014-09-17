@@ -1,28 +1,31 @@
 @import 'compass';
 
-body{
+body {
   width: 960px;
   margin: 0 auto;
 }
-
-nav{
+nav {
   background-color: #eee;
-    border-bottom:1px solid #fff;
+  border-bottom: 1px solid #fff;
   padding: 2px 10px;
-  ul{
+  ul {
     display: inline-block;
     margin: 0;
     padding: 0;
   }
-  li{
+  li {
     display: inline-block;
     margin: 0;
     padding: 2px 5px;
   }
 }
-
-footer{
-    padding: 1px 10px;
-
-    background-color: #eee;
+section{
+  h1{
+    margin-top: 55px;
+  }
+}
+footer {
+  padding: 1px 10px;
+  margin: 55px 0 2px;
+  background-color: #eee;
 }

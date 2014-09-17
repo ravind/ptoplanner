@@ -99,7 +99,6 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <!-- <th>Type</th> -->
               <th>Note</th>
               <th class="hasFloat" title="Contains Floating Holiday">*</th>
-              <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -108,14 +107,15 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <td>{{ pto.dateTo | date:'shortDate' }}</td>
               <!-- <td>{{ ptoTypes[pto.ptoType] }}</td> -->
               <td>{{ pto.comment }}</td>
-              <td class="hasFloat"><span data-ng-show="pto.hasFloat" >Yes</span><span data-ng-hide="pto.hasFloat" >No</span></td>
-              <td>
+              <td class="hasFloat">
+                <span data-ng-show="pto.hasFloat" >Yes</span><span data-ng-hide="pto.hasFloat" >No</span>
+                &nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn-change" data-ng-click="editPto(pto)">Edit</button>
                 <button type="button" class="btn-delete" data-ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
-          <tfoot><tr><td colspan="5" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
+          <tfoot><tr><td colspan="4" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
         </table>
       </div>
     </div>

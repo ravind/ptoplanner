@@ -68,16 +68,24 @@
 </pre></div></div></div>
 <h1 id="holiday label">Holiday Label</h1>
 
-<p>Holiday box with checkmark and title.</p>
+<p>Holiday box with checkmark and title. Checked and unchecked states.</p>
 <div class="codeExample"><div class="exampleOutput"><div class="holiday-section">
 <label>
 <input type="checkbox" />
+<span><br>New Years<br>Jan 1</span>
+</label>
+<label>
+<input type="checkbox" checked/>
 <span><br>New Years<br>Jan 1</span>
 </label>
 </div>
 </div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"holiday-section"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;label&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;span&gt;&lt;br&gt;</span>New Years<span class="nt">&lt;br&gt;</span>Jan 1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/label&gt;</span>
+<span class="nt">&lt;label&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">checked</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;span&gt;&lt;br&gt;</span>New Years<span class="nt">&lt;br&gt;</span>Jan 1<span class="nt">&lt;/span&gt;</span>
 <span class="nt">&lt;/label&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
@@ -108,7 +116,7 @@
 </pre></div></div></div>
 <h1 id="table">Table</h1>
 
-<p>Table styling applied when a class of &quot;tbl&quot; is added to a TABLE element.</p>
+<p>Table styling applied when a class of &quot;tbl&quot; is added to a TABLE element. The cell in the footer has a class of &quot;.allign-right&quot;.</p>
 <div class="codeExample"><div class="exampleOutput"><table class="tbl">
   <thead><tr><th>Table Head</th><th>Table Head</th><th>Table Head</th></tr></thead>
   <tbody>
@@ -116,7 +124,7 @@
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
   </tbody>
-  <tfoot><tr><td colspan="3">Table footer</td></tr></tfoot>
+  <tfoot><tr><td colspan="3" class="allign-right">Table footer</td></tr></tfoot>
 </table>
 </div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">"tbl"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;th&gt;</span>Table Head<span class="nt">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span>
@@ -125,7 +133,7 @@
     <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
     <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
   <span class="nt">&lt;/tbody&gt;</span>
-  <span class="nt">&lt;tfoot&gt;&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">"3"</span><span class="nt">&gt;</span>Table footer<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;</span>
+  <span class="nt">&lt;tfoot&gt;&lt;tr&gt;&lt;td</span> <span class="na">colspan=</span><span class="s">"3"</span> <span class="na">class=</span><span class="s">"allign-right"</span><span class="nt">&gt;</span>Table footer<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;</span>
 <span class="nt">&lt;/table&gt;</span>
 </pre></div></div></div>
 <h1 id="tooltip">Tooltip</h1>
