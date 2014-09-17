@@ -4,6 +4,8 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
   $scope.ptoList = ptoManager.getPtoList();
   $scope.holidayList = ptoManager.getHolidays();
   $scope.floatsList = ptoManager.getFloats();
+  $scope.hireYears = ptoManager.getHireYears();
+  $scope.hireYearVar = ptoManager.getHireYearVar();
   $scope.ptoTypes = ptoManager.getPtoTypes();
   $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null,hasFloat: false};
 
@@ -67,6 +69,10 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
 
   $scope.startingBalanceChanged = function() {
     ptoManager.setStartingBalance($scope.startingBalance);
+  };
+
+  $scope.hireYearVarChanged = function() {
+    ptoManager.setHireYearVar($scope.hireYearVar);
   };
 
   $scope.dateFromChanged = function() {
@@ -133,4 +139,5 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
       i++;
     }
   }
+
 });

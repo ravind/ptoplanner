@@ -19,14 +19,15 @@ app.run(function($rootScope) {
     //     return 22 + (11 - day_of_week) % 7;
     // };
     // var lat = 0;
+
     var newDate = new Date();
     var curYear = newDate.getFullYear();
     var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
 
     $rootScope.getFullYear = curYear;
     $rootScope.curQuarter = curQuarter;
-    $rootScope.nowDateToTime = newDate.getTime();
     $rootScope.gettime = newDate.getTime();
+    $rootScope.nowDate = newDate;
     // $rootScope.holidays = [
     //     [new Date(curYear, 0, 1).getTime(), lat], //1st
     //     [new Date(curYear, 4, 25).getTime(), lat], //memorial
@@ -34,8 +35,19 @@ app.run(function($rootScope) {
     //     [new Date(curYear, 10, thanksDay(curYear)).getTime(), lat], //thanks
     //     [new Date(curYear, 11, 25).getTime(), lat] //xmas
     // ];
-    $rootScope.lostBalance = 0;
     $rootScope.ptoBalance = 0;
+    $rootScope.lostBalance = 0;
+    $rootScope.todateHoursAvailable = 0;
+    $rootScope.todateHoursLost = 0;
+
+
+    var firstOfYear = new Date(curYear,0,1); //jan 1
+    var total = new Date(curYear,11,31) - firstOfYear;
+    var progress = new Date() - firstOfYear;
+
+    $rootScope.todateHoursEarned = Math.floor( 20 * (progress/ total) );
+
+    $rootScope.todateHoursUsed = 0;
 
     $('[data-dp]').each(function() {
       var $this = $(this);

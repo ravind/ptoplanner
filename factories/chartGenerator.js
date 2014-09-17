@@ -1,11 +1,12 @@
 app.factory('chartGenerator', function(ptoManager, $rootScope) {
   "use strict";
   var factory = {};
-  var ptoList, startingBalance;
+  var ptoList, startingBalance, hireYearVar;
 
   function init() {
     ptoList = ptoManager.getPtoList();
     startingBalance = ptoManager.getStartingBalance();
+    hireYearVar = ptoManager.getHireYearVar();
   }
 
   init();
@@ -67,14 +68,14 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
   }
 
   function addData(tracker, date, data) {
-    if (tracker.hasChanged()) {
+    if ( tracker.hasChanged() ) {
       var oldDate = getPreviousDay(date);
       if (oldDate.getFullYear() == date.getFullYear()) {
         if (data.length === 0 || (data.length > 0 && data[data.length - 1][0].valueOf() != oldDate.valueOf())) {
           data.push([oldDate.valueOf(), tracker.getOldBalance()]);
         }
       }
-      data.push([date.valueOf(), tracker.getBalance()]);
+      data.push( [date.valueOf(), tracker.getBalance()] );
       tracker.commit();
     } else if (new Date(date.getFullYear(), 11, 31) - date === 0) {
       data.push([date.valueOf(), tracker.getBalance()]);
@@ -91,10 +92,13 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       curPto = ptoIterator.next(),
       accrued = balanceTracker(startingBalance),
       lost = balanceTracker(0);
+
     lost.commit();
+
     while (curDate.getFullYear() == curYear) {
+
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
-        accrued.setBalance(accrued.getBalance() + 20 / 3);
+        accrued.setBalance(accrued.getBalance() + hireYearVar / 3);
       }
 
       if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
@@ -103,7 +107,11 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
           accrued.setBalance(accrued.getBalance() - 8);
         }
       }
-
+      //get total hours earned todate variable
+      if( ( curDate.getMonth() + "-" + curDate.getDate() ) === ( $rootScope.nowDate.getMonth() + "-" + $rootScope.nowDate.getDate() ) ){
+        $rootScope.todateHoursAvailable = accrued.getBalance().toFixed(2);
+        $rootScope.todateHoursLost = lost.getBalance().toFixed(2);
+      }
       if (accrued.getBalance() > 80) {
         lost.setBalance(lost.getBalance() + accrued.getBalance() - 80);
         accrued.setBalance(80);
@@ -116,6 +124,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       if (curPto !== null && curPto.dateTo < curDate) {
         curPto = ptoIterator.next();
       }
+
     }
 
     return {

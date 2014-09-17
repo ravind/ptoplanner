@@ -17,25 +17,14 @@
     <div class="clearfix">
       <div class="float50">
         <fieldset id="divStartingBalance" class="clearfix">
-          <legend>Info</legend>
+          <legend>Employee Info</legend>
           <div class="float50">
-            <label>Starting Balance</label>
-            <br>
+            <label class="blocklabel">Carry Over</label>
             <input type="number" step="1" id="numStartingBalance" data-ng-model="startingBalance" data-ng-change="startingBalanceChanged()" />
           </div>
           <div class="float50">
-            <label>Hire Year</label>
-            <br>
-            <select name="year" id="selectYear" disabled>
-              <option value="">2009</option>
-              <option value="">2014</option>
-              <option value="">2013</option>
-              <option value="">2012</option>
-              <option value="">2011</option>
-              <option value="">2010</option>
-              <option value="">2009</option>
-              <option value="">2008 or earlier</option>
-            </select>
+            <label class="blocklabel">Hire Year</label>
+            <select name="year" id="selectYear" data-ng-model="hireYearVar" data-ng-options="hireYear.val as hireYear.label for hireYear in hireYears" data-ng-change="hireYearVarChanged()"></select>
           </div>
         </fieldset>
         <fieldset id="holidaysFLT" class="holiday-section">
@@ -61,8 +50,17 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
             </tr>
           </thead>
           <tbody>
-            <tr><td>Hours</td><td>160</td><td>{{daysUsed * 8}}</td><td>{{lostBalance}}</td><td>{{ptoBalance}}</td></tr>
-            <tr><td>Days</td><td>20</td><td>{{daysUsed}}</td><td>{{lostBalance / 8}}</td><td>{{ptoBalance / 8}}</td></tr>
+            <tr><td>Hours</td><td>{{hireYearVar * 8}}</td><td>{{daysUsed * 8}}</td><td>{{lostBalance}}</td><td>{{ptoBalance}}</td></tr>
+            <tr><td>Days</td><td>{{hireYearVar}}</td><td>{{daysUsed}}</td><td>{{lostBalance / 8}}</td><td>{{ptoBalance / 8}}</td></tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th>To Date</th><th></th><th></th><th></th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Hours</td><td>{{todateHoursEarned * 8}}</td><td>{{todateHoursUsed}}</td><td>{{todateHoursLost}}</td><td>{{todateHoursAvailable}}</td></tr>
+            <tr><td>Days</td><td>{{todateHoursEarned}}</td><td>{{todateHoursUsed}}</td><td>{{todateHoursLost / 8}}</td><td>{{todateHoursAvailable / 8}}</td></tr>
           </tbody>
         </table>
       </div>

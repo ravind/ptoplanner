@@ -35,19 +35,17 @@ h1 {
   overflow: hidden;
   text-overflow:ellipsis;
 }
-/*chart area*/
+.blocklabel{
+  display: block;
+}
 
+/*chart area*/
 #placeholder {
   height: 300px;
   border: 1px solid #155185;
   background-color: #2180d3;
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background-image: -moz-linear-gradient(top,  #56a2e4 0%, #2180d3 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#56a2e4), color-stop(100%,#2180d3));
-  background-image: -webkit-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
-  background-image: -o-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
-  background-image: -ms-linear-gradient(top,  #56a2e4 0%,#2180d3 100%);
-  background-image: linear-gradient(to bottom,  #56a2e4 0%,#2180d3 100%);
+  /*background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
+  @include background-image(linear-gradient(#56a2e4, #2180d3));
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56a2e4', endColorstr='#2180d3',GradientType=0 );*/
 }
 .flot-text{
@@ -56,8 +54,12 @@ h1 {
 .legend {
   font-size: 12px;
   line-height: 1;
+  >div{
+    display: none;
+  }
   table{
-    color:#555!important;
+    background-color: #444;
+    background-color: rgba(0,0,0,.15)
   }
 }
 
@@ -122,7 +124,7 @@ select, input {
   margin: 0;
 }
 select, [type='text'], [type='number'] {
-  width: 160px;
+  width: 165px;
 }
 select, input[type='text'], input[type='number'] {
   font-size: 1em;
@@ -143,7 +145,6 @@ input[type='text']:focus, input[type='number']:focus {
   cursor: not-allowed;
   color: #999;
   background-color: #eee;
-  border: 1px solid #ddd;
 }
 *[disabled]:hover {
   background-color: #ccc;
@@ -300,7 +301,7 @@ Shows on top of chart during hover of a node.
 
 ```html_example
 <div style="position:relative">
-<div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 54.67</div>
+  <div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 50.00</div>
 <br>
 </div>
 ```
@@ -311,9 +312,9 @@ Shows on top of chart during hover of a node.
   position: absolute;
   top: 0;
   display: none;
-  padding: 2px;
+  padding: 2px 5px 2px 2px;
   background-color: #fff;
-  background-color: rgba(255, 255, 255, .70);
+  background-color: rgba(255, 255, 255, .8);
 }
 .tooltip:before {
   position: absolute;
@@ -324,7 +325,7 @@ Shows on top of chart during hover of a node.
   content: '';
   border: 13px solid transparent;
   border-right-color: #fff;
-  border-right-color: rgba(255, 255, 255, .70);
+  border-right-color: rgba(255, 255, 255, .8);
   border-left-width: 0;
 }
 /*doc

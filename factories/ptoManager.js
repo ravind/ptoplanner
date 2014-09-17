@@ -5,31 +5,23 @@ app.factory('ptoManager', function(dataStore) {
   function init() {
     factory = {};
     ptoKey = "ptoList";
-    //sbKey = "startingBalance";
     dataStore.setDefault(ptoKey, {
       items: [],
       cnt: 0,
       holidays: {},
       floats: {},
-      sbKey: 0
+      sbKey: 0,
+      hireYearVar: 20
     });
-    //dataStore.setDefault(sbKey, 0);
     ptoList = dataStore.getObject(ptoKey);
   }
 
   init();
 
   factory.getPtoTypes = function() {
-    var ptoTypes = [];
-    ptoTypes[0] = "PTO";
-    ptoTypes[1] = "Standard Holiday";
-    ptoTypes[2] = "Floating Holiday";
+    var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
     return ptoTypes;
   };
-
-  // factory.getItems = function() {
-  //     return ptoList;
-  // };
 
   factory.getPtoList = function() {
     return ptoList.items;
@@ -46,10 +38,25 @@ app.factory('ptoManager', function(dataStore) {
   factory.getStartingBalance = function() {
     return ptoList.sbKey;
   };
-
   factory.setStartingBalance = function(startingBalance) {
-    //dataStore.setObject(sbKey, startingBalance);
     ptoList.sbKey = startingBalance;
+    dataStore.setObject(ptoKey, ptoList);
+  };
+
+
+  factory.getHireYears = function() {
+    var hireYears = [ {label: "More than 2 yrs ago", val: 20}, {label: "Less than 2 yrs ago", val: 15} ];
+    return hireYears;
+  };
+  factory.getHireYearVar = function() {
+    if(!ptoList.hireYearVar){
+      ptoList.hireYearVar = 20;
+    }
+    return ptoList.hireYearVar;
+  };
+  factory.setHireYearVar = function(hireYearVar) {
+
+    ptoList.hireYearVar = hireYearVar;
     dataStore.setObject(ptoKey, ptoList);
   };
 
@@ -106,9 +113,11 @@ app.factory('ptoManager', function(dataStore) {
     ptoList.holidays[id] = true;
     dataStore.setObject(ptoKey, ptoList);
   };
+
   factory.delHoliday = function(id) {
     ptoList.holidays[id] = false;
     dataStore.setObject(ptoKey, ptoList);
   };
+
   return factory;
 });

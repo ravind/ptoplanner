@@ -6,6 +6,7 @@ app.directive('chart', function(chartGenerator, $rootScope) {
 
       scope.$watch('ptoList', updateChart, true);
       scope.$watch('startingBalance', updateChart, true);
+      scope.$watch('hireYearVar', updateChart, true);
 
       function updateChart() {
         var data = chartGenerator.getChartData();
@@ -59,13 +60,13 @@ app.directive('chart', function(chartGenerator, $rootScope) {
                 to: 80
               },
               lineWidth: 3,
-              color: "pink"
+              color: "orange"
             }, {
               xaxis: {
                 from: $rootScope.gettime,
                 to: $rootScope.gettime
               },
-              lineWidth: 3,
+              lineWidth: 2,
               color: "#555"
             }]
           },
