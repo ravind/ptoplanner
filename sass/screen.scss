@@ -1,50 +1,50 @@
 @import "compass";
-
-body{
-    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 21px;
-
-    margin: 0 0 22px;
-
-    color: #333;
+body {
+  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  margin: 0 0 22px;
+  color: #333;
 }
-body *{
-    box-sizing: border-box;
+body * {
+  box-sizing: border-box;
 }
-
-.ui-datepicker{
-    font-size: 12px;
-    line-height: 1;
+.ui-datepicker {
+  font-size: 12px;
+  line-height: 1;
 }
-
 /*setup*/
-#container{
-    max-width: 1000px;
-    margin: 0 auto;
-}
-hr{
-    border: 1px solid #ccc;
-    border-width: 1px 0 0;
-}
-h1{
-    font-weight: 300;
 
-    margin-bottom: 10px;
+#container {
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.clearfix:after{
-    display: block;
-    clear: both;
-    overflow: hidden;
-
-    height: 0;
-
-    content: '';
+h1 {
+  font-weight: 300;
+  margin-bottom: 10px;
 }
-.nowrap{
-    white-space: nowrap;
+.clearfix:after {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  content: '';
 }
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+/*chart area*/
 
+#placeholder {
+  height: 300px;
+  background-color: #eee;
+}
+.legend {
+  font-size: 12px;
+  line-height: 1;
+}
 /*doc
 ---
 title: Select & Input
@@ -55,35 +55,33 @@ category: basics
 Style for SELECT & INPUT
 
 ```html_example
+<div class="docsonly-graywrapper">
 <select><option>1</option><select>
 <select disabled><option>1</option><select>
 <input type="text"/>
 <input type="number"/>
-
+</div>
 ```
 */
-select,
-button,
-input{
-    margin: 0;
-}
-select,
-[type='text'],
-[type='number']{
-    width: 160px;
-}
-select,
-button,
-input[type='text'],
-input[type='number']{
-    font-size: 1em;
-    line-height: 19px;
 
-    max-width: 100%;
-    padding: 0 6px;
-
-    border: 1px solid #fff;
-    background-color: #fff;
+select, input {
+  margin: 0;
+}
+select, [type='text'], [type='number'] {
+  width: 160px;
+}
+select, input[type='text'], input[type='number'] {
+  font-size: 1em;
+  line-height: 19px;
+  max-width: 100%;
+  padding: 0 6px;
+  border: 1px solid #fff;
+  background-color: #fff;
+}
+input[type='text']:focus, input[type='number']:focus {
+  outline-width: 2px;
+  outline-style: dotted;
+  outline-color: #ccc;
 }
 /*doc
 ---
@@ -92,7 +90,7 @@ name: button
 category: basics
 ---
 
-Button styles are applied to the BUTTON element.
+Button styles are applied to the BUTTON element. The class ".btn-change" provides a different back color.
 
 ```html_example
 <button type="button">Button</button>
@@ -103,40 +101,37 @@ Button styles are applied to the BUTTON element.
 ```
 
 */
-button{
-    font-family: 'Segoe UI', Helvetica, Arial;
 
-    padding: 0 6px 2px;
-
-    cursor: pointer;
-
-    color: #fff;
-    border: 0 none;
-    border-radius: 3px;
-    background-color: #cb4b4b;
-}
-button:hover{
+button {
+  margin: 0;
+  font-size: 1em;
+  line-height: 19px;
+  max-width: 100%;
+  padding: 0 6px;
+  border: 1px solid #fff;
+  background-color: #fff;
+  font-family: 'Segoe UI', Helvetica, Arial;
+  padding: 0 6px 2px;
+  cursor: pointer;
+  color: #fff;
+  border: 0 none;
+  border-radius: 3px;
+  background-color: #cb4b4b;
+  &:hover {
     background-color: #a94442;
+  }
 }
-.btn-change{
-    background-color: darkslateblue;
+.btn-change {
+  background-color: darkslateblue;
 }
-input[type='text']:focus,
-input[type='number']:focus{
-    outline-width: 2px;
-    outline-style: dotted;
-    outline-color: #ccc;
+*[disabled] {
+  cursor: not-allowed;
+  color: #fff;
+  background-color: #ddd;
 }
-*[disabled]{
-    cursor: not-allowed;
-
-    color: #fff;
-    background-color: #ddd;
+*[disabled]:hover {
+  background-color: #eee;
 }
-*[disabled]:hover{
-    background-color: #eee;
-}
-
 /*doc
 ---
 title: Fieldset
@@ -152,79 +147,67 @@ Any FIELDSET element and LEGEND will be styled as follows:
     </fieldset>
 ```
 */
-fieldset{
-    margin: 0;
-    border: 1px solid #eee;
-    background-color: #eee;
+
+fieldset {
+  margin: 0;
+  border: 1px solid #eee;
+  background-color: #eee;
 }
-legend{
-    padding: 0 10px;
-
-    text-align: center;
-    text-transform: uppercase;
-
-    color: #888;
-    background-color: #fff;
+legend {
+  padding: 0 10px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #888;
+  background-color: #fff;
 }
+/*doc
+---
+title: Notifications
+name: notifications
+category: basics
+---
 
-.radiolabel{
-    margin-right: 5px;
+Styling examples that a few classes provides: ".danger, .info, .warning";
 
-    cursor: pointer;
-}
-/*chart area*/
-#placeholder{
-    height: 300px;
+```html_example
+<div class="info">danger</div><br>
+<div class="info danger">danger</div><br>
+<div class="info warning">danger</div>
+```
+*/
 
-    background-color: #eee;
-}
-
-.legend{
-    font-size: 12px;
-    line-height: 1;
-}
-/*alerts*/
-
-#notes span{
-    display: inline-block;
-
-    margin-right: 5px;
-    padding: 0 5px;
-}
-.danger{
+.info {
+  padding: 0 10px;
+  color: #31708f;
+  border: 1px solid #bce8f1;
+  background-color: #d9edf7;
+  &.danger {
     color: #a94442;
-    border: 1px solid #ebccd1;
+    border-color: #ebccd1;
     background-color: #f2dede;
-}
-.info{
-    color: #31708f;
-    border: 1px solid #bce8f1;
-    background-color: #d9edf7;
-}
-.warning{
+  }
+  &.warning {
     color: #8a6d3b;
-    border: 1px solid gold;
+    border-color: gold;
     background-color: #fcf8e3;
+  }
 }
-.float50{
-    float: left;
-
-    width: 50%;
-    padding-right: 10px;
+.float50 {
+  float: left;
+  width: 50%;
+  padding-right: 10px;
 }
-.float50 + .float50{
-    padding-right: 0;
+.float50 + .float50 {
+  padding-right: 0;
 }
-.float-lil{
-    float: left;
-
-    width: 37%;
-    padding-right: 10px;
+.float-lil {
+  float: left;
+  width: 37%;
+  padding-right: 10px;
 }
-.float-big{
-    float: left;
-
-    width: 63%;
+.float-big {
+  float: left;
+  width: 63%;
 }
 /*doc
 ---
@@ -247,124 +230,138 @@ Table styling applied when a class of "tbl" is added to a TABLE element.
 ```
 
 */
-.tbl{
-    width: 100%;
-    margin-top: 10px;
 
-    border-collapse: collapse;
-
-    border-bottom: 1px solid #eee;
-    background-color: #eee;
-}
-.tbl th{
+.tbl {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  border-bottom: 1px solid #eee;
+  background-color: #eee;
+  th {
     font-weight: 400;
-
     padding: 0 0 0 10px;
-
     text-align: left;
     text-transform: uppercase;
-
     color: #888;
-}
-.tbl td{
+  }
+  td {
     padding: 0 0 0 10px;
-}
-/*table*/
-.tbl tbody tr:nth-child(odd){
+  }
+  /*table*/
+  tbody tr:nth-child(odd) {
     background-color: #f9f9f9;
-}
-.tbl tbody tr:hover{
+  }
+  tbody tr:hover {
     background-color: #d9edf7;
-}
-/*tooltip*/
-.tooltip{
-    position: absolute;
-    top: 0;
+  }
 
+}
+.totals th, .totals td{
+  text-align: right;
+}
+/*doc
+---
+title: Tooltip
+name: tooltip
+category: basics
+---
+
+Shows on top of chart during hover of a node.
+
+```html_example
+<div style="position:relative">
+<div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 54.67</div>
+<br>
+</div>
+```
+
+*/
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  display: none;
+  padding: 2px;
+  border: 1px solid #fdd;
+  background-color: #fee;
+  background-color: rgba(255, 221, 221, .65);
+}
+.tooltip:before {
+  position: absolute;
+  top: -1px;
+  right: 100%;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 13px solid transparent;
+  border-right-color: #555;
+  border-left-width: 0;
+}
+/*doc
+---
+title: Holiday Label
+name: holiday label
+category: basics
+---
+
+Holiday box with checkmark and title.
+
+```html_example
+<div class="holiday-section">
+<label>
+<input type="checkbox" />
+<span><br>New Years<br>Jan 1</span>
+</label>
+</div>
+```
+
+*/
+
+.holiday-section {
+  padding-right: 0;
+  padding-left: 0;
+  text-align: center;
+  input[type="checkbox"] {
     display: none;
-
-    padding: 2px;
-
-    border: 1px solid #fdd;
-    background-color: #fee;
-    background-color: rgba(255,221,221,.65);
-}
-.tooltip:before{
-    position: absolute;
-    top: -1px;
-    right: 100%;
-
-    width: 0;
-    height: 0;
-
-    content: '';
-
-    border: 13px solid transparent;
-    border-right-color: #555;
-    border-left-width: 0;
-}
-
-.holiday-section{
-    padding-right: 0;
-    padding-left: 0;
-
-    text-align: center;
-}
-.holiday-section input[type='checkbox']{
-    display: none;
-}
-
-.holiday-section label{
+  }
+  label {
     display: inline-block;
-
     padding: 0 2px;
-
     cursor: pointer;
     vertical-align: top;
-}
-#holidaysFLT label{
-    width: 24%;
-}
-#holidaysSTD label{
-    width: 16%;
-}
-.holiday-section span{
+  }
+  span {
     display: inline-block;
-    overflow: hidden;
-
     width: 100%;
-
-    text-overflow: ellipsis;
-
-    border: 2px solid #ccc;
-    border-radius: 7px;
+    border: 1px solid #ccc;
     background-color: #eee;
-}
-.holiday-section :checked + span{
+    color: #555;
+  }
+  :checked + span {
     background-color: #ccc;
-}
-
-.holiday-section span:hover{
+  }
+  span:hover {
     background-color: #ccc;
-}
-.holiday-section :checked + span:hover{
+  }
+  :checked + span:hover {
     background-color: #eee;
-}
-
-.holiday-section span:before{
+  }
+  span:before {
     font-size: 2rem;
-
     content: '\002610';
-
-    color: #888;
-}
-.holiday-section :checked + span:before{
+  }
+  :checked + span:before {
     content: '\002611';
-}
-.holiday-section i{
+  }
+  i {
     font-style: normal;
-
     display: inline-block;
-
     transform: rotate(90deg);
+  }
+}
+#holidaysFLT label {
+  width: 24%;
+}
+#holidaysSTD label {
+  width: 16%;
 }

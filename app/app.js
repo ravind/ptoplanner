@@ -4,7 +4,6 @@ var app = angular.module('ptoPlanner', []);
 
 app.run(function($rootScope) {
     "use strict";
-
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
@@ -35,12 +34,9 @@ app.run(function($rootScope) {
     //     [new Date(curYear, 10, thanksDay(curYear)).getTime(), lat], //thanks
     //     [new Date(curYear, 11, 25).getTime(), lat] //xmas
     // ];
+    $rootScope.lostBalance = 0;
+    $rootScope.ptoBalance = 0;
 
-    // var quarter = 1;
-    // $("input.date").datepicker({
-    //   minDate: new Date(curYear, this.dataset.quarter - 1, 1),
-    //   maxDate: new Date(curYear, this.dataset.quarter + 1, 31)
-    // });
     $('[data-dp]').each(function() {
       var $this = $(this);
         var dpData = $this.data("dp");

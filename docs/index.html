@@ -27,17 +27,24 @@
           
             <li><a href="#fieldset">Fieldset</a></li>
           
+            <li><a href="#holiday label">Holiday Label</a></li>
+          
+            <li><a href="#notifications">Notifications</a></li>
+          
             <li><a href="#select & input">Select & Input</a></li>
           
             <li><a href="#table">Table</a></li>
+          
+            <li><a href="#tooltip">Tooltip</a></li>
           
           </ul>
         </nav>
     </header>
     <section>
+
 <h1 id="button">Buttons</h1>
 
-<p>Button styles are applied to the BUTTON element.</p>
+<p>Button styles are applied to the BUTTON element. The class &quot;.btn-change&quot; provides a different back color.</p>
 <div class="codeExample"><div class="exampleOutput"><button type="button">Button</button>
 <button type="submit">Submit</button>
 <button type="reset">Reset</button>
@@ -59,19 +66,47 @@
       Fieldset content
     <span class="nt">&lt;/fieldset&gt;</span>
 </pre></div></div></div>
+<h1 id="holiday label">Holiday Label</h1>
+
+<p>Holiday box with checkmark and title.</p>
+<div class="codeExample"><div class="exampleOutput"><div class="holiday-section">
+<label>
+<input type="checkbox" />
+<span><br>New Years<br>Jan 1</span>
+</label>
+</div>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"holiday-section"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;label&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;span&gt;&lt;br&gt;</span>New Years<span class="nt">&lt;br&gt;</span>Jan 1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/label&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div></div></div>
+<h1 id="notifications">Notifications</h1>
+
+<p>Styling examples that a few classes provides: &quot;.danger, .info, .warning&quot;;</p>
+<div class="codeExample"><div class="exampleOutput"><div class="info">danger</div><br>
+<div class="info danger">danger</div><br>
+<div class="info warning">danger</div>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info danger"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;&lt;br&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"info warning"</span><span class="nt">&gt;</span>danger<span class="nt">&lt;/div&gt;</span>
+</pre></div></div></div>
 <h1 id="select & input">Select & Input</h1>
 
 <p>Style for SELECT &amp; INPUT</p>
-<div class="codeExample"><div class="exampleOutput"><select><option>1</option><select>
+<div class="codeExample"><div class="exampleOutput"><div class="docsonly-graywrapper">
+<select><option>1</option><select>
 <select disabled><option>1</option><select>
 <input type="text"/>
 <input type="number"/>
-
-</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;select&gt;&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
+</div>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"docsonly-graywrapper"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;select&gt;&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
 <span class="nt">&lt;select</span> <span class="na">disabled</span><span class="nt">&gt;&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;&lt;select&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
-
+<span class="nt">&lt;/div&gt;</span>
 </pre></div></div></div>
 <h1 id="table">Table</h1>
 
@@ -92,6 +127,18 @@
     <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;td&gt;</span>Table Cell<span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
   <span class="nt">&lt;/tbody&gt;</span>
 <span class="nt">&lt;/table&gt;</span>
+</pre></div></div></div>
+<h1 id="tooltip">Tooltip</h1>
+
+<p>Shows on top of chart during hover of a node.</p>
+<div class="codeExample"><div class="exampleOutput"><div style="position:relative">
+<div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 54.67</div>
+<br>
+</div>
+</div><div class="codeBlock"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"position:relative"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"tooltip"</span> <span class="na">class=</span><span class="s">"tooltip"</span> <span class="na">style=</span><span class="s">"display:block"</span><span class="nt">&gt;</span>PTO Balance - Sat Mar 15 2014 = 54.67<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
 </pre></div></div></div>      </section>
       <footer>
         <p>This documentation generated using <a href="http://github.com/trulia/hologram">Hologram</a>

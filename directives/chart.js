@@ -9,15 +9,18 @@ app.directive('chart', function(chartGenerator, $rootScope) {
 
       function updateChart() {
         var data = chartGenerator.getChartData();
+
+        var dlb = data.lostBalance[data.lostBalance.length - 1];
+        var dpb = data.ptoBalance[data.ptoBalance.length - 1];
+        $rootScope.lostBalance = Math.floor( dlb[1] );
+        $rootScope.ptoBalance = Math.floor( dpb[1] );
+
         $.plot(elem, [{
             data: data.ptoBalance,
 
             label: "PTO Balance",
             lines: {
               show: true
-            },
-            points: {
-              //symbol: "diamond"
             }
           }, {
             data: data.lostBalance,
@@ -103,18 +106,6 @@ app.directive('chart', function(chartGenerator, $rootScope) {
           }
         });
         //$(elem).bind("plotclick", function(event, pos, item) {
-        // if (item) {
-        //     var x = new Date(item.datapoint[0]),
-        //         y = item.datapoint[1].toFixed(2);
-        //     $("#tooltipPin")
-        //     .addClass('a')
-        //     .html(item.series.label + " on " + x.toDateString() + " = " + y)
-        //         .css({
-        //             top: item.pageY - 12,
-        //             left: item.pageX + 18
-        //         })
-        //         .fadeIn(200);
-        // }
         //});
       }
     }

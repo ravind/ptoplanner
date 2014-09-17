@@ -5,13 +5,7 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
   $scope.holidayList = ptoManager.getHolidays();
   $scope.floatsList = ptoManager.getFloats();
   $scope.ptoTypes = ptoManager.getPtoTypes();
-  $scope.newPto = {};
-  $scope.newPto.ptoType = 0;
-  $scope.newPto.id = null;
-  $scope.newPto.dateFrom = null;
-  $scope.newPto.dateTo = null;
-  $scope.newPto.note = null;
-  $scope.newPto.hasFloat = false;
+  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null,hasFloat: false};
 
   $scope.resetPto = function() {
     $scope.newPto.id = null;
@@ -127,5 +121,16 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
   // function updateMailto() {
   //     $scope.mailto = window.location.href + '?' + $.param( ptoManager.getItems() );
   // }
-
+  $scope.$watch('ptoList', updateDaysUsed, true);
+  function updateDaysUsed() {
+    var i = 0;
+    $scope.daysUsed = 0;
+    while(i < $scope.ptoList.length){
+      var dateFrom = $scope.ptoList[i].dateFrom;
+      var dateTo = $scope.ptoList[i].dateTo;
+      var diff = 1 + Math.round( Math.abs( ( dateFrom - dateTo ) / ( 24*60*60*1000 ) ) );
+      $scope.daysUsed += diff;
+      i++;
+    }
+  }
 });

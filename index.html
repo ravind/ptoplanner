@@ -26,8 +26,8 @@
           <div class="float50">
             <label>Hire Year</label>
             <br>
-            <select name="year" id="selectYear" disabled="">
-              <option value=""></option>
+            <select name="year" id="selectYear" disabled>
+              <option value="">2009</option>
               <option value="">2014</option>
               <option value="">2013</option>
               <option value="">2012</option>
@@ -47,13 +47,24 @@ sp sp sp --><label><input type="checkbox" data-ng-model="floatsList.q4.used" dat
         </fieldset>
         <fieldset id="holidaysSTD" class="holiday-section">
           <legend>Holidays - Standard</legend>
-           <label><input type="checkbox" data-ng-model="holidayList.h1" data-ng-change="changeHoliday('h1')" /><span><br>New Years<br>Jan 1</span></label><!-- sp
-sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h2" data-ng-change="changeHoliday('h2')" /><span><br>Memorial<br>May 1</span></label><!-- sp
-sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h3" data-ng-change="changeHoliday('h3')" /><span><br>4th of July<br>Jul 4</span></label><!-- sp
-sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h4" data-ng-change="changeHoliday('h4')" /><span><br>Labor<br>Sep 1</span></label><!-- sp
-sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h5" data-ng-change="changeHoliday('h5')" /><span><br>Thanksgiving<br>Nov 27</span></label><!-- sp
-sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-change="changeHoliday('h6')" /><span><br>Christmas<br>Dec 25</span></label>
+           <label><input type="checkbox" data-ng-model="holidayList.h1" data-ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div>Jan 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h2" data-ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div>May 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h3" data-ng-change="changeHoliday('h3')" /><span><div class="nowrap">4th of July</div>Jul 4</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h4" data-ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor Day</div>Sep 1</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h5" data-ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div>Nov 27</span></label><!-- sp
+sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div>Dec 25</span></label>
         </fieldset>
+        <table class="tbl totals">
+          <thead>
+            <tr>
+              <th>EOY Totals</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Hours</td><td>160</td><td>{{daysUsed * 8}}</td><td>{{lostBalance}}</td><td>{{ptoBalance}}</td></tr>
+            <tr><td>Days</td><td>20</td><td>{{daysUsed}}</td><td>{{lostBalance / 8}}</td><td>{{ptoBalance / 8}}</td></tr>
+          </tbody>
+        </table>
       </div>
       <div class="float50">
         <form name="ptoForm">
@@ -87,7 +98,7 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               <th>To</th>
               <th>Type</th>
               <th>Note</th>
-              <th>Contains<br>Floating<br>Holiday?</th>
+              <th>*</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -104,26 +115,8 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
               </td>
             </tr>
           </tbody>
+          <tfoot><tr><td colspan="6">* Contains Floating Holiday</td></tr></tfoot>
         </table>
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th>Totals</th>
-              <th>Earned</th>
-              <th>Expired</th>
-              <th>Available</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>&nbsp;</td>
-              <td>00 hrs / 00 days</td>
-              <td>00 hrs / 00 days</td>
-              <td>00 hrs / 00 days</td>
-            </tr>
-          </tbody>
-        </table>
-        <!--<a data-ng-href="mailto:?Subject=ptoplanner_link&Body='{{mailto}}">email this to myself</a>-->
       </div>
     </div>
   </div>
@@ -150,5 +143,4 @@ sp sp sp--><label><input type="checkbox" data-ng-model="holidayList.h6" data-ng-
   <script src="controllers/ptoController.js"></script>
   <script src="directives/chart.js"></script>
 </body>
-
 </html>
