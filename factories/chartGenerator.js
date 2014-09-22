@@ -107,11 +107,13 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
           accrued.setBalance(accrued.getBalance() - 8);
         }
       }
+
       //get total hours earned todate variable
       if( ( curDate.getMonth() + "-" + curDate.getDate() ) === ( $rootScope.nowDate.getMonth() + "-" + $rootScope.nowDate.getDate() ) ){
         $rootScope.todateHoursAvailable = accrued.getBalance().toFixed(2);
         $rootScope.todateHoursLost = lost.getBalance().toFixed(2);
       }
+
       if (accrued.getBalance() > 80) {
         lost.setBalance(lost.getBalance() + accrued.getBalance() - 80);
         accrued.setBalance(80);

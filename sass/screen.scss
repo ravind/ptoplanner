@@ -1,4 +1,7 @@
 @import "compass";
+
+$lightblue: #2180d3;
+
 body {
   font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -13,6 +16,13 @@ body * {
   font-size: 12px;
   line-height: 1;
 }
+hr{
+  border: 0 none;
+  background-color: $lightblue;
+  height: 1px;
+  margin: 5px 0;
+}
+
 /*setup*/
 
 #container {
@@ -42,7 +52,6 @@ h1 {
 /*chart area*/
 #placeholder {
   height: 300px;
-  border: 1px solid #155185;
   background-color: #2180d3;
   /*background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
   @include background-image(linear-gradient(#56a2e4, #2180d3));
@@ -141,12 +150,12 @@ input[type='text']:focus, input[type='number']:focus {
   outline-color: #ccc;
 }
 */
-*[disabled] {
+[disabled], [readonly] {
   cursor: not-allowed;
   color: #999;
   background-color: #eee;
 }
-*[disabled]:hover {
+[disabled]:hover, [readonly]:hover {
   background-color: #ccc;
 }
 /*doc
@@ -167,15 +176,18 @@ Any FIELDSET element and LEGEND will be styled as follows:
 
 fieldset {
   margin: 0;
-  border: 1px solid #b8d6fb;
-  background-color: #fff;
+  border: 1px solid $lightblue;
+      background-color: #def;
+
 }
 legend {
   padding: 0 10px;
   text-align: center;
   text-transform: uppercase;
-  color: #56a2e4;
+  color: $lightblue;
+  background-color: #fff
 }
+
 /*doc
 ---
 title: Notifications
@@ -259,11 +271,17 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
   margin-top: 10px;
   border-collapse: collapse;
   table-layout: fixed;
+  caption{
+      color: $lightblue;
+      text-transform: uppercase;
+      background-color: #def;
+  }
   thead,tfoot{
-    background-color: #d9edf7;
+    color: #fff;
+    background-color: $lightblue;
   }
   thead tr,tbody tr{
-    border-bottom: 1px solid #b8d6fb;
+    border-bottom: 1px solid $lightblue;
   }
   th, td{
     padding: 1px 5px;
@@ -274,7 +292,6 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
     font-weight: 400;
     text-align: left;
     text-transform: uppercase;
-    color: #555;
   }
 
   .hasFloat {}

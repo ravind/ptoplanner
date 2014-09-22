@@ -1,4 +1,4 @@
-app.controller('ptoController', function($scope, ptoManager, floatingHolidayChecker, $rootScope) {
+app.controller('ptoController', function($scope, ptoManager, $rootScope) { //removed floatingHolidayChecker
   "use strict";
   $scope.startingBalance = ptoManager.getStartingBalance();
   $scope.ptoList = ptoManager.getPtoList();
@@ -123,19 +123,17 @@ app.controller('ptoController', function($scope, ptoManager, floatingHolidayChec
   //$scope.floatingHolidayResult = floatingHolidayChecker.getResults();
   //}
 
-  // $scope.$watch('ptoList', updateMailto, true);
-  // function updateMailto() {
-  //     $scope.mailto = window.location.href + '?' + $.param( ptoManager.getItems() );
-  // }
   $scope.$watch('ptoList', updateDaysUsed, true);
+
   function updateDaysUsed() {
     var i = 0;
     $scope.daysUsed = 0;
     while(i < $scope.ptoList.length){
       var dateFrom = $scope.ptoList[i].dateFrom;
       var dateTo = $scope.ptoList[i].dateTo;
-      var diff = 1 + Math.round( Math.abs( ( dateFrom - dateTo ) / ( 24*60*60*1000 ) ) );
-      $scope.daysUsed += diff;
+      var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
+      var adjust = ($scope.ptoList[i].hasFloat) ? diff : diff + 1;
+      $scope.daysUsed += adjust;
       i++;
     }
   }
