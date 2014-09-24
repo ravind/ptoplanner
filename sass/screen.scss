@@ -59,7 +59,14 @@ h1 {
 .blocklabel{
   display: block;
 }
-
+.allignright{
+  text-align: right;
+  margin-top: 10px;
+}
+.alligncenter{
+  text-align: center;
+  margin-top: 10px;
+}
 /*chart area*/
 #placeholder {
   height: 300px;
@@ -282,7 +289,9 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
     text-transform: uppercase;
   }
 
-  .hasFloat {}
+  .hasFloat {
+    white-space: nowrap;
+  }
 
   tbody tr:nth-child(odd) {
     background-color: #fff;

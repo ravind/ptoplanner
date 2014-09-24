@@ -8,14 +8,15 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   $scope.hireYears = ptoManager.getHireYears();
   $scope.hireYearVar = ptoManager.getHireYearVar();
   $scope.ptoTypes = ptoManager.getPtoTypes();
-  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null,hasFloat: false};
+  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null,hasFloatStart: false,hasFloatEnd: false};
 
   $scope.resetPto = function() {
     $scope.newPto.id = null;
     $scope.newPto.dateFrom = null;
     $scope.newPto.dateTo = null;
     $scope.newPto.note = null;
-    $scope.newPto.hasFloat = false;
+    $scope.newPto.hasFloatStart = false;
+    $scope.newPto.hasFloatEnd = false;
   };
 
   $scope.removePto = function(id) {
@@ -28,10 +29,14 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     }
     var fromDate = new Date(Date.parse($scope.newPto.dateFrom));
     var toDate = new Date(Date.parse($scope.newPto.dateTo));
-    ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.hasFloat);
-    if($scope.newPto.hasFloat){
+    ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.hasFloatStart, $scope.newPto.hasFloatEnd);
+    if($scope.newPto.hasFloatStart){
       var q = parseInt(fromDate.getMonth() / 3) + 1;
       ptoManager.addFloat("q"+q,fromDate.toLocaleDateString());
+    }
+    if($scope.newPto.hasFloatEnd){
+      var qq = parseInt(toDate.getMonth() / 3) + 1;
+      ptoManager.addFloat("q"+qq,toDate.toLocaleDateString());
     }
     $scope.resetPto();
   };
@@ -43,7 +48,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     $scope.newPto.dateFrom = fromDate.toLocaleDateString();
     $scope.newPto.dateTo = toDate.toLocaleDateString();
     $scope.newPto.note = obj.comment;
-    $scope.newPto.hasFloat = obj.hasFloat;
+    $scope.newPto.hasFloatStart = obj.hasFloatStart;
+    $scope.newPto.hasFloatEnd = obj.hasFloatEnd;
   };
 
   $scope.changeFloats = function(id) {
@@ -131,7 +137,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
       var dateTo = $scope.ptoList[i].dateTo;
       var dateFrom = $scope.ptoList[i].dateFrom;
       var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
-      var adjust = ($scope.ptoList[i].hasFloat) ? diff : diff + 1;
+      var adjust = ($scope.ptoList[i].hasFloatStart || $scope.ptoList[i].hasFloatEnd) ? diff : diff + 1;
       $scope.daysUsed += adjust;
       i++;
     }

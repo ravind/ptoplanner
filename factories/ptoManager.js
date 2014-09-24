@@ -18,13 +18,25 @@ app.factory('ptoManager', function(dataStore) {
 
   init();
 
+
+  factory.getPtoList = function() {
+    //add floating holidays
+    $.each(ptoList.items, function(k,v){
+      ptoList.items[k].floats = [];
+      for(var key in ptoList.floats){
+        var asdf = new Date(ptoList.floats[key].date).valueOf();
+        if(v.dateFrom <= asdf && asdf <= v.dateTo ){
+          ptoList.items[k].floats.push(asdf);
+        }
+      }
+    });
+
+    return ptoList.items;
+  };
+
   factory.getPtoTypes = function() {
     var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
     return ptoTypes;
-  };
-
-  factory.getPtoList = function() {
-    return ptoList.items;
   };
 
   factory.getFloats = function() {
@@ -60,7 +72,7 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
 
-  factory.addPto = function(from, to, type, note, hasFloat) {
+  factory.addPto = function(from, to, type, note, hasFloatStart, hasFloatEnd) {
     ptoList.cnt += 1;
     var newPto = {
       id: ptoList.cnt,
@@ -68,7 +80,8 @@ app.factory('ptoManager', function(dataStore) {
       dateTo: to,
       ptoType: type,
       comment: note,
-      hasFloat: hasFloat
+      hasFloatStart: hasFloatStart,
+      hasFloatEnd: hasFloatEnd
     };
     ptoList.items.push(newPto);
     ptoList.items.sort(function(a, b) {

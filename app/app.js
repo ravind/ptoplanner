@@ -13,6 +13,8 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
+    $(".datepicker").datepicker();
+
     $('[data-dp]').each(function() {
       var $this = $(this);
         var dpData = $this.data("dp");
@@ -47,8 +49,11 @@ app.run(function($rootScope) {
     $rootScope.lostBalance = 0;
     $rootScope.todateHoursAvailable = 0;
     $rootScope.todateHoursLost = 0;
-    $rootScope.todateHoursEarned = Math.floor( 20 * (progress/ total) );
+    $rootScope.todateHoursEarned = Math.floor( 20 * (progress / total) );
     $rootScope.todateHoursUsed = "--";
+
+    $rootScope.prorateStart = "01/01/2014";
+    $rootScope.prorateEnd = "12/31/2014";
 
     // var thanksDay = function(year) {
     //     var first = new Date(year, 10, 1);

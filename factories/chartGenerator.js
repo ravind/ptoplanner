@@ -3,11 +3,13 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
 
   var factory = {},
       ptoList,
+      floatsList,
       startingBalance,
       hireYearVar;
 
   function init() {
     ptoList = ptoManager.getPtoList();
+    floatsList = ptoManager.getFloats();
     startingBalance = ptoManager.getStartingBalance();
     hireYearVar = ptoManager.getHireYearVar();
   }
@@ -25,6 +27,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
           if (ptoList[this.curIndex].ptoType == ptoType) {
             nextPto = ptoList[this.curIndex];
           }
+
           this.curIndex++;
         }
         return nextPto;
@@ -89,13 +92,16 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       lossData = [],
       ptoIterator = getPtoIterator(0),
       curYear = $rootScope.getFullYear,
-      curDate = new Date(curYear, 0, 1),
+      endDate = new Date($rootScope.prorateEnd),
+      curDate = new Date($rootScope.prorateStart),
       curPto = ptoIterator.next(),
       accrued = balanceTracker(startingBalance),
       lost = balanceTracker(0);
 
     lost.commit();
-    while (curDate.getFullYear() == curYear) {
+
+
+    while (curDate.valueOf() <= endDate.valueOf()) {
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
@@ -103,14 +109,17 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       }
 
       //if days are in PTO list then subtract
-      if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
-        var n = curDate.getDay();
-        //weekends do not count against PTO
-        if (n !== 0 && n != 6) {
-          //if its not a weekend day then subtract from PTO
-          accrued.setBalance(accrued.getBalance() - 8);
+        if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
+          //if current date is not a floating holiday
+          if( curPto.floats.indexOf( curDate.valueOf() ) < 0 ){
+            var n = curDate.getDay();
+            //weekends do not count against PTO
+            if (n !== 0 && n != 6) {
+              //if its not a weekend day then subtract from PTO
+              accrued.setBalance(accrued.getBalance() - 8);
+            }
+          }
         }
-      }
 
       //get total hours earned todate variable
       if( ( curDate.getMonth() + "-" + curDate.getDate() ) === ( $rootScope.nowDate.getMonth() + "-" + $rootScope.nowDate.getDate() ) ){

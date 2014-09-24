@@ -7,12 +7,14 @@ app.directive('chart', function(chartGenerator, $rootScope) {
       scope.$watch('ptoList', updateChart, true);
       scope.$watch('startingBalance', updateChart, true);
       scope.$watch('hireYearVar', updateChart, true);
+      scope.$watch('prorateStart', updateChart, true);
+      scope.$watch('prorateEnd', updateChart, true);
 
       function updateChart() {
         var data = chartGenerator.getChartData();
 
-        $rootScope.lostBalance = Math.floor( data.lostBalanceEnd[1] );
-        $rootScope.ptoBalance = Math.floor( data.ptoBalanceEnd[1] );
+        $rootScope.ptoBalance = (data.ptoBalanceEnd && data.ptoBalanceEnd.length) ? Math.floor( data.ptoBalanceEnd[1] ) : 0;
+        $rootScope.lostBalance = (data.lostBalanceEnd && data.lostBalanceEnd.length) ? Math.floor( data.lostBalanceEnd[1] ) : 0;
 
         $.plot(elem, [{
             data: data.ptoBalance,
