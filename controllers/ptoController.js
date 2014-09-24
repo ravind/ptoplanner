@@ -1,5 +1,6 @@
 app.controller('ptoController', function($scope, ptoManager, $rootScope) { //removed floatingHolidayChecker
-  "use strict";
+"use strict";
+
   $scope.startingBalance = ptoManager.getStartingBalance();
   $scope.ptoList = ptoManager.getPtoList();
   $scope.holidayList = ptoManager.getHolidays();
@@ -30,7 +31,6 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.hasFloat);
     if($scope.newPto.hasFloat){
       var q = parseInt(fromDate.getMonth() / 3) + 1;
-          console.log($scope.ptoList);
       ptoManager.addFloat("q"+q,fromDate.toLocaleDateString());
     }
     $scope.resetPto();
@@ -118,7 +118,6 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   }
 
   //$scope.$watch('ptoList', updateFloatingHolidays, true);
-
   //function updateFloatingHolidays() {
   //$scope.floatingHolidayResult = floatingHolidayChecker.getResults();
   //}
@@ -129,8 +128,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     var i = 0;
     $scope.daysUsed = 0;
     while(i < $scope.ptoList.length){
-      var dateFrom = $scope.ptoList[i].dateFrom;
       var dateTo = $scope.ptoList[i].dateTo;
+      var dateFrom = $scope.ptoList[i].dateFrom;
       var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
       var adjust = ($scope.ptoList[i].hasFloat) ? diff : diff + 1;
       $scope.daysUsed += adjust;

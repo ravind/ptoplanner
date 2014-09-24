@@ -1,24 +1,26 @@
 app.factory('chartGenerator', function(ptoManager, $rootScope) {
-  "use strict";
-  var factory = {};
-  var ptoList, startingBalance, hireYearVar;
+"use strict";
+
+  var factory = {},
+      ptoList,
+      startingBalance,
+      hireYearVar;
 
   function init() {
     ptoList = ptoManager.getPtoList();
     startingBalance = ptoManager.getStartingBalance();
     hireYearVar = ptoManager.getHireYearVar();
   }
-
   init();
 
   function getPtoIterator(ptoType) {
     var ptoIterator = {
       curIndex: 0,
-      reset: function() {
-        this.curIndex = 0;
-      },
+      reset: function() { this.curIndex = 0; },
       next: function() {
         var nextPto = null;
+        // & is bitwise AND. This operator expects two numbers and retuns a number.
+        // In case they are not numbers, they are cast to numbers.
         while (!nextPto & this.curIndex < ptoList.length) {
           if (ptoList[this.curIndex].ptoType == ptoType) {
             nextPto = ptoList[this.curIndex];
@@ -28,7 +30,6 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         return nextPto;
       }
     };
-
     return ptoIterator;
   }
 
@@ -94,16 +95,19 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       lost = balanceTracker(0);
 
     lost.commit();
-
     while (curDate.getFullYear() == curYear) {
-
+      //if its the 15th or last day of the month
+      //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
         accrued.setBalance(accrued.getBalance() + hireYearVar / 3);
       }
 
+      //if days are in PTO list then subtract
       if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
         var n = curDate.getDay();
+        //weekends do not count against PTO
         if (n !== 0 && n != 6) {
+          //if its not a weekend day then subtract from PTO
           accrued.setBalance(accrued.getBalance() - 8);
         }
       }
@@ -113,16 +117,21 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         $rootScope.todateHoursAvailable = accrued.getBalance().toFixed(2);
         $rootScope.todateHoursLost = lost.getBalance().toFixed(2);
       }
-
+      //if accrued has gone over 80
+      //set the lost balance and set accrued to 80
       if (accrued.getBalance() > 80) {
         lost.setBalance(lost.getBalance() + accrued.getBalance() - 80);
         accrued.setBalance(80);
       }
 
+      //push the date.valueOf and balance to array ["1411501806158","72.2"]
       addData(accrued, curDate, balanceData);
       addData(lost, curDate, lossData);
 
+      //increase date by one day before next loop
       curDate.setDate(curDate.getDate() + 1);
+
+      //setup next date from ptoList
       if (curPto !== null && curPto.dateTo < curDate) {
         curPto = ptoIterator.next();
       }

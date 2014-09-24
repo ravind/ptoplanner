@@ -1,6 +1,10 @@
 @import "compass";
 
-$lightblue: #2180d3;
+$blue01: #69c;
+$blue02: #EEF6FF;
+$green01: #dff0d8;
+$yellow01: #fcf8e3;
+$red01: #f2dede;
 
 body {
   font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -12,17 +16,24 @@ body {
 body * {
   box-sizing: border-box;
 }
+
+hr{
+  border: 0 none;
+  background-color: $blue01;
+  height: 1px;
+  margin: 5px 0;
+}
+.clearfix:after{
+  content: '';
+  display: block;
+  clear:both;
+  height: 0;
+  overflow: hidden;
+}
 .ui-datepicker {
   font-size: 12px;
   line-height: 1;
 }
-hr{
-  border: 0 none;
-  background-color: $lightblue;
-  height: 1px;
-  margin: 5px 0;
-}
-
 /*setup*/
 
 #container {
@@ -98,7 +109,6 @@ button {
   max-width: 100%;
   padding: 0 6px;
   border: 1px solid #fff;
-  background-color: #fff;
   font-family: 'Segoe UI', Helvetica, Arial;
   cursor: pointer;
   color: #fff;
@@ -140,16 +150,10 @@ select, input[type='text'], input[type='number'] {
   line-height: 19px;
   max-width: 100%;
   padding: 0 6px;
-  border: 1px solid #bbb;
+  border: 1px solid $blue01;
   background-color: #fff;
 }
-/*
-input[type='text']:focus, input[type='number']:focus {
-  outline-width: 2px;
-  outline-style: dotted;
-  outline-color: #ccc;
-}
-*/
+
 [disabled], [readonly] {
   cursor: not-allowed;
   color: #999;
@@ -176,56 +180,39 @@ Any FIELDSET element and LEGEND will be styled as follows:
 
 fieldset {
   margin: 0;
-  border: 1px solid $lightblue;
-      background-color: #def;
+  border: 0 solid $blue01;
+  background-color: $blue02;
 
 }
 legend {
   padding: 0 10px;
   text-align: center;
   text-transform: uppercase;
-  color: $lightblue;
+  color: $blue01;
   background-color: #fff
 }
 
+
 /*doc
 ---
-title: Notifications
-name: notifications
+title: Grid
+name: grid
 category: basics
 ---
 
-Styling examples that a few classes provides: ".info, .success, .danger, .warning";
+Grid system contains floating two containers of 50/50 or 37/63 ratio;
 
 ```html_example
-<div class="info">info</div><br>
-<div class="info success">success</div><br>
-<div class="info danger">danger</div><br>
-<div class="info warning">warning</div>
+<div class="clearfix">
+  <div class="float50"><hr>50%<hr></div>
+  <div class="float50"><hr>50%<hr></div>
+</div>
+<div class="clearfix">
+  <div class="float-lil"><hr>Little<hr></div>
+  <div class="float-big"><hr>Big<hr></div>
+</div>
 ```
 */
-
-.info {
-  padding: 0 10px;
-  color: #31708f;
-  border: 1px solid #bce8f1;
-  background-color: #d9edf7;
-  &.success {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-  }
-  &.danger {
-    color: #a94442;
-    border-color: #ebccd1;
-    background-color: #f2dede;
-  }
-  &.warning {
-    color: #8a6d3b;
-    border-color: gold;
-    background-color: #fcf8e3;
-  }
-}
 .float50 {
   float: left;
   width: 50%;
@@ -254,6 +241,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
 
 ```html_example
 <table class="tbl">
+  <caption>Table caption</caption>
   <thead><tr><th>Table Head</th><th>Table Head</th><th>Table Head</th></tr></thead>
   <tbody>
     <tr><td>Table Cell</td><td>Table Cell</td><td>Table Cell</td></tr>
@@ -272,16 +260,16 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
   border-collapse: collapse;
   table-layout: fixed;
   caption{
-      color: $lightblue;
+      color: $blue01;
       text-transform: uppercase;
-      background-color: #def;
+      background-color: $blue02;
   }
   thead,tfoot{
     color: #fff;
-    background-color: $lightblue;
+    background-color: $blue01;
   }
   thead tr,tbody tr{
-    border-bottom: 1px solid $lightblue;
+    border-bottom: 1px solid $blue01;
   }
   th, td{
     padding: 1px 5px;
@@ -307,44 +295,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
 .allign-right{
   text-align: right;
 }
-/*doc
----
-title: Tooltip
-name: tooltip
-category: basics
----
 
-Shows on top of chart during hover of a node.
-
-```html_example
-<div style="position:relative">
-  <div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 50.00</div>
-<br>
-</div>
-```
-
-*/
-
-.tooltip {
-  position: absolute;
-  top: 0;
-  display: none;
-  padding: 2px 5px 2px 2px;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, .8);
-}
-.tooltip:before {
-  position: absolute;
-  top: 0;
-  right: 100%;
-  width: 0;
-  height: 0;
-  content: '';
-  border: 13px solid transparent;
-  border-right-color: #fff;
-  border-right-color: rgba(255, 255, 255, .8);
-  border-left-width: 0;
-}
 /*doc
 ---
 title: Holiday Label
@@ -388,18 +339,18 @@ Holiday box with checkmark and title. Checked and unchecked states.
     margin-bottom: 1px;
     color: #8a6d3b;
     border: 1px solid #fe9;
-    background-color: #fcf8e3;
+    background-color: $yellow01;
   }
   :checked + span {
     color: #3c763d;
-    background-color: #dff0d8;
+    background-color: $green01;
     border-color: #d6e9c6;
   }
   span:hover {
-    background-color: #dff0d8;
+    background-color: $green01;
   }
   :checked + span:hover {
-    background-color: #fcf8e3;
+    background-color: $yellow01;
   }
   span:before {
     font-size: 2rem;
@@ -415,4 +366,82 @@ Holiday box with checkmark and title. Checked and unchecked states.
 }
 #holidaysSTD label {
   width: 16%;
+}
+
+/*doc
+---
+title: Notifications
+name: notifications
+category: basics
+---
+
+Styling examples that a few classes provides: ".info, .success, .danger, .warning";
+
+```html_example
+<div class="info">info</div><br>
+<div class="info success">success</div><br>
+<div class="info danger">danger</div><br>
+<div class="info warning">warning</div>
+```
+*/
+
+.info {
+  padding: 0 10px;
+  color: #31708f;
+  border: 1px solid #bce8f1;
+  background-color: $blue02;
+  &.success {
+    color: #3c763d;
+    background-color: $green01;
+    border-color: #d6e9c6;
+  }
+  &.danger {
+    color: #a94442;
+    border-color: #ebccd1;
+    background-color: $red01;
+  }
+  &.warning {
+    color: #8a6d3b;
+    border-color: gold;
+    background-color: $yellow01;
+  }
+}
+
+/*doc
+---
+title: Tooltip
+name: tooltip
+category: basics
+---
+
+Shows on top of chart during hover of a node.
+
+```html_example
+<div class="display-only-wrapper">
+  <div id="tooltip" class="tooltip" style="display:block">PTO Balance - Sat Mar 15 2014 = 50.00</div>
+<br><br>
+</div>
+```
+
+*/
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  display: none;
+  padding: 2px 5px 2px 2px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, .8);
+}
+.tooltip:before {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 13px solid transparent;
+  border-right-color: #fff;
+  border-right-color: rgba(255, 255, 255, .8);
+  border-left-width: 0;
 }

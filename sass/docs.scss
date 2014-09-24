@@ -29,3 +29,16 @@ footer {
   margin: 55px 0 2px;
   background-color: #eee;
 }
+
+.display-only-wrapper{
+  background-color: silver;
+  border: 10px solid silver;
+  border-width: 10px 20px;
+  position:relative;
+}
+pre{
+  color: #fff;
+  background-color: #333;
+  border-left: 20px solid #000;
+  padding: 10px;
+}

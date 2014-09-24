@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width" />
   <title>PTO Planner</title>
-  <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+  <link rel="stylesheet" type="text/css" href="libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
   <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>-->
   <link rel="stylesheet" type="text/css" href="stylesheets/screen.css" />
 </head>
@@ -63,7 +64,7 @@
           <caption>Totals</caption>
           <thead>
             <tr>
-              <th>Currently</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
+              <th>To Date</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +73,7 @@
           </tbody>
           <thead>
             <tr>
-              <th>Yearly</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
+              <th>Yr End</th><th>Earned</th><th>Used</th><th>Expired</th><th>Available</th>
             </tr>
           </thead>
           <tbody>
@@ -137,13 +138,16 @@
     </div>
   </div>
   <div id='tooltip' class="tooltip"></div>
-  <!--     <div id='tooltipPin' class="tooltip"></div> -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
+  <script src="libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="scripts/jquery.flot.min.js"></script>
   <script src="scripts/jquery.flot.time.min.js"></script>
   <!-- <script src="scripts/jquery.flot.symbol.js"></script> -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script> -->
+  <script src="libs/angularjs/1.2.4/angular.min.js"></script>
   <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.js"></script> -->
   <script src="app/app.js"></script>
   <script src="services/dataStore.js"></script>
