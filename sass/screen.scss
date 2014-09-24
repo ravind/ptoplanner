@@ -36,13 +36,38 @@ hr{
 }
 /*setup*/
 
-#container {
+.container {
   max-width: 1000px;
   margin: 0 auto;
 }
-h1 {
+
+/*doc
+---
+title: Headers
+name: headers
+category: basics
+---
+
+Styles defined for header elements.
+
+```html_example
+<h1 class="h1">h1</h1>
+<h2 class="h2">h2</h2>
+```
+
+*/
+.h1 {
   font-weight: 300;
   margin-bottom: 10px;
+  font-size: 2rem
+}
+
+.h2 {
+    font-weight: 300;
+margin: 20px 0 0;
+color: #2180d3;
+  font-size: 1.5rem
+
 }
 .clearfix:after {
   display: block;
@@ -68,7 +93,7 @@ h1 {
   margin-top: 10px;
 }
 /*chart area*/
-#placeholder {
+.placeholder {
   height: 300px;
   background-color: #2180d3;
   /*background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
@@ -210,9 +235,15 @@ category: basics
 Grid system contains floating two containers of 50/50 or 37/63 ratio;
 
 ```html_example
+
 <div class="clearfix">
   <div class="float50"><hr>50%<hr></div>
   <div class="float50"><hr>50%<hr></div>
+</div>
+<div class="clearfix">
+  <div class="float33"><hr>33%<hr></div>
+  <div class="float33"><hr>33%<hr></div>
+  <div class="float33"><hr>33%<hr></div>
 </div>
 <div class="clearfix">
   <div class="float-lil"><hr>Little<hr></div>
@@ -225,7 +256,15 @@ Grid system contains floating two containers of 50/50 or 37/63 ratio;
   width: 50%;
   padding-right: 10px;
 }
-.float50 + .float50 {
+.float50:nth-child(even) {
+  padding-right: 0;
+}
+.float33 {
+  float: left;
+  width: 33.33%;
+  padding-right: 10px;
+}
+.float33:nth-of-type(3n+3) {
   padding-right: 0;
 }
 .float-lil {
@@ -263,7 +302,6 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
 
 .tbl {
   width: 100%;
-  margin-top: 10px;
   border-collapse: collapse;
   table-layout: fixed;
   caption{
@@ -272,8 +310,7 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
       background-color: $blue02;
   }
   thead,tfoot{
-    color: #fff;
-    background-color: $blue01;
+    background-color: #eee;
   }
   thead tr,tbody tr{
     border-bottom: 1px solid $blue01;

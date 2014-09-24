@@ -72,16 +72,14 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
 
-  factory.addPto = function(from, to, type, note, hasFloatStart, hasFloatEnd) {
+  factory.addPto = function(from, to, type, note) {
     ptoList.cnt += 1;
     var newPto = {
       id: ptoList.cnt,
       dateFrom: from,
       dateTo: to,
       ptoType: type,
-      comment: note,
-      hasFloatStart: hasFloatStart,
-      hasFloatEnd: hasFloatEnd
+      comment: note
     };
     ptoList.items.push(newPto);
     ptoList.items.sort(function(a, b) {

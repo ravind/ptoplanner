@@ -5,6 +5,7 @@ app.directive('chart', function(chartGenerator, $rootScope) {
     link: function(scope, elem, attrs) {
 
       scope.$watch('ptoList', updateChart, true);
+      scope.$watch('floatsList', updateChart, true);
       scope.$watch('startingBalance', updateChart, true);
       scope.$watch('hireYearVar', updateChart, true);
       scope.$watch('prorateStart', updateChart, true);

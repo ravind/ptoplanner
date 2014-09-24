@@ -4,6 +4,13 @@ var app = angular.module('ptoPlanner', []);
 app.run(function($rootScope) {
 "use strict";
 
+    var newDate = new Date();
+    var curYear = newDate.getFullYear();
+    var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
+    var firstOfYear = new Date(curYear,0,1); //jan 1
+    var total = new Date(curYear,11,31) - firstOfYear;
+    var progress = new Date() - firstOfYear;
+
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
@@ -13,7 +20,7 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
-    $(".datepicker").datepicker();
+    //$(".datepicker").datepicker();
 
     $('[data-dp]').each(function() {
       var $this = $(this);
@@ -33,13 +40,6 @@ app.run(function($rootScope) {
             $("#from").datepicker("option", "maxDate", selectedDate);
         }
     });
-
-    var newDate = new Date();
-    var curYear = newDate.getFullYear();
-    var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
-    var firstOfYear = new Date(curYear,0,1); //jan 1
-    var total = new Date(curYear,11,31) - firstOfYear;
-    var progress = new Date() - firstOfYear;
 
     $rootScope.getFullYear = curYear;
     $rootScope.curQuarter = curQuarter;
