@@ -23,6 +23,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     $scope.newPto.dateFrom = null;
     $scope.newPto.dateTo = null;
     $scope.newPto.note = null;
+    $rootScope.resetDP();
   };
   $scope.removePto = function(id) {
     ptoManager.removePto(id);

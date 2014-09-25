@@ -116,7 +116,7 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours / Days</td>
-              <td>{{todateHoursEarned * 8}} / {{todateHoursEarned}}</td>
+              <td>{{(todateHoursEarned * 8) /empStatusVar}} / {{todateHoursEarned/empStatusVar}}</td>
               <td>{{todateHoursUsed}} / {{todateHoursUsed}}</td>
               <td>{{todateHoursLost}} / {{todateHoursLost / 8}}</td>
               <td>{{todateHoursAvailable}} / {{todateHoursAvailable / 8}}</td>
@@ -128,7 +128,7 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours / Days</td>
-              <td>{{hireYearVar * 8}} / {{hireYearVar}}</td>
+              <td>{{(hireYearVar * 8)/empStatusVar}} / {{hireYearVar/empStatusVar}}</td>
               <td>{{daysUsed * 8}} / {{daysUsed}}</td>
               <td>{{lostBalance}} / {{lostBalance/8}}</td>
               <td>{{ptoBalance}} / {{ptoBalance/8}}</td>

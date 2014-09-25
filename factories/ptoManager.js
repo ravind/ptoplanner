@@ -50,7 +50,7 @@ app.factory('ptoManager', function(dataStore) {
 
   //Hire Year Variable
   factory.getHireYears = function() {
-    var hireYears = [ {label: "More than 2 yrs ago", val: 20}, {label: "Less than 2 yrs ago", val: 15} ];
+    var hireYears = [ {label: "Before 2013", val: 20}, {label: "After 2012", val: 15} ];
     return hireYears;
   };
   factory.getHireYearVar = function() {
