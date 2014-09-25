@@ -12,13 +12,13 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/screen.css" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin"/>
 </head>
-<body ng-app="ptoPlanner">
+<body class="body" ng-app="ptoPlanner">
   <h1 class="h1">PTO Planner</h1>
   <div class="container" ng-controller="ptoController">
     <h2 class="h2">Setup</h2>
     <fieldset id="divStartingBalance" class="clearfix">
       <div class="inblock">
-        <label class="blocklabel">Carry Over</label>
+        <label class="blocklabel">Carry Over <span class="help" data-info="Unused balance from previous year">I</span></label>
         <input type="number" step="1" ng-model="startingBalance" ng-change="startingBalanceChanged()" />
       </div>
       <div class="inblock">
@@ -45,7 +45,7 @@
     <div class="clearfix">
       <div class="float50">
         <form name="ptoForm">
-            <h2 class="h2">Add / Edit PTO</h2>
+          <h2 class="h2">Add / Edit PTO</h2>
           <fieldset id="fstAddPto">
             <div class="clearfix">
               <div class="float33">
@@ -61,9 +61,16 @@
                 <input type="text" id="newPtoNote" ng-model="newPto.note" />
               </div>
             </div>
-            <div class="allignright">
+            <div class="clearfix">
+              <div class="float66">
+                <label class="blocklabel">Log this time as 4 hours of PTO pre day.</label>
+                <input type="checkbox" ng-model="newPto.halfDays"/> Half days
+              </div>
+              <div class="float33">
+                <label class="blocklabel">&nbsp;</label>
                 <button type="submit" ng-click="addPto()" ng-disabled="!newPto.dateFrom || !newPto.dateTo">Save</button>
                 <button type="button" ng-click="resetPto()" ng-disabled="!newPto.dateFrom || !newPto.dateTo" class="btn-change">Clear</button>
+              </div>
             </div>
           </fieldset>
         </form>
@@ -91,7 +98,7 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
         <table id="tblPto" class="tbl">
           <thead>
             <tr>
-              <th>From</th><th>To</th><th>Note</th><th class="hasFloat" title="Contains Floating Holiday">*</th>
+              <th>From</th><th>To</th><th>Note</th><th>Half Days</th><th class="hasFloat" title="Contains Floating Holiday">*</th>
             </tr>
           </thead>
           <tbody>
@@ -99,6 +106,7 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
               <td>{{ pto.dateFrom | date:'shortDate' }}</td>
               <td>{{ pto.dateTo | date:'shortDate' }}</td>
               <td>{{ pto.comment }}</td>
+              <td>{{ pto.halfDays }}</td>
               <td class="hasFloat">
                 <span>{{pto.floats.length}}</span>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn-change" ng-click="editPto(pto)">Edit</button>
@@ -115,11 +123,18 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           </thead>
           <tbody>
             <tr>
-              <td>Hours / Days</td>
-              <td>{{(todateHoursEarned * 8) /empStatusVar}} / {{todateHoursEarned/empStatusVar}}</td>
-              <td>{{todateHoursUsed}} / {{todateHoursUsed}}</td>
-              <td>{{todateHoursLost}} / {{todateHoursLost / 8}}</td>
-              <td>{{todateHoursAvailable}} / {{todateHoursAvailable / 8}}</td>
+              <td>Hours</td>
+              <td>{{((todateHoursEarned * 8) /empStatusVar) + startingBalance}}</td>
+              <td>{{todateHoursUsed}}</td>
+              <td>{{todateHoursLost}}</td>
+              <td>{{todateHoursAvailable}}</td>
+            </tr>
+            <tr>
+              <td>Days</td>
+              <td>{{(todateHoursEarned/empStatusVar) + (startingBalance / 8)}}</td>
+              <td>{{todateHoursUsed}}</td>
+              <td>{{todateHoursLost / 8}}</td>
+              <td>{{todateHoursAvailable / 8}}</td>
             </tr>
           </tbody>
           <thead>
@@ -127,11 +142,18 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           </thead>
           <tbody>
             <tr>
-              <td>Hours / Days</td>
-              <td>{{(hireYearVar * 8)/empStatusVar}} / {{hireYearVar/empStatusVar}}</td>
-              <td>{{daysUsed * 8}} / {{daysUsed}}</td>
-              <td>{{lostBalance}} / {{lostBalance/8}}</td>
-              <td>{{ptoBalance}} / {{ptoBalance/8}}</td>
+              <td>Hours</td>
+              <td>{{((hireYearVar * 8)/empStatusVar) + startingBalance}}</td>
+              <td>{{daysUsed * 8}}</td>
+              <td>{{lostBalance}}</td>
+              <td>{{ptoBalance}}</td>
+            </tr>
+            <tr>
+              <td>Days</td>
+              <td>{{(hireYearVar/empStatusVar) + (startingBalance/8)}}</td>
+              <td>{{daysUsed}}</td>
+              <td>{{lostBalance/8}}</td>
+              <td>{{ptoBalance/8}}</td>
             </tr>
           </tbody>
         </table>

@@ -16,13 +16,14 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   $scope.empStatusVar = ptoManager.getEmpStatusVar();
 
   $scope.ptoTypes = ptoManager.getPtoTypes();
-  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null};
+  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null, halfDays:false};
 
   $scope.resetPto = function() {
     $scope.newPto.id = null;
     $scope.newPto.dateFrom = null;
     $scope.newPto.dateTo = null;
     $scope.newPto.note = null;
+    $scope.newPto.halfDays = false;
     $rootScope.resetDP();
   };
   $scope.removePto = function(id) {
@@ -34,7 +35,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     }
     var fromDate = new Date(Date.parse($scope.newPto.dateFrom));
     var toDate = new Date(Date.parse($scope.newPto.dateTo));
-    ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note);
+    ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.halfDays);
     $scope.resetPto();
   };
   $scope.editPto = function(obj) {
@@ -44,6 +45,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     $scope.newPto.dateFrom = fromDate.toLocaleDateString();
     $scope.newPto.dateTo = toDate.toLocaleDateString();
     $scope.newPto.note = obj.comment;
+    $scope.newPto.halfDays = obj.halfDays;
   };
 
   $scope.changeFloats = function(id) {
@@ -129,10 +131,6 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     return isValid;
   }
 
-  //$scope.$watch('ptoList', updateFloatingHolidays, true);
-  //function updateFloatingHolidays() {
-  //$scope.floatingHolidayResult = floatingHolidayChecker.getResults();
-  //}
 
   $scope.$watch('ptoList', updateDaysUsed, true);
 
@@ -143,7 +141,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
       var dateTo = $scope.ptoList[i].dateTo;
       var dateFrom = $scope.ptoList[i].dateFrom;
       var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
-      var adjust = (diff + 1) - $scope.ptoList[i].floats.length;
+      var floatLength = ($scope.ptoList[i].floats) ? $scope.ptoList[i].floats.length : 0;
+      var adjust = (diff + 1) - floatLength;
       $scope.daysUsed += adjust;
       i++;
     }

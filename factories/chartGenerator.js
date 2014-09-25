@@ -122,7 +122,12 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
             //weekends do not count against PTO
             if (n !== 0 && n != 6) {
               //if its not a weekend day then subtract from PTO
-              accrued.setBalance(accrued.getBalance() - 8);
+              if(curPto.halfDays){
+                accrued.setBalance(accrued.getBalance() - 4);
+              }else{
+                accrued.setBalance(accrued.getBalance() - 8);
+              }
+
             }
           }
         }

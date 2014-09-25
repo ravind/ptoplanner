@@ -16,21 +16,18 @@ body {
   line-height: 21px;
   margin: 0 0 30px;
   color: #333;
+}
+
+.body {
   background-color: #f0f3f5;
 }
-body,h1,h2{
+.body,.h1,.h2{
     font-weight: 300;
 }
 body * {
   box-sizing: border-box;
 }
 
-hr{
-  border: 0 none;
-  background-color: $blue01;
-  height: 1px;
-  margin: 5px 0;
-}
 .clearfix:after{
   content: '';
   display: block;
@@ -74,7 +71,26 @@ hr{
   text-align: center;
   margin-top: 10px;
 }
+/*doc
+---
+title: HR
+name: hr
+category: basics
+---
 
+Styles defined for hr elements.
+
+```html_example
+<hr>
+```
+
+*/
+hr{
+  border: 0 none;
+  background-color: #999;
+  height: 1px;
+  margin: 5px 0;
+}
 /*doc
 ---
 title: Headers
@@ -267,7 +283,13 @@ Grid system contains floating two containers of 50/50 or 37/63 ratio;
   width: 33.33%;
   padding-right: 10px;
 }
-.float33:nth-of-type(3n+3) {
+
+.float66 {
+  float: left;
+  width: 66.66%;
+  padding-right: 10px;
+}
+.float33:nth-of-type(3n+3), .float33:last-child {
   padding-right: 0;
 }
 .float-lil {
@@ -320,10 +342,10 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
       text-transform: uppercase;
       background-color: $blue02;
   }
-  thead,tfoot{
+  thead{
     background-color: #dae2e8;
   }
-  thead tr,tbody tr{
+  tbody tr{
     border-bottom: 1px solid #ddd;
   }
   th, td{
@@ -441,7 +463,7 @@ Styling examples that a few classes provides: ".info, .success, .danger, .warnin
     background-color: $green01;
   }
   &.danger {
-    background-color: $red01;
+    background-color: $red00;
   }
   &.warning {
     background-color: $warning;
@@ -507,5 +529,50 @@ Shows on top of chart during hover of a node.
   table{
     background-color: #444;
     background-color: rgba(0,0,0,.15)
+  }
+}
+
+/*doc
+---
+title: Help info
+name: helpinfo
+category: basics
+---
+
+Help info displayed on hover.
+
+```html_example
+ <span class="help" data-info="Unused balance from previous year">I</span>
+```
+*/
+
+.help{
+  border-radius: 2em;
+  background-color: #eee;
+  padding: 0 7px;
+  font-weight: 400;
+  margin-left:8px;
+  position: relative;
+  font-family: Georgia, serif;
+}
+.help:hover{
+  cursor:help;
+  background-color: #ccc;
+}
+.help:hover:after{
+  background-color: #eee;
+  content:attr(data-info);
+  position: absolute;
+  top:0;
+  left:15px;
+  white-space: nowrap;
+  padding: 0 5px;
+  font-family: sans-serif;
+}
+
+@media (max-width: 700px){
+  .float50 {
+    float: none;
+    width: auto;
   }
 }

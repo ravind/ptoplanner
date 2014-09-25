@@ -14,7 +14,8 @@ app.factory('ptoManager', function(dataStore) {
       hireYearVar: 20,
       empStatusVar: 1,
       prorateStart: "01/01/2014",
-      prorateEnd: "12/31/2014"
+      prorateEnd: "12/31/2014",
+      halfDays: false
     });
     ptoList = dataStore.getObject(ptoKey);
   }
@@ -81,14 +82,15 @@ app.factory('ptoManager', function(dataStore) {
   };
 
   //PTO items
-  factory.addPto = function(from, to, type, note) {
+  factory.addPto = function(from, to, type, note, halfDays) {
     ptoList.cnt += 1;
     var newPto = {
       id: ptoList.cnt,
       dateFrom: from,
       dateTo: to,
       ptoType: type,
-      comment: note
+      comment: note,
+      halfDays: halfDays
     };
     ptoList.items.push(newPto);
     ptoList.items.sort(function(a, b) {
