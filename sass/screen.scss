@@ -1,17 +1,25 @@
 @import "compass";
 
-$blue01: #69c;
+$blue01: #0093c9;
 $blue02: #EEF6FF;
-$green01: #dff0d8;
+$green01: #5eb147;
 $yellow01: #fcf8e3;
+$red00: #b00925;
 $red01: #f2dede;
+$warning: #f28e1f;
+
+$radius: 4px;
 
 body {
-  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  margin: 0 0 44px;
+  margin: 0 0 30px;
   color: #333;
+  background-color: #f0f3f5;
+}
+body,h1,h2{
+    font-weight: 300;
 }
 body * {
   box-sizing: border-box;
@@ -41,6 +49,32 @@ hr{
   margin: 0 auto;
 }
 
+.clearfix:after {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  content: '';
+}
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+.blocklabel{
+  display: block;
+    font-weight: 700;
+
+}
+.allignright{
+  text-align: right;
+  margin-top: 10px;
+}
+.alligncenter{
+  text-align: center;
+  margin-top: 10px;
+}
+
 /*doc
 ---
 title: Headers
@@ -57,62 +91,21 @@ Styles defined for header elements.
 
 */
 .h1 {
-  font-weight: 300;
-  margin-bottom: 10px;
-  font-size: 2rem
+    font-size: 1.3rem;
+  margin: 0;
+  padding: 8px 10px;
+  background-color: $red00;
+  color:#fff;
+  box-shadow: 0 3px 0 0 #d0d2d3;
 }
 
 .h2 {
-    font-weight: 300;
-margin: 20px 0 0;
-color: #2180d3;
-  font-size: 1.5rem
-
-}
-.clearfix:after {
-  display: block;
-  clear: both;
-  overflow: hidden;
-  height: 0;
-  content: '';
-}
-.nowrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow:ellipsis;
-}
-.blocklabel{
-  display: block;
-}
-.allignright{
-  text-align: right;
-  margin-top: 10px;
-}
-.alligncenter{
-  text-align: center;
-  margin-top: 10px;
-}
-/*chart area*/
-.placeholder {
-  height: 300px;
-  background-color: #2180d3;
-  /*background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUxYWRmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMTgwZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);*/
-  @include background-image(linear-gradient(#56a2e4, #2180d3));
-  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56a2e4', endColorstr='#2180d3',GradientType=0 );*/
-}
-.flot-text{
-  color:#fff!important;
-}
-.legend {
-  font-size: 12px;
-  line-height: 1;
-  >div{
-    display: none;
-  }
-  table{
-    background-color: #444;
-    background-color: rgba(0,0,0,.15)
-  }
+  font-size: 1rem;
+  margin: 20px 0 0;
+  padding: 2px 5px;
+  color: #fff;
+  background-color: #10181f;
+  border-radius: $radius $radius 0 0;
 }
 
 /*doc
@@ -141,18 +134,19 @@ button {
   max-width: 100%;
   padding: 0 6px;
   border: 1px solid #fff;
-  font-family: 'Segoe UI', Helvetica, Arial;
+  font-family: 'Open Sans', 'Segoe UI', Helvetica, Arial;
   cursor: pointer;
   color: #fff;
   border: 0 none;
-  border-radius: 3px;
-  background-color: #cb4b4b;
+  border-radius: $radius;
+
+  background-color: $red00;
   &:hover {
-    background-color: #a94442;
+    background-color: $blue01;
   }
 }
 .btn-change {
-  background-color: lightslategrey;
+  background-color: $warning;
 }
 /*doc
 ---
@@ -173,6 +167,7 @@ Style for SELECT & INPUT
 
 select, input {
   margin: 0;
+  border-radius: $radius;
 }
 select, [type='text'], [type='number'] {
   width: 165px;
@@ -182,7 +177,7 @@ select, input[type='text'], input[type='number'] {
   line-height: 19px;
   max-width: 100%;
   padding: 0 6px;
-  border: 1px solid $blue01;
+  border: 1px solid #ddd;
   background-color: #fff;
 }
 
@@ -213,7 +208,9 @@ Any FIELDSET element and LEGEND will be styled as follows:
 fieldset {
   margin: 0;
   border: 0 solid $blue01;
-  background-color: $blue02;
+  background-color: #fff;
+  border-radius: 0 0 $radius $radius;
+    box-shadow: 0 3px 0 0 #d0d2d3;
 
 }
 legend {
@@ -304,16 +301,20 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  border-radius: 0 0  $radius $radius;
+    box-shadow: 0 3px 0 0 #d0d2d3;
+    background-color: #fff;
+
   caption{
       color: $blue01;
       text-transform: uppercase;
       background-color: $blue02;
   }
   thead,tfoot{
-    background-color: #eee;
+    background-color: #dae2e8;
   }
   thead tr,tbody tr{
-    border-bottom: 1px solid $blue01;
+    border-bottom: 1px solid #ddd;
   }
   th, td{
     padding: 1px 5px;
@@ -321,18 +322,14 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
     text-overflow: ellipsis;
   }
   th {
-    font-weight: 400;
     text-align: left;
-    text-transform: uppercase;
+    font-weight: 700;
   }
 
   .hasFloat {
     white-space: nowrap;
   }
 
-  tbody tr:nth-child(odd) {
-    background-color: #fff;
-  }
   tbody tr:hover{
     background-color: #eee;
   }
@@ -383,20 +380,15 @@ Holiday box with checkmark and title. Checked and unchecked states.
     display: inline-block;
     width: 100%;
     margin-bottom: 1px;
-    color: #8a6d3b;
-    border: 1px solid #fe9;
-    background-color: $yellow01;
+    color: #fff;
+    background-color: #f28e1f;
+    border-radius: $radius;
   }
   :checked + span {
-    color: #3c763d;
-    background-color: $green01;
-    border-color: #d6e9c6;
-  }
-  span:hover {
     background-color: $green01;
   }
-  :checked + span:hover {
-    background-color: $yellow01;
+  span:hover, :checked + span:hover {
+    background-color: $red00;
   }
   span:before {
     font-size: 2rem;
@@ -433,23 +425,16 @@ Styling examples that a few classes provides: ".info, .success, .danger, .warnin
 
 .info {
   padding: 0 10px;
-  color: #31708f;
-  border: 1px solid #bce8f1;
-  background-color: $blue02;
+  color: #fff;
+  background-color: #0093c9;
   &.success {
-    color: #3c763d;
     background-color: $green01;
-    border-color: #d6e9c6;
   }
   &.danger {
-    color: #a94442;
-    border-color: #ebccd1;
     background-color: $red01;
   }
   &.warning {
-    color: #8a6d3b;
-    border-color: gold;
-    background-color: $yellow01;
+    background-color: $warning;
   }
 }
 
@@ -490,4 +475,27 @@ Shows on top of chart during hover of a node.
   border-right-color: #fff;
   border-right-color: rgba(255, 255, 255, .8);
   border-left-width: 0;
+}
+
+/*chart area*/
+.placeholder {
+  height: 300px;
+  background-color: $blue01;
+  border-radius: $radius;
+    box-shadow: 0 3px 0 0 #d0d2d3;
+
+}
+.flot-text{
+  color:#fff!important;
+}
+.legend {
+  font-size: 12px;
+  line-height: 1;
+  >div{
+    display: none;
+  }
+  table{
+    background-color: #444;
+    background-color: rgba(0,0,0,.15)
+  }
 }
