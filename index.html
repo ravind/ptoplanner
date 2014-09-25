@@ -23,13 +23,13 @@
       </div>
       <div class="inblock">
         <label class="blocklabel">Employee Status</label>
-        <select>
-          <option value="ft">Full Time</option>
+        <select name="year" id="selectYear" ng-model="empStatusVar" ng-options="empState.val as empState.label for empState in empStates" ng-change="empStatusVarChanged()">
         </select>
       </div>
       <div class="inblock">
         <label class="blocklabel">Hire Year</label>
-        <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears" ng-change="hireYearVarChanged()"></select>
+        <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears" ng-change="hireYearVarChanged()">
+        </select>
       </div>
       <div class="inblock">
         <label class="blocklabel">Prorate Start</label>
@@ -39,6 +39,7 @@
         <label class="blocklabel">Prorate End</label>
         <input type="text" ng-model="prorateEnd" ng-change="prorateEndChanged()" data-dp="" placeholder="dd/mm/yyyy"/>
       </div>
+      {{empStatusVar}}
     </fieldset>
     <br>
     <div class="placeholder" data-chart=""></div>
@@ -147,16 +148,12 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
   <script src="libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="scripts/jquery.flot.min.js"></script>
   <script src="scripts/jquery.flot.time.min.js"></script>
-  <!-- <script src="scripts/jquery.flot.symbol.js"></script> -->
   <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script> -->
   <script src="libs/angularjs/1.2.4/angular.min.js"></script>
-  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.js"></script> -->
   <script src="app/app.js"></script>
   <script src="services/dataStore.js"></script>
   <script src="factories/ptoManager.js"></script>
   <script src="factories/chartGenerator.js"></script>
-  <!-- <script src="factories/floatingHolidayChecker.js"></script> -->
-  <!-- <script src="filters/floatStatus.js"></script>-->
   <script src="controllers/ptoController.js"></script>
   <script src="directives/chart.js"></script>
 </body>

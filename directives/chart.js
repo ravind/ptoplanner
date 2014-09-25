@@ -7,9 +7,10 @@ app.directive('chart', function(chartGenerator, $rootScope) {
       scope.$watch('ptoList', updateChart, true);
       scope.$watch('floatsList', updateChart, true);
       scope.$watch('startingBalance', updateChart, true);
-      scope.$watch('hireYearVar', updateChart, true);
       scope.$watch('prorateStart', updateChart, true);
       scope.$watch('prorateEnd', updateChart, true);
+      scope.$watch('empStatusVar', updateChart, true);
+      scope.$watch('hireYearVar', updateChart, true);
 
       function updateChart() {
         var data = chartGenerator.getChartData();

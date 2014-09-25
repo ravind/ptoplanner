@@ -6,12 +6,13 @@ app.factory('ptoManager', function(dataStore) {
     factory = {};
     ptoKey = "ptoList";
     dataStore.setDefault(ptoKey, {
-      items: [],
+      items: [ {"id": 1,"dateFrom": 1397451600000,"dateTo": 1397797200000,"ptoType": 0,"comment": "Example PTO","floats": []}],
       cnt: 0,
       holidays: {},
       floats: {},
       sbKey: 0,
       hireYearVar: 20,
+      empStatusVar: 1,
       prorateStart: "01/01/2014",
       prorateEnd: "12/31/2014"
     });
@@ -60,6 +61,22 @@ app.factory('ptoManager', function(dataStore) {
   };
   factory.setHireYearVar = function(hireYearVar) {
     ptoList.hireYearVar = hireYearVar;
+    dataStore.setObject(ptoKey, ptoList);
+  };
+
+  //Employee Status Variable
+  factory.getEmpStates = function() {
+    var empStates = [ {label: "Full time", val: 1}, {label: "Part time", val: 2} ];
+    return empStates;
+  };
+  factory.getEmpStatusVar = function() {
+    if(!ptoList.empStatusVar){
+      ptoList.empStatusVar = 1;
+    }
+    return ptoList.empStatusVar;
+  };
+  factory.setEmpStatusVar = function(empStatusVar) {
+    ptoList.empStatusVar = empStatusVar;
     dataStore.setObject(ptoKey, ptoList);
   };
 

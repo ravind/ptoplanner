@@ -7,15 +7,17 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       startingBalance,
       prorateStart,
       prorateEnd,
-      hireYearVar;
+      hireYearVar,
+      empStatusVar;
 
   function init() {
     ptoList = ptoManager.getPtoList();
     floatsList = ptoManager.getFloats();
     startingBalance = ptoManager.getStartingBalance();
-    hireYearVar = ptoManager.getHireYearVar();
     prorateStart = ptoManager.getProrateStart();
     prorateEnd = ptoManager.getProrateEnd();
+    hireYearVar = ptoManager.getHireYearVar();
+    empStatusVar = ptoManager.getEmpStatusVar();
   }
   init();
 
@@ -109,7 +111,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
-        accrued.setBalance(accrued.getBalance() + hireYearVar / 3);
+        accrued.setBalance(accrued.getBalance() + (hireYearVar/empStatusVar) / 3);
       }
 
       //if days are in PTO list then subtract
@@ -132,9 +134,9 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       }
       //if accrued has gone over 80
       //set the lost balance and set accrued to 80
-      if (accrued.getBalance() > 80) {
-        lost.setBalance(lost.getBalance() + accrued.getBalance() - 80);
-        accrued.setBalance(80);
+      if (accrued.getBalance() > ( 80/empStatusVar ) ) {
+        lost.setBalance(lost.getBalance() + accrued.getBalance() - ( 80/empStatusVar ) );
+        accrued.setBalance( 80/empStatusVar );
       }
 
       //push the date.valueOf and balance to array ["1411501806158","72.2"]

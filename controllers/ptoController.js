@@ -4,11 +4,17 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   $scope.startingBalance = ptoManager.getStartingBalance();
   $scope.prorateStart = ptoManager.getProrateStart();
   $scope.prorateEnd = ptoManager.getProrateEnd();
+
   $scope.ptoList = ptoManager.getPtoList();
   $scope.holidayList = ptoManager.getHolidays();
   $scope.floatsList = ptoManager.getFloats();
+
   $scope.hireYears = ptoManager.getHireYears();
   $scope.hireYearVar = ptoManager.getHireYearVar();
+
+  $scope.empStates = ptoManager.getEmpStates();
+  $scope.empStatusVar = ptoManager.getEmpStatusVar();
+
   $scope.ptoTypes = ptoManager.getPtoTypes();
   $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null};
 
@@ -74,6 +80,10 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
 
   $scope.hireYearVarChanged = function() {
     ptoManager.setHireYearVar($scope.hireYearVar);
+  };
+
+  $scope.empStatusVarChanged = function() {
+    ptoManager.setEmpStatusVar($scope.empStatusVar);
   };
 
   $scope.dateFromChanged = function() {

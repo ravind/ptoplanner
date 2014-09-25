@@ -66,5 +66,4 @@ app.run(function($rootScope) {
     // };
     // var lat = 0;
 
-
 });
