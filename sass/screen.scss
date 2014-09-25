@@ -91,7 +91,7 @@ Styles defined for header elements.
 
 */
 .h1 {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
   margin: 0;
   padding: 8px 10px;
   background-color: $red00;
@@ -135,10 +135,12 @@ button {
   padding: 0 6px;
   border: 1px solid #fff;
   font-family: 'Open Sans', 'Segoe UI', Helvetica, Arial;
+  font-weight: 300;
   cursor: pointer;
   color: #fff;
   border: 0 none;
   border-radius: $radius;
+  text-transform: uppercase;
 
   background-color: $red00;
   &:hover {
@@ -183,8 +185,8 @@ select, input[type='text'], input[type='number'] {
 
 [disabled], [readonly] {
   cursor: not-allowed;
-  color: #999;
-  background-color: #eee;
+  color: #fff;
+  background-color: #d1d2d4;
 }
 [disabled]:hover, [readonly]:hover {
   background-color: #ccc;
@@ -246,6 +248,10 @@ Grid system contains floating two containers of 50/50 or 37/63 ratio;
   <div class="float-lil"><hr>Little<hr></div>
   <div class="float-big"><hr>Big<hr></div>
 </div>
+<div class="inblock"><hr>Inline block<hr></div>
+<div class="inblock"><hr>Inline block<hr></div>
+<div class="inblock"><hr>Inline block<hr></div>
+
 ```
 */
 .float50 {
@@ -272,6 +278,10 @@ Grid system contains floating two containers of 50/50 or 37/63 ratio;
 .float-big {
   float: left;
   width: 63%;
+}
+.inblock{
+  display: inline-block;
+  width: 180px;
 }
 /*doc
 ---
@@ -388,7 +398,7 @@ Holiday box with checkmark and title. Checked and unchecked states.
     background-color: $green01;
   }
   span:hover, :checked + span:hover {
-    background-color: $red00;
+    background-color: $blue01;
   }
   span:before {
     font-size: 2rem;

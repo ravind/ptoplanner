@@ -11,6 +11,19 @@ app.run(function($rootScope) {
     var total = new Date(curYear,11,31) - firstOfYear;
     var progress = new Date() - firstOfYear;
 
+    $rootScope.nowDate = newDate;
+    $rootScope.gettime = newDate.getTime();
+    $rootScope.getFullYear = curYear;
+    $rootScope.curQuarter = curQuarter;
+
+    $rootScope.todateHoursEarned = Math.floor( 20 * (progress / total) );
+
+    $rootScope.todateHoursUsed = "--";
+    $rootScope.ptoBalance = 0;
+    $rootScope.lostBalance = 0;
+    $rootScope.todateHoursAvailable = 0;
+    $rootScope.todateHoursLost = 0;
+
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
@@ -45,17 +58,6 @@ app.run(function($rootScope) {
             $("#from").datepicker("option", "maxDate", selectedDate);
         }
     });
-
-    $rootScope.getFullYear = curYear;
-    $rootScope.curQuarter = curQuarter;
-    $rootScope.gettime = newDate.getTime();
-    $rootScope.nowDate = newDate;
-    $rootScope.ptoBalance = 0;
-    $rootScope.lostBalance = 0;
-    $rootScope.todateHoursAvailable = 0;
-    $rootScope.todateHoursLost = 0;
-    $rootScope.todateHoursEarned = Math.floor( 20 * (progress / total) );
-    $rootScope.todateHoursUsed = "--";
 
     // var thanksDay = function(year) {
     //     var first = new Date(year, 10, 1);

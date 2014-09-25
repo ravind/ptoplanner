@@ -17,25 +17,25 @@
   <div class="container" ng-controller="ptoController">
     <h2 class="h2">Setup</h2>
     <fieldset id="divStartingBalance" class="clearfix">
-      <div class="float33">
+      <div class="inblock">
         <label class="blocklabel">Carry Over</label>
         <input type="number" step="1" ng-model="startingBalance" ng-change="startingBalanceChanged()" />
       </div>
-      <div class="float33">
-        <label class="blocklabel">Hire Year</label>
-        <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears" ng-change="hireYearVarChanged()"></select>
-      </div>
-      <div class="float33">
+      <div class="inblock">
         <label class="blocklabel">Employee Status</label>
-        <select disabled="">
+        <select>
           <option value="ft">Full Time</option>
         </select>
       </div>
-      <div class="float33">
+      <div class="inblock">
+        <label class="blocklabel">Hire Year</label>
+        <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears" ng-change="hireYearVarChanged()"></select>
+      </div>
+      <div class="inblock">
         <label class="blocklabel">Prorate Start</label>
         <input type="text" ng-model="prorateStart" ng-change="prorateStartChanged()" data-dp="" placeholder="dd/mm/yyyy"/>
       </div>
-      <div class="float33">
+      <div class="inblock">
         <label class="blocklabel">Prorate End</label>
         <input type="text" ng-model="prorateEnd" ng-change="prorateEndChanged()" data-dp="" placeholder="dd/mm/yyyy"/>
       </div>
