@@ -11,42 +11,16 @@ app.factory('ptoManager', function(dataStore) {
       holidays: {},
       floats: {},
       sbKey: 0,
-      hireYearVar: 20
+      hireYearVar: 20,
+      prorateStart: "01/01/2014",
+      prorateEnd: "12/31/2014"
     });
     ptoList = dataStore.getObject(ptoKey);
   }
 
   init();
 
-
-  factory.getPtoList = function() {
-    //add floating holidays
-    $.each(ptoList.items, function(k,v){
-      ptoList.items[k].floats = [];
-      for(var key in ptoList.floats){
-        var asdf = new Date(ptoList.floats[key].date).valueOf();
-        if(v.dateFrom <= asdf && asdf <= v.dateTo ){
-          ptoList.items[k].floats.push(asdf);
-        }
-      }
-    });
-
-    return ptoList.items;
-  };
-
-  factory.getPtoTypes = function() {
-    var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
-    return ptoTypes;
-  };
-
-  factory.getFloats = function() {
-    return ptoList.floats;
-  };
-
-  factory.getHolidays = function() {
-    return ptoList.holidays;
-  };
-
+  //Starting Balance Carry Over
   factory.getStartingBalance = function() {
     return ptoList.sbKey;
   };
@@ -55,7 +29,25 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
 
+  //prorate Start Date
+  factory.getProrateStart = function() {
+    return ptoList.prorateStart || "01/01/2014";
+  };
+  factory.setProrateStart = function(prorateStart) {
+    ptoList.prorateStart = prorateStart;
+    dataStore.setObject(ptoKey, ptoList);
+  };
 
+  //prorate End Date
+  factory.getProrateEnd = function() {
+    return ptoList.prorateEnd || "12/31/2014";
+  };
+  factory.setProrateEnd = function(prorateEnd) {
+    ptoList.prorateEnd = prorateEnd;
+    dataStore.setObject(ptoKey, ptoList);
+  };
+
+  //Hire Year Variable
   factory.getHireYears = function() {
     var hireYears = [ {label: "More than 2 yrs ago", val: 20}, {label: "Less than 2 yrs ago", val: 15} ];
     return hireYears;
@@ -67,11 +59,11 @@ app.factory('ptoManager', function(dataStore) {
     return ptoList.hireYearVar;
   };
   factory.setHireYearVar = function(hireYearVar) {
-
     ptoList.hireYearVar = hireYearVar;
     dataStore.setObject(ptoKey, ptoList);
   };
 
+  //PTO items
   factory.addPto = function(from, to, type, note) {
     ptoList.cnt += 1;
     var newPto = {
@@ -87,7 +79,23 @@ app.factory('ptoManager', function(dataStore) {
     });
     dataStore.setObject(ptoKey, ptoList);
   };
-
+  factory.getPtoTypes = function() {
+    var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
+    return ptoTypes;
+  };
+  factory.getPtoList = function() {
+    //add floating holidays
+    $.each(ptoList.items, function(k,v){
+      ptoList.items[k].floats = [];
+      for(var key in ptoList.floats){
+        var asdf = new Date(ptoList.floats[key].date).valueOf();
+        if(v.dateFrom <= asdf && asdf <= v.dateTo ){
+          ptoList.items[k].floats.push(asdf);
+        }
+      }
+    });
+    return ptoList.items;
+  };
   factory.removePto = function(id) {
     var i = ptoList.items.length - 1;
     while (i >= 0) {
@@ -100,6 +108,10 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
 
+  //floating holidays
+  factory.getFloats = function() {
+    return ptoList.floats;
+  };
   factory.addFloat = function(id, qdate) {
     if (!ptoList.floats) {
       ptoList.floats = {};
@@ -110,13 +122,16 @@ app.factory('ptoManager', function(dataStore) {
     }
     dataStore.setObject(ptoKey, ptoList);
   };
-
   factory.offFloat = function(id) {
     ptoList.floats[id].used = false;
     ptoList.floats[id].date = null;
     dataStore.setObject(ptoKey, ptoList);
   };
 
+  //standard holidays
+  factory.getHolidays = function() {
+    return ptoList.holidays;
+  };
   factory.addHoliday = function(id) {
     if (!ptoList.holidays) {
       ptoList.holidays = {};
@@ -124,7 +139,6 @@ app.factory('ptoManager', function(dataStore) {
     ptoList.holidays[id] = true;
     dataStore.setObject(ptoKey, ptoList);
   };
-
   factory.delHoliday = function(id) {
     ptoList.holidays[id] = false;
     dataStore.setObject(ptoKey, ptoList);

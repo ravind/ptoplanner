@@ -20,16 +20,21 @@ app.run(function($rootScope) {
         return value && JSON.parse(value);
     };
 
-    //$(".datepicker").datepicker();
-
+    //bind jqueryUI datepicker to
     $('[data-dp]').each(function() {
       var $this = $(this);
-        var dpData = $this.data("dp");
+      var dpData = $this.data("dp");
+      //if it has quarter end month number add min & max
+      if(dpData.qEnd){
         $this.datepicker({
           minDate: new Date(curYear, dpData.qEnd - 3, 1),
           maxDate: new Date(curYear, dpData.qEnd, 0)
         });
+      }else{ //otherwise bind without min & max
+        $this.datepicker();
+      }
     });
+    //Bind datepicker with min & max to the from & to inputs
     $("#from").datepicker({
         onClose: function(selectedDate) {
             $("#to").datepicker("option", "minDate", selectedDate);
@@ -51,9 +56,6 @@ app.run(function($rootScope) {
     $rootScope.todateHoursLost = 0;
     $rootScope.todateHoursEarned = Math.floor( 20 * (progress / total) );
     $rootScope.todateHoursUsed = "--";
-
-    $rootScope.prorateStart = "01/01/2014";
-    $rootScope.prorateEnd = "12/31/2014";
 
     // var thanksDay = function(year) {
     //     var first = new Date(year, 10, 1);

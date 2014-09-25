@@ -5,6 +5,8 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       ptoList,
       floatsList,
       startingBalance,
+      prorateStart,
+      prorateEnd,
       hireYearVar;
 
   function init() {
@@ -12,6 +14,8 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
     floatsList = ptoManager.getFloats();
     startingBalance = ptoManager.getStartingBalance();
     hireYearVar = ptoManager.getHireYearVar();
+    prorateStart = ptoManager.getProrateStart();
+    prorateEnd = ptoManager.getProrateEnd();
   }
   init();
 
@@ -92,8 +96,8 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       lossData = [],
       ptoIterator = getPtoIterator(0),
       curYear = $rootScope.getFullYear,
-      endDate = new Date($rootScope.prorateEnd),
-      curDate = new Date($rootScope.prorateStart),
+      endDate = new Date(prorateEnd),
+      curDate = new Date(prorateStart),
       curPto = ptoIterator.next(),
       accrued = balanceTracker(startingBalance),
       lost = balanceTracker(0);

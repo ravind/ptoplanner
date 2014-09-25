@@ -2,6 +2,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
 "use strict";
 
   $scope.startingBalance = ptoManager.getStartingBalance();
+  $scope.prorateStart = ptoManager.getProrateStart();
+  $scope.prorateEnd = ptoManager.getProrateEnd();
   $scope.ptoList = ptoManager.getPtoList();
   $scope.holidayList = ptoManager.getHolidays();
   $scope.floatsList = ptoManager.getFloats();
@@ -16,11 +18,9 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     $scope.newPto.dateTo = null;
     $scope.newPto.note = null;
   };
-
   $scope.removePto = function(id) {
     ptoManager.removePto(id);
   };
-
   $scope.addPto = function() {
     if ($scope.newPto.id) {
       ptoManager.removePto($scope.newPto.id);
@@ -28,10 +28,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     var fromDate = new Date(Date.parse($scope.newPto.dateFrom));
     var toDate = new Date(Date.parse($scope.newPto.dateTo));
     ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note);
-
     $scope.resetPto();
   };
-
   $scope.editPto = function(obj) {
     var fromDate = new Date(obj.dateFrom);
     var toDate = new Date(obj.dateTo);
@@ -64,6 +62,14 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
 
   $scope.startingBalanceChanged = function() {
     ptoManager.setStartingBalance($scope.startingBalance);
+  };
+
+  $scope.prorateStartChanged = function() {
+    ptoManager.setProrateStart($scope.prorateStart);
+  };
+
+  $scope.prorateEndChanged = function() {
+    ptoManager.setProrateEnd($scope.prorateEnd);
   };
 
   $scope.hireYearVarChanged = function() {
