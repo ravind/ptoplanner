@@ -149,7 +149,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
       //needs work
       //Totals are counting weekends against you
       //this would be wrong if you are currently on PTO
-      if ( $rootScope.nowDate.valueOf() > dateTo) {
+      if ( $rootScope.nowDate.valueOf() > dateFrom) {
         $scope.todateHoursUsed += adjust;
       }
       i++;
