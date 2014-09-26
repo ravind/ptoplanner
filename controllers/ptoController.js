@@ -137,13 +137,21 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   function updateDaysUsed() {
     var i = 0;
     $scope.daysUsed = 0;
+    $scope.todateHoursUsed = 0;
     while(i < $scope.ptoList.length){
+
       var dateTo = $scope.ptoList[i].dateTo;
       var dateFrom = $scope.ptoList[i].dateFrom;
       var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
       var floatLength = ($scope.ptoList[i].floats) ? $scope.ptoList[i].floats.length : 0;
       var adjust = (diff + 1) - floatLength;
       $scope.daysUsed += adjust;
+      //needs work
+      //Totals are counting weekends against you
+      //this would be wrong if you are currently on PTO
+      if ( $rootScope.nowDate.valueOf() > dateTo) {
+        $scope.todateHoursUsed += adjust;
+      }
       i++;
     }
   }

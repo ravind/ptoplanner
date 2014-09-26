@@ -27,13 +27,15 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       reset: function() { this.curIndex = 0; },
       next: function() {
         var nextPto = null;
-        // & is bitwise AND. This operator expects two numbers and retuns a number.
-        // In case they are not numbers, they are cast to numbers.
-        while (!nextPto & this.curIndex < ptoList.length) {
-          if (ptoList[this.curIndex].ptoType == ptoType) {
-            nextPto = ptoList[this.curIndex];
-          }
 
+        /* the singel "&"" is bitwise AND.
+        ** This operator expects two numbers and retuns a number.
+        ** In case they are not numbers, they are cast to numbers.
+        */
+        while (!nextPto & this.curIndex < ptoList.length) {
+          //if (ptoList[this.curIndex].ptoType == ptoType) {
+            nextPto = ptoList[this.curIndex];
+          //}
           this.curIndex++;
         }
         return nextPto;
@@ -103,9 +105,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       curPto = ptoIterator.next(),
       accrued = balanceTracker(startingBalance),
       lost = balanceTracker(0);
-
     lost.commit();
-
 
     while (curDate.valueOf() <= endDate.valueOf()) {
       //if its the 15th or last day of the month
@@ -122,12 +122,9 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
             //weekends do not count against PTO
             if (n !== 0 && n != 6) {
               //if its not a weekend day then subtract from PTO
-              if(curPto.halfDays){
-                accrued.setBalance(accrued.getBalance() - 4);
-              }else{
-                accrued.setBalance(accrued.getBalance() - 8);
-              }
-
+              var ptoVar = (curPto.halfDays) ? 4 : 8;
+              //if PTO is set as half days then subtract 4 hours intead of 8
+              accrued.setBalance(accrued.getBalance() - ptoVar);
             }
           }
         }
@@ -139,9 +136,9 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       }
       //if accrued has gone over 80
       //set the lost balance and set accrued to 80
-      if (accrued.getBalance() > ( 80/empStatusVar ) ) {
-        lost.setBalance(lost.getBalance() + accrued.getBalance() - ( 80/empStatusVar ) );
-        accrued.setBalance( 80/empStatusVar );
+      if (accrued.getBalance() > ( 80 / empStatusVar ) ) {
+        lost.setBalance(lost.getBalance() + accrued.getBalance() - ( 80 / empStatusVar ) );
+        accrued.setBalance( 80 / empStatusVar );
       }
 
       //push the date.valueOf and balance to array ["1411501806158","72.2"]
@@ -163,7 +160,6 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       ptoBalanceEnd: balanceData[balanceData.length - 1],
       lostBalance: lossData,
       lostBalanceEnd: lossData[lossData.length - 1]
-
     };
   };
 

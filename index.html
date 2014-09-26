@@ -63,8 +63,8 @@
             </div>
             <div class="clearfix">
               <div class="float66">
-                <label class="blocklabel">Log this time as 4 hours of PTO pre day.</label>
-                <input type="checkbox" ng-model="newPto.halfDays"/> Half days
+                <label class="blocklabel">Full PTO or half.</label>
+                <input type="checkbox" ng-model="newPto.halfDays"/> Check this to log this PTO as half days.
               </div>
               <div class="float33">
                 <label class="blocklabel">&nbsp;</label>
@@ -98,23 +98,23 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
         <table id="tblPto" class="tbl">
           <thead>
             <tr>
-              <th>From</th><th>To</th><th>Note</th><th>Half Days</th><th class="hasFloat" title="Contains Floating Holiday">*</th>
+              <th>From</th><th>To</th><th>Note</th><th>Full/Half</th><th class="hasFloat" title="Contains Floating Holiday">*</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="pto in ptoList | orderBy:'dateFrom' track by pto.id">
-              <td>{{ pto.dateFrom | date:'shortDate' }}</td>
-              <td>{{ pto.dateTo | date:'shortDate' }}</td>
-              <td>{{ pto.comment }}</td>
-              <td>{{ pto.halfDays }}</td>
+              <td ng-bind="pto.dateFrom | date:'shortDate'"></td>
+              <td ng-bind="pto.dateTo | date:'shortDate'"></td>
+              <td ng-bind="pto.comment"></td>
+              <td ng-bind="pto.halfDays ? 'Half' : 'Full'"></td>
               <td class="hasFloat">
-                <span>{{pto.floats.length}}</span>&nbsp;&nbsp;&nbsp;
+                <span ng-bind="pto.floats.length"></span>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn-change" ng-click="editPto(pto)">Edit</button>
                 <button type="button" class="btn-delete" ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
-          <tfoot><tr><td colspan="4" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
+          <tfoot><tr><td colspan="5" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
         </table>
         <h2 class="h2">Totals</h2>
         <table class="tbl totals">
@@ -124,17 +124,17 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours</td>
-              <td>{{((todateHoursEarned * 8) /empStatusVar) + startingBalance}}</td>
-              <td>{{todateHoursUsed}}</td>
-              <td>{{todateHoursLost}}</td>
-              <td>{{todateHoursAvailable}}</td>
+              <td ng-bind="( ( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance ) * elapsedYear | number:2"></td>
+              <td ng-bind="todateHoursUsed * 8"></td>
+              <td ng-bind="todateHoursLost"></td>
+              <td ng-bind="todateHoursAvailable"></td>
             </tr>
             <tr>
               <td>Days</td>
-              <td>{{(todateHoursEarned/empStatusVar) + (startingBalance / 8)}}</td>
-              <td>{{todateHoursUsed}}</td>
-              <td>{{todateHoursLost / 8}}</td>
-              <td>{{todateHoursAvailable / 8}}</td>
+              <td ng-bind="( ( hireYearVar / empStatusVar ) + ( startingBalance / 8 ) ) * elapsedYear | number:2"></td>
+              <td ng-bind="todateHoursUsed"></td>
+              <td ng-bind="todateHoursLost"></td>
+              <td ng-bind="todateHoursAvailable"></td>
             </tr>
           </tbody>
           <thead>
@@ -143,21 +143,20 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours</td>
-              <td>{{((hireYearVar * 8)/empStatusVar) + startingBalance}}</td>
-              <td>{{daysUsed * 8}}</td>
-              <td>{{lostBalance}}</td>
-              <td>{{ptoBalance}}</td>
+              <td ng-bind="( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance"></td>
+              <td ng-bind="daysUsed * 8"></td>
+              <td ng-bind="lostBalance"></td>
+              <td ng-bind="ptoBalance"></td>
             </tr>
             <tr>
               <td>Days</td>
-              <td>{{(hireYearVar/empStatusVar) + (startingBalance/8)}}</td>
-              <td>{{daysUsed}}</td>
-              <td>{{lostBalance/8}}</td>
-              <td>{{ptoBalance/8}}</td>
+              <td ng-bind="( hireYearVar / empStatusVar ) + ( startingBalance / 8 )"></td>
+              <td ng-bind="daysUsed"></td>
+              <td ng-bind="lostBalance/8"></td>
+              <td ng-bind="ptoBalance/8"></td>
             </tr>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>

@@ -8,8 +8,8 @@ app.run(function($rootScope) {
     var curYear = newDate.getFullYear();
     var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
 
-    var firstOfYear = new Date(curYear,0,1); //jan 1
-    var total = new Date(curYear,11,31) - firstOfYear;
+    var firstOfYear = new Date("01/01/"+curYear); //jan 1
+    var total = new Date("12/31/"+curYear) - firstOfYear;
     var progress = new Date() - firstOfYear;
     //var datepickers for reuse
     var $fromDP = $("#from");
@@ -20,9 +20,8 @@ app.run(function($rootScope) {
     $rootScope.getFullYear = curYear;
     $rootScope.curQuarter = curQuarter;
 
-    $rootScope.todateHoursEarned = Math.floor( 20 * (progress / total) );
+    $rootScope.elapsedYear = progress / total;
 
-    $rootScope.todateHoursUsed = "--";
     $rootScope.ptoBalance = 0;
     $rootScope.lostBalance = 0;
     $rootScope.todateHoursAvailable = 0;
@@ -48,15 +47,15 @@ app.run(function($rootScope) {
         });
       }else{ //otherwise bind without min & max
         $this.datepicker({
-          minDate: new Date(curYear, 0, 1),
-          maxDate: new Date(curYear, 12, 31)
+          minDate: new Date("01/01/"+curYear),
+          maxDate: new Date("12/31/"+curYear)
         });
       }
     });
     //Bind datepicker with min & max to the from & to inputs
     $fromDP.datepicker({
-        minDate: new Date(curYear, 0, 1),
-        maxDate: new Date(curYear, 12, 0),
+        minDate: new Date("01/01/"+curYear),
+        maxDate: new Date("12/31/"+curYear),
         onClose: function(selectedDate) {
           if(selectedDate){
             $("#to").datepicker("option", "minDate", selectedDate);
@@ -64,8 +63,8 @@ app.run(function($rootScope) {
         }
     });
     $toDP.datepicker({
-        minDate: new Date(curYear, 0, 1),
-        maxDate: new Date(curYear, 12, 0),
+        minDate: new Date("01/01/"+curYear),
+        maxDate: new Date("12/31/"+curYear),
         onClose: function(selectedDate) {
           if(selectedDate){
             $("#from").datepicker("option", "maxDate", selectedDate);
@@ -74,8 +73,8 @@ app.run(function($rootScope) {
     });
 
     $rootScope.resetDP = function(){
-      $fromDP.datepicker("option", "maxDate", "12/31/"+curYear);
       $toDP.datepicker("option", "minDate", "01/01/"+curYear);
+      $fromDP.datepicker("option", "maxDate", "12/31/"+curYear);
     };
 
     // var thanksDay = function(year) {
