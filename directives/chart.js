@@ -24,16 +24,19 @@ app.directive('chart', function(chartGenerator, $rootScope) {
             lines: {
               show: true
             },
-            color:"white"
+            color:"#fff",
+            points: {
+              fillColor: "#fff"
+            }
           }, {
             data: data.lostBalance,
             label: "Unused Balance",
             lines: {
               show: true
             },
-            color:"cyan",
+            color:"#ffcb32",
             points: {
-              fillColor: "cyan"
+              fillColor: "#ffcb32"
             }
           }
           //, {
@@ -48,9 +51,9 @@ app.directive('chart', function(chartGenerator, $rootScope) {
           },
           grid: {
             aboveData: false,
-            color: "#fff",
             borderWidth: 0,
             borderColor: "#fff",
+            color: "#fff",
             //backgroundColor: '#555',
             margin: 5,
             labelMargin: 8,
@@ -63,8 +66,8 @@ app.directive('chart', function(chartGenerator, $rootScope) {
                 from: 80,
                 to: 80
               },
-              lineWidth: 3,
-              color: "orange"
+              lineWidth: 2,
+              color: "#111"
             }, {
               xaxis: {
                 from: $rootScope.gettime,
@@ -75,14 +78,14 @@ app.directive('chart', function(chartGenerator, $rootScope) {
             }]
           },
           series: {
-            //shadowSize: 0,
+            //shadowSize: 4,
             points: {
               show: true
             },
             lines: {
               lineWidth: 2,
               fill: true,
-              fillColor: "rgba(255, 255, 255, 0.15)"
+              fillColor: "rgba(255, 255, 255, 0.17)"
             }
           }
         });
