@@ -36,7 +36,8 @@ app.directive('chart', function(chartGenerator, $rootScope) {
             },
             color:"#ffcb32",
             points: {
-              fillColor: "#ffcb32"
+              fillColor: "#ffcb32",
+              symbol: "triangle" // or "diamond", "square", "cross"
             }
           }
           //, {
@@ -63,8 +64,8 @@ app.directive('chart', function(chartGenerator, $rootScope) {
             hoverable: true,
             markings: [{
               yaxis: {
-                from: 80,
-                to: 80
+                from: 80 / scope.empStatusVar,
+                to: 80 / scope.empStatusVar
               },
               lineWidth: 2,
               color: "#111"

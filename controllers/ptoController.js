@@ -142,16 +142,35 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
 
       var dateTo = $scope.ptoList[i].dateTo;
       var dateFrom = $scope.ptoList[i].dateFrom;
-      var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
+      //var diff = ( dateTo - dateFrom ) / 86400000; //24*60*60*1000
+      var diff = 0;
+
+      var ptoVar = ($scope.ptoList[i].halfDays) ? 0.5 : 1;
+
+
+      var whileDate = new Date(dateFrom);
+      var targetDate = new Date(dateTo);
+      //loop through the PTO to not log weekends
+      while( whileDate.valueOf() <= targetDate.valueOf() ){
+            var n = whileDate.getDay();
+            if (n !== 0 && n != 6) {
+              //if its not a weekend day then use it
+              diff += ptoVar;
+            }
+        //increase date by one day before next loop
+        whileDate.setDate( whileDate.getDate() + 1 );
+      }
+
       var floatLength = ($scope.ptoList[i].floats) ? $scope.ptoList[i].floats.length : 0;
-      var adjust = (diff + 1) - floatLength;
+      var adjust = diff - floatLength;
       $scope.daysUsed += adjust;
-      //needs work
-      //Totals are counting weekends against you
-      //this would be wrong if you are currently on PTO
+
+      //!!!
+      //this does not count while you are currently on PTO
       if ( $rootScope.nowDate.valueOf() > dateFrom) {
         $scope.todateHoursUsed += adjust;
       }
+
       i++;
     }
   }

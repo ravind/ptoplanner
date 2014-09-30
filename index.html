@@ -125,14 +125,14 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
             <tr>
               <td>Hours</td>
               <td ng-bind="( ( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance ) * elapsedYear | number:2"></td>
-              <td ng-bind="todateHoursUsed * 8"></td>
-              <td ng-bind="todateHoursLost"></td>
-              <td ng-bind="todateHoursAvailable"></td>
+              <td ng-bind="todateHoursUsed * 8 | number:2"></td>
+              <td ng-bind="todateHoursLost | number:2"></td>
+              <td ng-bind="todateHoursAvailable | number:2"></td>
             </tr>
             <tr>
               <td>Days</td>
               <td ng-bind="( ( hireYearVar / empStatusVar ) + ( startingBalance / 8 ) ) * elapsedYear | number:2"></td>
-              <td ng-bind="todateHoursUsed"></td>
+              <td ng-bind="todateHoursUsed | number:2"></td>
               <td ng-bind="todateHoursLost / 8 | number:2"></td>
               <td ng-bind="todateHoursAvailable / 8 | number:2"></td>
             </tr>
@@ -143,17 +143,17 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours</td>
-              <td ng-bind="( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance"></td>
-              <td ng-bind="daysUsed * 8"></td>
-              <td ng-bind="lostBalance"></td>
-              <td ng-bind="ptoBalance"></td>
+              <td ng-bind="( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance | number:2"></td>
+              <td ng-bind="daysUsed * 8 | number:2"></td>
+              <td ng-bind="lostBalance | number:2"></td>
+              <td ng-bind="ptoBalance | number:2"></td>
             </tr>
             <tr>
               <td>Days</td>
-              <td ng-bind="( hireYearVar / empStatusVar ) + ( startingBalance / 8 )"></td>
-              <td ng-bind="daysUsed"></td>
-              <td ng-bind="lostBalance/8"></td>
-              <td ng-bind="ptoBalance/8"></td>
+              <td ng-bind="( hireYearVar / empStatusVar ) + ( startingBalance / 8 ) | number:2"></td>
+              <td ng-bind="daysUsed | number:2"></td>
+              <td ng-bind="lostBalance / 8 | number:2"></td>
+              <td ng-bind="ptoBalance / 8 | number:2"></td>
             </tr>
           </tbody>
         </table>
@@ -168,6 +168,7 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
   <script src="libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="scripts/jquery.flot.min.js"></script>
   <script src="scripts/jquery.flot.time.min.js"></script>
+  <script src="scripts/jquery.flot.symbol.js"></script>
   <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script> -->
   <script src="libs/angularjs/1.2.4/angular.min.js"></script>
   <script src="app/app.js"></script>

@@ -33,9 +33,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         ** In case they are not numbers, they are cast to numbers.
         */
         while (!nextPto & this.curIndex < ptoList.length) {
-          //if (ptoList[this.curIndex].ptoType == ptoType) {
-            nextPto = ptoList[this.curIndex];
-          //}
+          nextPto = ptoList[this.curIndex];
           this.curIndex++;
         }
         return nextPto;
@@ -105,13 +103,14 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       curPto = ptoIterator.next(),
       accrued = balanceTracker(startingBalance),
       lost = balanceTracker(0);
+
     lost.commit();
 
     while (curDate.valueOf() <= endDate.valueOf()) {
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
-        accrued.setBalance(accrued.getBalance() + (hireYearVar/empStatusVar) / 3);
+        accrued.setBalance( accrued.getBalance() + ( hireYearVar / empStatusVar ) / 3);
       }
 
       //if days are in PTO list then subtract
@@ -129,11 +128,6 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
           }
         }
 
-      //get total hours earned todate variable
-      if( ( curDate.getMonth() + "-" + curDate.getDate() ) === ( $rootScope.nowDate.getMonth() + "-" + $rootScope.nowDate.getDate() ) ){
-        $rootScope.todateHoursAvailable = accrued.getBalance().toFixed(2);
-        $rootScope.todateHoursLost = lost.getBalance().toFixed(2);
-      }
       //if accrued has gone over 80
       //set the lost balance and set accrued to 80
       if (accrued.getBalance() > ( 80 / empStatusVar ) ) {
@@ -141,12 +135,18 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         accrued.setBalance( 80 / empStatusVar );
       }
 
+      //get total hours earned todate variable
+      if( ( curDate.getMonth() + "-" + curDate.getDate() ) === ( $rootScope.nowDate.getMonth() + "-" + $rootScope.nowDate.getDate() ) ){
+        $rootScope.todateHoursAvailable = accrued.getBalance();
+        $rootScope.todateHoursLost = lost.getBalance();
+      }
+
       //push the date.valueOf and balance to array ["1411501806158","72.2"]
       addData(accrued, curDate, balanceData);
       addData(lost, curDate, lossData);
 
       //increase date by one day before next loop
-      curDate.setDate(curDate.getDate() + 1);
+      curDate.setDate( curDate.getDate() + 1 );
 
       //setup next date from ptoList
       if (curPto !== null && curPto.dateTo < curDate) {
