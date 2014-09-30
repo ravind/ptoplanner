@@ -7,10 +7,6 @@ app.run(function($rootScope) {
     var newDate = new Date();
     var curYear = newDate.getFullYear();
     var curQuarter = parseInt(newDate.getMonth() / 3) + 1;
-
-    var firstOfYear = new Date("01/01/"+curYear); //jan 1
-    var total = new Date("12/31/"+curYear) - firstOfYear;
-    var progress = new Date() - firstOfYear;
     //var datepickers for reuse
     var $fromDP = $("#from");
     var $toDP = $("#to");
@@ -19,8 +15,6 @@ app.run(function($rootScope) {
     $rootScope.gettime = newDate.getTime();
     $rootScope.getFullYear = curYear;
     $rootScope.curQuarter = curQuarter;
-
-    $rootScope.elapsedYear = progress / total;
 
     $rootScope.ptoBalance = 0;
     $rootScope.lostBalance = 0;
@@ -76,12 +70,5 @@ app.run(function($rootScope) {
       $toDP.datepicker("option", "minDate", "01/01/"+curYear);
       $fromDP.datepicker("option", "maxDate", "12/31/"+curYear);
     };
-
-    // var thanksDay = function(year) {
-    //     var first = new Date(year, 10, 1);
-    //     var day_of_week = first.getDay();
-    //     return 22 + (11 - day_of_week) % 7;
-    // };
-    // var lat = 0;
 
 });

@@ -105,12 +105,18 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       lost = balanceTracker(0);
 
     lost.commit();
+    $rootScope.todateEarned = startingBalance;
 
     while (curDate.valueOf() <= endDate.valueOf()) {
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
         accrued.setBalance( accrued.getBalance() + ( hireYearVar / empStatusVar ) / 3);
+        //if curDate is not passed today then increase todateEarned amount
+        if( curDate.valueOf() < $rootScope.nowDate.valueOf() ){
+          $rootScope.todateEarned += ( ( hireYearVar / empStatusVar ) / 3);
+        }
+
       }
 
       //if days are in PTO list then subtract

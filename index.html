@@ -124,14 +124,14 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
           <tbody>
             <tr>
               <td>Hours</td>
-              <td ng-bind="( ( ( hireYearVar * 8 ) / empStatusVar ) + startingBalance ) * elapsedYear | number:2"></td>
+              <td ng-bind="todateEarned | number:2"></td>
               <td ng-bind="todateHoursUsed * 8 | number:2"></td>
               <td ng-bind="todateHoursLost | number:2"></td>
               <td ng-bind="todateHoursAvailable | number:2"></td>
             </tr>
             <tr>
               <td>Days</td>
-              <td ng-bind="( ( hireYearVar / empStatusVar ) + ( startingBalance / 8 ) ) * elapsedYear | number:2"></td>
+              <td ng-bind="todateEarned / 8 | number:2"></td>
               <td ng-bind="todateHoursUsed | number:2"></td>
               <td ng-bind="todateHoursLost / 8 | number:2"></td>
               <td ng-bind="todateHoursAvailable / 8 | number:2"></td>
