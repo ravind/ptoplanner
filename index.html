@@ -64,7 +64,7 @@
             <div class="clearfix">
               <div class="float66">
                 <label class="blocklabel">Full PTO or half.</label>
-                <input type="checkbox" ng-model="newPto.halfDays"/> Check this to log this PTO as half days.
+                <input type="checkbox" ng-model="newPto.halfDays"/> Log this PTO as half days (4 hrs per day).
               </div>
               <div class="float33">
                 <label class="blocklabel">&nbsp;</label>
@@ -84,12 +84,12 @@ space      --><label><input type="checkbox" ng-model="floatsList.q4.used" ng-cha
           </div>
           <hr>
           <div id="holidaysSTD" class="holiday-section">
-             <label><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div>Jan 1</span></label><!-- sp
-space     --><label><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div>May 1</span></label><!-- sp
-space     --><label><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><span><div class="nowrap">4th of July</div>Jul 4</span></label><!-- sp
-space     --><label><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor Day</div>Sep 1</span></label><!-- sp
-space     --><label><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div>Nov 27</span></label><!-- sp
-space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div>Dec 25</span></label>
+             <label><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div></span></label><!-- sp
+space     --><label><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div></span></label><!-- sp
+space     --><label><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><span><div class="nowrap">4th of July</div></span></label><!-- sp
+space     --><label><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor Day</div></span></label><!-- sp
+space     --><label><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div></span></label><!-- sp
+space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div></span></label>
           </div>
         </fieldset>
       </div>
@@ -161,7 +161,11 @@ space     --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="
     </div>
   </div>
   <div id='tooltip' class="tooltip"></div>
-
+  <footer class="container">
+    Memorial Day | Last Monday in May<br>
+    Labor Day | First Monday in Sept<br>
+    Thanksgiving Day | Last Thursday in Nov
+  </footer>
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
   <script src="libs/jquery/1.10.2/jquery.min.js"></script>
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
