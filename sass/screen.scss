@@ -14,7 +14,7 @@ body {
   font-family: 'Open Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  margin: 0;
+  margin: 0 0 20px;
   color: #333;
 }
 
@@ -415,6 +415,7 @@ Holiday box with checkmark and title. Checked and unchecked states.
     color: #fff;
     background-color: #f28e1f;
     border-radius: $radius;
+
   }
   :checked + span {
     background-color: $green01;
@@ -429,6 +430,9 @@ Holiday box with checkmark and title. Checked and unchecked states.
   :checked + span:before {
     content: '\002611';
   }
+  b{
+    font-weight: 300
+  }
 
 }
 #holidaysFLT label {
@@ -436,6 +440,9 @@ Holiday box with checkmark and title. Checked and unchecked states.
 }
 #holidaysSTD label {
   width: 16%;
+  span{
+    height: 91px;
+  }
 }
 
 /*doc
@@ -568,29 +575,6 @@ Help info displayed on hover.
   white-space: nowrap;
   padding: 0 5px;
   font-family: sans-serif;
-}
-
-/*doc
----
-title: Footer
-name: footer
-category: basics
----
-
-Help info displayed on hover.
-
-```html_example
-
-<footer>Footer content</footer>
-
-```
-*/
-footer{
-  background-color: #dce4e9;
-  padding: 10px;
-  &.container{
-      margin: 20px auto;
-  }
 }
 
 

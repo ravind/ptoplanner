@@ -21,6 +21,54 @@ app.run(function($rootScope) {
     $rootScope.todateHoursAvailable = 0;
     $rootScope.todateHoursLost = 0;
 
+    function getLastMonday(month) {
+      var d = new Date();
+      d.setDate(1); // Roll to the first day of ...
+      d.setMonth(month);//the month after because of zero base
+      do { // Roll the days backwards until Monday.
+        d.setDate(d.getDate() - 1);
+      } while (d.getDay() !== 1);
+
+      return new Date( curYear, d.getMonth(), d.getDate() );
+    }
+
+    function getThanksDay() {
+        var first = new Date(curYear, 10, 1);
+        var day_of_week = first.getDay();
+        var thanksday = 22 + (11 - day_of_week) % 7;
+        return new Date(curYear,10,thanksday);
+    }
+
+// Memorial Day | Last Monday in May
+// Labor Day | First Monday in Sept
+// Thanksgiving Day | Last Thursday in Nov
+
+    function getHoliday(y,m,d){
+      var date = new Date(y,m,d);
+          console.log(date.getDay());
+          //push sunday to monday
+      if(date.getDay() === 0){
+        date.setDate(date.getDate() + 1);
+      }
+      //push saturday to friday
+      if(date.getDay() === 6){
+        date.setDate(date.getDate() - 1);
+        //if new years moved to previous year push it the other way
+        if(date.getDate() === 31){
+          date.setDate(date.getDate() + 3);
+        }
+      }
+
+      return date;
+    }
+
+    $rootScope.newYearsDay = getHoliday(curYear,0,1);   // New Year's Day
+    $rootScope.memorialDay = getLastMonday(5);// memorial may monday
+    $rootScope.independenceDay = getHoliday(curYear,6,4);   // Independence Day
+    $rootScope.laborDay = getLastMonday(9);// labor sep monday
+    $rootScope.thanksgivingDay = getThanksDay();// thanks nov thursday
+    $rootScope.christmasDay = getHoliday(curYear,11,25); // Christmas Day
+
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));
     };
