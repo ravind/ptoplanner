@@ -39,14 +39,9 @@ app.run(function($rootScope) {
         return new Date(curYear,10,thanksday);
     }
 
-// Memorial Day | Last Monday in May
-// Labor Day | First Monday in Sept
-// Thanksgiving Day | Last Thursday in Nov
-
     function getHoliday(y,m,d){
       var date = new Date(y,m,d);
-          console.log(date.getDay());
-          //push sunday to monday
+      //push sunday to monday
       if(date.getDay() === 0){
         date.setDate(date.getDate() + 1);
       }
@@ -58,16 +53,18 @@ app.run(function($rootScope) {
           date.setDate(date.getDate() + 3);
         }
       }
-
       return date;
     }
 
-    $rootScope.newYearsDay = getHoliday(curYear,0,1);   // New Year's Day
-    $rootScope.memorialDay = getLastMonday(5);// memorial may monday
-    $rootScope.independenceDay = getHoliday(curYear,6,4);   // Independence Day
-    $rootScope.laborDay = getLastMonday(9);// labor sep monday
-    $rootScope.thanksgivingDay = getThanksDay();// thanks nov thursday
-    $rootScope.christmasDay = getHoliday(curYear,11,25); // Christmas Day
+    // Memorial Day | Last Monday in May
+    // Labor Day | First Monday in Sept
+    // Thanksgiving Day | Last Thursday in Nov
+    $rootScope.h1 = getHoliday(curYear,0,1);   // New Year's Day
+    $rootScope.h2 = getLastMonday(5);// memorial may monday
+    $rootScope.h3 = getHoliday(curYear,6,4);   // Independence Day
+    $rootScope.h4 = getLastMonday(9);// labor sep monday
+    $rootScope.h5 = getThanksDay();// thanks nov thursday
+    $rootScope.h6 = getHoliday(curYear,11,25); // Christmas Day
 
     Storage.prototype.setObject = function(key, value) {
         this.setItem(key, JSON.stringify(value));

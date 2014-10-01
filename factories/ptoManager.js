@@ -1,4 +1,4 @@
-app.factory('ptoManager', function(dataStore) {
+app.factory('ptoManager', function(dataStore, $rootScope) {
   "use strict";
   var factory, ptoKey, sbKey, ptoList;
 
@@ -8,11 +8,11 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setDefault(ptoKey, {
       items: [ {"id": 1,"dateFrom": 1397451600000,"dateTo": 1397797200000,"ptoType": 0,"comment": "Example PTO","floats": []}],
       cnt: 0,
-      holidays: {},
-      floats: {},
-      sbKey: 0,
-      hireYearVar: 20,
-      empStatusVar: 1,
+      holidays: {},//{ h1:false, h2:false, h3:false, h4:false, h5:false, h6:false }
+      floats: {},//{ q1:{date:null,used:false}, q2:{date:null,used:false}, q3:{date:null,used:false}, q4:{date:null,used:false} }
+      sbKey: 0, //carry over from previous year
+      hireYearVar: 20, //20 or 15
+      empStatusVar: 1, //1 or 2
       prorateStart: "01/01/2014",
       prorateEnd: "12/31/2014",
       halfDays: false
@@ -99,7 +99,8 @@ app.factory('ptoManager', function(dataStore) {
     dataStore.setObject(ptoKey, ptoList);
   };
   factory.getPtoTypes = function() {
-    var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
+    //var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
+    var ptoTypes = ["PTO"];
     return ptoTypes;
   };
   factory.getPtoList = function() {
@@ -107,9 +108,22 @@ app.factory('ptoManager', function(dataStore) {
     $.each(ptoList.items, function(k,v){
       ptoList.items[k].floats = [];
       for(var key in ptoList.floats){
-        var asdf = new Date(ptoList.floats[key].date).valueOf();
-        if(v.dateFrom <= asdf && asdf <= v.dateTo ){
-          ptoList.items[k].floats.push(asdf);
+        var val = new Date(ptoList.floats[key].date).valueOf();
+        if(v.dateFrom <= val && val <= v.dateTo ){
+          ptoList.items[k].floats.push(val);
+        }
+      }
+      //add standard holidays
+      ptoList.items[k].holidays = [];
+      for(var h in ptoList.holidays){
+        //get the date of the holiday
+        var val2 = $rootScope[h].valueOf();
+        //if holiday is in PTO range
+        if(v.dateFrom <= val2 && val2 <= v.dateTo ){
+          //add standard holiday date to PTO item
+          ptoList.items[k].holidays.push(val2);
+          //set standard holiday as used
+          ptoList.holidays[h] = true;
         }
       }
     });
@@ -135,7 +149,7 @@ app.factory('ptoManager', function(dataStore) {
     if (!ptoList.floats) {
       ptoList.floats = {};
     }
-    ptoList.floats[id]= {used:true};
+    ptoList.floats[id] = {used:true};
     if (qdate) {
       ptoList.floats[id].date = qdate;
     }

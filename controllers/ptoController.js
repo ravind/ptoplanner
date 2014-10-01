@@ -33,8 +33,8 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     if ($scope.newPto.id) {
       ptoManager.removePto($scope.newPto.id);
     }
-    var fromDate = new Date(Date.parse($scope.newPto.dateFrom));
-    var toDate = new Date(Date.parse($scope.newPto.dateTo));
+    var fromDate = new Date( Date.parse( $scope.newPto.dateFrom ) );
+    var toDate = new Date( Date.parse( $scope.newPto.dateTo ) );
     ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.halfDays);
     $scope.resetPto();
   };
@@ -147,7 +147,6 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
 
       var ptoVar = ($scope.ptoList[i].halfDays) ? 0.5 : 1;
 
-
       var whileDate = new Date(dateFrom);
       var targetDate = new Date(dateTo);
       //loop through the PTO to not log weekends
@@ -162,7 +161,10 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
       }
 
       var floatLength = ($scope.ptoList[i].floats) ? $scope.ptoList[i].floats.length : 0;
-      var adjust = diff - floatLength;
+      var holidaysLength = ($scope.ptoList[i].holidays) ? $scope.ptoList[i].holidays.length : 0;
+      var change = diff - floatLength;
+      var adjust = change - holidaysLength;
+
       $scope.daysUsed += adjust;
 
       //!!!

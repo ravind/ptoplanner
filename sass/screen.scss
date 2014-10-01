@@ -41,10 +41,6 @@ body * {
 }
 /*setup*/
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
 
 .clearfix:after {
   display: block;
@@ -332,10 +328,10 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
 .tbl {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  //table-layout: fixed;
   border-radius: 0 0  $radius $radius;
-    box-shadow: 0 3px 0 0 #d0d2d3;
-    background-color: #fff;
+  box-shadow: 0 3px 0 0 #d0d2d3;
+  background-color: #fff;
 
   caption{
       color: $blue01;
@@ -356,10 +352,6 @@ Table styling applied when a class of "tbl" is added to a TABLE element. The cel
   th {
     text-align: left;
     font-weight: 700;
-  }
-
-  .hasFloat {
-    white-space: nowrap;
   }
 
   tbody tr:hover{
@@ -582,5 +574,23 @@ Help info displayed on hover.
   .float50 {
     float: none;
     width: auto;
+  }
+}
+.container {
+  margin: 0 auto;
+}
+@media (min-width: 768px){
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px){
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
   }
 }

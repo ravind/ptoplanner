@@ -84,12 +84,12 @@ spacespace --><label><input type="checkbox" ng-model="floatsList.q4.used" ng-cha
           </div>
           <hr>
           <div id="holidaysSTD" class="holiday-section">
-             <label><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div><b ng-bind="newYearsDay | date:'EEEE MMM dd'"></b></span></label><!--
-spacespace --><label><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div><b ng-bind="memorialDay | date:'EEEE MMM dd'"></b></span></label><!--
-spacespace --><label><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><span><div class="nowrap">Independence</div><b ng-bind="independenceDay | date:'EEEE MMM dd'"></b></span></label><!--
-spacespace --><label><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor</div><b ng-bind="memorialDay | date:'EEEE MMM dd'"></b></span></label><!--
-spacespace --><label><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div><b ng-bind="thanksgivingDay | date:'EEEE MMM dd'"></b></span></label><!--
-spacespace --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div><b ng-bind="christmasDay | date:'EEEE MMM dd'"></b></span></label>
+             <label><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div><b ng-bind="h1 | date:'EEEE MMM dd'"></b></span></label><!--
+spacespace --><label><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div><b ng-bind="h2 | date:'EEEE MMM dd'"></b></span></label><!--
+spacespace --><label><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><span><div class="nowrap">Independence</div><b ng-bind="h3 | date:'EEEE MMM dd'"></b></span></label><!--
+spacespace --><label><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor</div><b ng-bind="h4 | date:'EEEE MMM dd'"></b></span></label><!--
+spacespace --><label><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div><b ng-bind="h5 | date:'EEEE MMM dd'"></b></span></label><!--
+spacespace --><label><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div><b ng-bind="h6 | date:'EEEE MMM dd'"></b></span></label>
           </div>
         </fieldset>
       </div>
@@ -98,7 +98,7 @@ spacespace --><label><input type="checkbox" ng-model="holidayList.h6" ng-change=
         <table id="tblPto" class="tbl">
           <thead>
             <tr>
-              <th>From</th><th>To</th><th>Note</th><th>Full/Half</th><th class="hasFloat" title="Contains Holiday">*</th>
+              <th>From</th><th>To</th><th>Note</th><th>Full/Half</th><th class="nowrap" title="Contains Holiday">*</th>
             </tr>
           </thead>
           <tbody>
@@ -107,14 +107,14 @@ spacespace --><label><input type="checkbox" ng-model="holidayList.h6" ng-change=
               <td ng-bind="pto.dateTo | date:'shortDate'"></td>
               <td ng-bind="pto.comment"></td>
               <td ng-bind="pto.halfDays ? 'Half' : 'Full'"></td>
-              <td class="hasFloat">
-                <span ng-bind="pto.floats.length"></span>&nbsp;&nbsp;&nbsp;
+              <td class="nowrap">
+                <span ng-bind="pto.floats.length + pto.holidays.length"></span>&nbsp;&nbsp;
                 <button type="button" class="btn-change" ng-click="editPto(pto)">Edit</button>
                 <button type="button" class="btn-delete" ng-click="removePto(pto.id)">&times;</button>
               </td>
             </tr>
           </tbody>
-          <tfoot><tr><td colspan="5" class="allign-right">* Contains Floating Holiday</td></tr></tfoot>
+          <tfoot><tr><td colspan="5" class="allign-right">* Contains Holiday(s)</td></tr></tfoot>
         </table>
         <h2 class="h2">Totals</h2>
         <table class="tbl totals">

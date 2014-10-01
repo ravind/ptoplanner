@@ -116,23 +116,22 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         if( curDate.valueOf() < $rootScope.nowDate.valueOf() ){
           $rootScope.todateEarned += ( ( hireYearVar / empStatusVar ) / 3);
         }
-
       }
 
       //if days are in PTO list then subtract
-        if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
-          //if current date is not a floating holiday
-          if( curPto.floats.indexOf( curDate.valueOf() ) < 0 ){
-            var n = curDate.getDay();
-            //weekends do not count against PTO
-            if (n !== 0 && n != 6) {
-              //if its not a weekend day then subtract from PTO
-              var ptoVar = (curPto.halfDays) ? 4 : 8;
-              //if PTO is set as half days then subtract 4 hours intead of 8
-              accrued.setBalance(accrued.getBalance() - ptoVar);
-            }
+      if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
+        //if current date is not a floating holiday
+        if( curPto.floats.indexOf( curDate.valueOf() ) < 0 && curPto.holidays.indexOf( curDate.valueOf() ) < 0 ){
+          var n = curDate.getDay();
+          //weekends do not count against PTO
+          if (n !== 0 && n != 6) {
+            //if its not a weekend day then subtract from PTO
+            var ptoVar = (curPto.halfDays) ? 4 : 8;
+            //if PTO is set as half days then subtract 4 hours intead of 8
+            accrued.setBalance(accrued.getBalance() - ptoVar);
           }
         }
+      }
 
       //if accrued has gone over 80
       //set the lost balance and set accrued to 80
