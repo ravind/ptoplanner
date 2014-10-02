@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PtoPlanner.Domain", "PtoPlanner.Domain\PtoPlanner.Domain.csproj", "{7A26A498-24A2-4540-AF85-F3BD2C21BA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PtoPlanner.WebService", "PtoPlanner.WebService\PtoPlanner.WebService.csproj", "{8D215C63-1061-42BE-8D8B-A0B3C4787635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PtoPlanner.WebUI", "PtoPlanner.WebUI\PtoPlanner.WebUI.csproj", "{70B5FFD1-8FCD-4F1E-AF63-790BCDD6AD7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{16037B93-CAA1-46FC-8E0F-FAFDC3299F15}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{B51BFD31-0257-4DBA-A65C-4FB1F2176D3B}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\PtoPlannerWebUI-WAWS-dev.json = PublishScripts\Configurations\PtoPlannerWebUI-WAWS-dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A26A498-24A2-4540-AF85-F3BD2C21BA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A26A498-24A2-4540-AF85-F3BD2C21BA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A26A498-24A2-4540-AF85-F3BD2C21BA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A26A498-24A2-4540-AF85-F3BD2C21BA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D215C63-1061-42BE-8D8B-A0B3C4787635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D215C63-1061-42BE-8D8B-A0B3C4787635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D215C63-1061-42BE-8D8B-A0B3C4787635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D215C63-1061-42BE-8D8B-A0B3C4787635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B5FFD1-8FCD-4F1E-AF63-790BCDD6AD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B5FFD1-8FCD-4F1E-AF63-790BCDD6AD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B5FFD1-8FCD-4F1E-AF63-790BCDD6AD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B5FFD1-8FCD-4F1E-AF63-790BCDD6AD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B51BFD31-0257-4DBA-A65C-4FB1F2176D3B} = {16037B93-CAA1-46FC-8E0F-FAFDC3299F15}
+	EndGlobalSection
+EndGlobal
