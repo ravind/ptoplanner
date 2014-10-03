@@ -234,6 +234,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\PtoPlanner.mdf" />
+    <Content Include="App_Data\PtoPlanner_log.ldf">
+      <DependentUpon>PtoPlanner.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -293,7 +297,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\PtoPlanner.Domain\PtoPlanner.Domain.csproj">
+      <Project>{7a26a498-24a2-4540-af85-f3bd2c21ba59}</Project>
+      <Name>PtoPlanner.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
