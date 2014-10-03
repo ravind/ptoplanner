@@ -1,5 +1,0 @@
-C:\Users\Ravind\Documents\Visual Studio 2013\Projects\PtoPlanner\PtoPlanner.WebUI\bin\PtoPlanner.WebUI.dll
-C:\Users\Ravind\Documents\Visual Studio 2013\Projects\PtoPlanner\PtoPlanner.WebUI\bin\PtoPlanner.WebUI.pdb
-C:\Users\Ravind\Documents\Visual Studio 2013\Projects\PtoPlanner\PtoPlanner.WebUI\obj\Release\PtoPlanner.WebUI.csprojResolveAssemblyReference.cache
-C:\Users\Ravind\Documents\Visual Studio 2013\Projects\PtoPlanner\PtoPlanner.WebUI\obj\Release\PtoPlanner.WebUI.dll
-C:\Users\Ravind\Documents\Visual Studio 2013\Projects\PtoPlanner\PtoPlanner.WebUI\obj\Release\PtoPlanner.WebUI.pdb

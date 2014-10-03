@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="IIS Web Application Name" description="" value="PtoPlanner" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Ravind\\Documents\\Visual\ Studio\ 2013\\Projects\\PtoPlanner\\PtoPlanner\.WebUI\\obj\\Release\\Package\\PackageTmp$" />
-    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Ravind\\Documents\\Visual\ Studio\ 2013\\Projects\\PtoPlanner\\PtoPlanner\.WebUI\\obj\\Release\\Package\\PackageTmp$" />
-  </parameter>
-</parameters>
