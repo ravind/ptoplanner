@@ -236,6 +236,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PtoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -258,11 +259,14 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\docs.css" />
+    <Content Include="Content\screen.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.js" />
     <Content Include="Scripts\ai.min.js" />
+    <Content Include="Scripts\angularjs\1.2.4\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -285,6 +289,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="Content\sass\docs.scss" />
+    <Content Include="Content\sass\screen.scss" />
     <None Include="Properties\PublishProfiles\PtoPlanner.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -294,7 +300,33 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jqueryflot\jquery.flot.min.js" />
+    <Content Include="Scripts\jqueryflot\jquery.flot.symbol.js" />
+    <Content Include="Scripts\jqueryflot\jquery.flot.time.min.js" />
+    <Content Include="Scripts\jqueryui\1.10.3\jquery-ui.min.js" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\jquery-ui.css" />
+    <Content Include="Scripts\jqueryui\1.10.3\themes\smoothness\jquery-ui.min.css" />
+    <Content Include="Scripts\jquery\1.10.2\jquery.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PtoPlanner\app\app.js" />
+    <Content Include="Scripts\PtoPlanner\controllers\ptoController.js" />
+    <Content Include="Scripts\PtoPlanner\directives\chart.js" />
+    <Content Include="Scripts\PtoPlanner\factories\chartGenerator.js" />
+    <Content Include="Scripts\PtoPlanner\factories\ptoManager.js" />
+    <Content Include="Scripts\PtoPlanner\services\dataStore.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -315,6 +347,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Default\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PtoPlanner.Domain\PtoPlanner.Domain.csproj">
@@ -331,6 +364,7 @@
     </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
