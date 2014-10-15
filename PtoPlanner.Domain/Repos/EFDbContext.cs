@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace PtoPlanner.Domain.Repos
 {
-    class EFDbContext : DbContext
+    public class EFDbContext : DbContext
     {
+        public EFDbContext() : base("DefaultConnection") { }
+        
         public DbSet<Pto> PtoList { get; set; }
     }
 }

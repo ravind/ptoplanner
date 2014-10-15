@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PtoPlanner.Domain.Entities
 {
+    [Table("Pto")]
     public class Pto
     {
         public Int32 PtoId { get; set; }
