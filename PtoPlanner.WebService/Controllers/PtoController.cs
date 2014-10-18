@@ -20,7 +20,7 @@ namespace PtoPlanner.WebService.Controllers
 
         public IEnumerable<Pto> Get()
         {
-            return _repo.PtoList.Where(p => p.PersonId == 1).OrderBy(p => p.StartDate);
+            return _repo.PtoList;
         }
 
         public HttpResponseMessage Post([FromBody]Pto ptoItem)
@@ -33,7 +33,6 @@ namespace PtoPlanner.WebService.Controllers
             {
                 try
                 {
-                    ptoItem.PersonId = 1;
                     _repo.Insert(ptoItem);
                     return Request.CreateResponse(HttpStatusCode.Created, ptoItem);
                 }

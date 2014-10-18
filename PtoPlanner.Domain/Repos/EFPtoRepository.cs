@@ -9,15 +9,17 @@ namespace PtoPlanner.Domain.Repos
     public class EFPtoRepository : IPtoRepository
     {
         private EFDbContext context = new EFDbContext();
+        private Services.IdentityService idService = new Services.IdentityService();
         
         public IEnumerable<Entities.Pto> PtoList
         {
-            get { return context.PtoList; }
+            get { return context.PtoList.Where(p => p.PersonId == idService.CurrentUserIdentifier).OrderBy(p => p.StartDate); }
         }
 
         public void Insert(Pto ptoItem)
         {
             ptoItem.PtoId = 0;
+            ptoItem.PersonId = idService.CurrentUserIdentifier;
             context.PtoList.Add(ptoItem);
             context.SaveChanges();
         }
@@ -54,7 +56,7 @@ namespace PtoPlanner.Domain.Repos
 
         private Pto FindPtoById(int ptoId)
         {
-            return context.PtoList.Where(p => p.PtoId == ptoId).FirstOrDefault();
+            return context.PtoList.Where(p => p.PtoId == ptoId & p.PersonId == idService.CurrentUserIdentifier).FirstOrDefault();
         }
     }
 }

@@ -48,14 +48,25 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Entities\Pto.cs" />
+    <Compile Include="Migrations\201410180248597_ChangePersonIdType.cs" />
+    <Compile Include="Migrations\201410180248597_ChangePersonIdType.Designer.cs">
+      <DependentUpon>201410180248597_ChangePersonIdType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\EFDbContext.cs" />
     <Compile Include="Repos\EFPtoRepository.cs" />
     <Compile Include="Repos\IPtoRepository.cs" />
+    <Compile Include="Services\IdentityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201410180248597_ChangePersonIdType.resx">
+      <DependentUpon>201410180248597_ChangePersonIdType.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
