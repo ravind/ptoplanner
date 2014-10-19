@@ -1,4 +1,5 @@
 ﻿using PtoPlanner.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,11 @@ namespace PtoPlanner.Domain.Repos
         private EFDbContext context = new EFDbContext();
         private Services.IdentityService idService = new Services.IdentityService();
         
-        public IEnumerable<Entities.Pto> PtoList
+        public IEnumerable<Entities.Pto> GetPtoList(int year)
         {
-            get { return context.PtoList.Where(p => p.PersonId == idService.CurrentUserIdentifier).OrderBy(p => p.StartDate); }
+            var startDate = new DateTime(year, 1, 1);
+            var endDate = startDate.AddYears(1);
+            return context.PtoList.Where(p => p.PersonId == idService.CurrentUserIdentifier & p.EndDate > startDate & p.StartDate < endDate).OrderBy(p => p.StartDate);
         }
 
         public void Insert(Pto ptoItem)
@@ -28,6 +31,7 @@ namespace PtoPlanner.Domain.Repos
         {
             bool retVal = false;
 
+            ptoItem.PersonId = idService.CurrentUserIdentifier;
             Pto foundItem = FindPtoById(ptoItem.PtoId);
             if (foundItem != null)
             {

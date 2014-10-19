@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace PtoPlanner.WebService.Controllers
 {
+    [RequireHttps]
     public class DefaultController : Controller
     {
         // GET: Default

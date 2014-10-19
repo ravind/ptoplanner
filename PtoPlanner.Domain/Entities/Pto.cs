@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PtoPlanner.Domain.Entities
@@ -7,6 +8,7 @@ namespace PtoPlanner.Domain.Entities
     public class Pto
     {
         public Int32 PtoId { get; set; }
+        [Required]
         public String PersonId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

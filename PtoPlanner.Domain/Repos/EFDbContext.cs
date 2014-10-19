@@ -13,5 +13,7 @@ namespace PtoPlanner.Domain.Repos
         public EFDbContext() : base("DefaultConnection") { }
         
         public DbSet<Pto> PtoList { get; set; }
+
+        public DbSet<Settings> SettingsList { get; set; }
     }
 }

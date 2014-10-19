@@ -68,6 +68,7 @@ namespace PtoPlanner.WebService.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IPtoRepository>().To<EFPtoRepository>();
+            kernel.Bind<ISettingsRepository>().To<EFSettingsRepository>();
         }        
     }
 }

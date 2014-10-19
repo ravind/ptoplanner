@@ -8,5 +8,11 @@ namespace PtoPlanner.Domain
             PTO = 1,
             FloatingHoliday = 2
         }
+
+        public enum EmployeeStatuses
+        {
+            FullTime = 1,
+            PartTime = 2
+        }
     }
 }

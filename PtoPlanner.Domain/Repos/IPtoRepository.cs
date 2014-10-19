@@ -5,7 +5,7 @@ namespace PtoPlanner.Domain.Repos
 {
     public interface IPtoRepository
     {
-        IEnumerable<Pto> PtoList { get; }
+        IEnumerable<Pto> GetPtoList(int year);
 
         void Insert(Pto ptoItem);
 

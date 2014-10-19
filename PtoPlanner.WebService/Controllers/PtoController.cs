@@ -18,9 +18,11 @@ namespace PtoPlanner.WebService.Controllers
             this._repo = repo;
         }
 
-        public IEnumerable<Pto> Get()
+        [Route("api/pto/{year?}")]
+        public IEnumerable<Pto> Get(int? year = null)
         {
-            return _repo.PtoList;
+            if (year == null) year = DateTime.Today.Year;
+            return _repo.GetPtoList(year.Value);
         }
 
         public HttpResponseMessage Post([FromBody]Pto ptoItem)
@@ -62,7 +64,8 @@ namespace PtoPlanner.WebService.Controllers
             }
         }
 
-        public HttpResponseMessage Delete(int id = 0)
+        [Route("api/pto/{id}")]
+        public HttpResponseMessage Delete(int id)
         {
             try
             {
