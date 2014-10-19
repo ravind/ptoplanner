@@ -1,5 +1,6 @@
 ﻿using PtoPlanner.Domain.Entities;
 using PtoPlanner.Domain.Repos;
+using PtoPlanner.WebService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace PtoPlanner.WebService.Controllers
 {
-    public class SettingsController : ApiController
+    public class SettingsController : BaseController
     {
         private ISettingsRepository _repo;
 
@@ -18,22 +19,29 @@ namespace PtoPlanner.WebService.Controllers
             this._repo = repo;
         }
 
-        [Route("api/settings/years")]
+        [Route("api/Settings/Years")]
         public IEnumerable<int> GetAllYears()
         {
-            return new int[] { 1, 2, 3, 4 };
-            //return _repo.GetAllYears();
+            return _repo.GetAllYears();
         }
 
-        [Route("api/settings/{year?}")]
-        public Settings Get(int? year = null)
+        public HttpResponseMessage Get(int? year = null)
         {
             if (year == null) year = DateTime.Today.Year;
-            return _repo.Get(year.Value);
+            Settings foundSettings = _repo.Get(year.Value);
+            if (foundSettings == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Settings Not Found");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, MyModelFactory.Create(foundSettings));
+            }
         }
 
-        public HttpResponseMessage Post([FromBody]Settings settings)
+        public HttpResponseMessage Post([FromBody]SettingsModelWithYear settingsModel)
         {
+            Settings settings = MyModelFactory.Parse(settingsModel);
             var foundSetting = _repo.Get(settings.SettingsYear);
             if (foundSetting != null)
             {
@@ -44,7 +52,7 @@ namespace PtoPlanner.WebService.Controllers
                 try
                 {
                     _repo.Insert(settings);
-                    return Request.CreateResponse(HttpStatusCode.Created, settings);
+                    return Request.CreateResponse(HttpStatusCode.Created, MyModelFactory.Create(settings));
                 }
                 catch (Exception)
                 {
@@ -53,10 +61,11 @@ namespace PtoPlanner.WebService.Controllers
             }
         }
 
-        public HttpResponseMessage Put([FromBody]Settings settings)
+        public HttpResponseMessage Put(int year, [FromBody]SettingsModel settingsModel)
         {
             try
             {
+                Settings settings = MyModelFactory.Parse(settingsModel, year);
                 if (_repo.Update(settings))
                 {
                     return Request.CreateResponse(HttpStatusCode.OK);
@@ -72,7 +81,6 @@ namespace PtoPlanner.WebService.Controllers
             }
         }
 
-        [Route("api/settings/{year}")]
         public HttpResponseMessage Delete(int year)
         {
             try

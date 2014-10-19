@@ -19,6 +19,11 @@ namespace PtoPlanner.Domain.Repos
             return context.PtoList.Where(p => p.PersonId == idService.CurrentUserIdentifier & p.EndDate > startDate & p.StartDate < endDate).OrderBy(p => p.StartDate);
         }
 
+        public Pto Get(int ptoId)
+        {
+            return context.PtoList.Where(p => p.PersonId == idService.CurrentUserIdentifier & p.PtoId == ptoId).FirstOrDefault();
+        }
+
         public void Insert(Pto ptoItem)
         {
             ptoItem.PtoId = 0;

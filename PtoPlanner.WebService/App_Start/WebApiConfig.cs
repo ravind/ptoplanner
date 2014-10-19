@@ -12,10 +12,22 @@ namespace PtoPlanner.WebService
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "PtoApi",
+                routeTemplate: "api/Pto/{id}",
+                defaults: new { controller = "Pto", id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "SettingsApi",
+                routeTemplate: "api/Settings/{year}",
+                defaults: new { controller = "Settings", year = RouteParameter.Optional }
+            );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
         }
     }
 }

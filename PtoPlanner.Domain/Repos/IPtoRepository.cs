@@ -7,6 +7,8 @@ namespace PtoPlanner.Domain.Repos
     {
         IEnumerable<Pto> GetPtoList(int year);
 
+        Pto Get(int ptoId);
+
         void Insert(Pto ptoItem);
 
         bool Update(Pto ptoItem);
