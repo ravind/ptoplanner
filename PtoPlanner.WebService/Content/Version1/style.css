@@ -1,0 +1,48 @@
+﻿body {
+    font-family: Segoe UI, Arial;
+    font-size: 12px;
+}
+
+#container {
+    width: 1000px;
+    margin: auto;
+    padding:0 2em;
+}
+
+#placeholder {
+    margin: auto;
+    width:960px;
+    height:300px;
+}
+
+.ui-datepicker{
+    font-size:8pt;
+}
+
+#notes{
+    margin:1em auto 0 auto;
+	border:2px solid #c00;
+	padding:0.5em;
+	background-color:#fdd;
+	width:930px;
+}
+
+#dataEntry {
+    margin-top:3em;
+}
+
+#fstAddPto {
+    float: left;
+    margin:2em 0;
+}
+
+#tblPto {
+    clear: both;
+    border-collapse: collapse;
+    border-bottom:1px solid #888;
+}
+
+    #tblPto td {
+        border-top:1px solid #888;
+        padding: 3px 10px;
+    }

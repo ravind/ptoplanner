@@ -251,6 +251,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PtoController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\Version1Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -285,6 +286,7 @@
       <DependentUpon>screen.scss</DependentUpon>
     </Content>
     <Content Include="Content\screen.css" />
+    <Content Include="Content\Version1\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -354,6 +356,10 @@
     <Content Include="Scripts\PtoPlanner\services\dataStore.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Version1\app\app.js" />
+    <Content Include="Scripts\Version1\app\controllers.js" />
+    <Content Include="Scripts\Version1\app\directives.js" />
+    <Content Include="Scripts\Version1\app\services.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -375,6 +381,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\SignOutCallback.cshtml" />
+    <Content Include="Views\Version1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PtoPlanner.Domain\PtoPlanner.Domain.csproj">
@@ -396,6 +403,7 @@
       <DependentUpon>201410170105076_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
