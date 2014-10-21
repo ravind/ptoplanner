@@ -1,11 +1,11 @@
-app.controller('ptoController', function($scope, ptoManager, $rootScope) { //removed floatingHolidayChecker
+app.controller('ptoController', function($scope, ptoManager, $rootScope) {
 "use strict";
-
   $scope.startingBalance = ptoManager.getStartingBalance();
   $scope.prorateStart = ptoManager.getProrateStart();
   $scope.prorateEnd = ptoManager.getProrateEnd();
 
   $scope.ptoList = ptoManager.getPtoList();
+
   $scope.holidayList = ptoManager.getHolidays();
   $scope.floatsList = ptoManager.getFloats();
 
@@ -15,37 +15,38 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   $scope.empStates = ptoManager.getEmpStates();
   $scope.empStatusVar = ptoManager.getEmpStatusVar();
 
-  $scope.ptoTypes = ptoManager.getPtoTypes();
-  $scope.newPto = {ptoType: 0,id: null,dateFrom: null,dateTo: null,note: null, halfDays:false};
+  $scope.newPto = {ptoType: 1,Url: null,dateFrom: null,dateTo: null,note: null, halfDays:false};
 
   $scope.resetPto = function() {
-    $scope.newPto.id = null;
+    $scope.newPto.ptoType = 1;
+    $scope.newPto.Url = null;
     $scope.newPto.dateFrom = null;
     $scope.newPto.dateTo = null;
     $scope.newPto.note = null;
     $scope.newPto.halfDays = false;
     $rootScope.resetDP();
   };
-  $scope.removePto = function(id) {
-    ptoManager.removePto(id);
+  $scope.removePto = function(ptoURL) {
+      ptoManager.removePto(ptoURL);
   };
   $scope.addPto = function() {
-    if ($scope.newPto.id) {
-      ptoManager.removePto($scope.newPto.id);
+    if ($scope.newPto.Url) {
+      ptoManager.removePto($scope.newPto.Url);
     }
     var fromDate = new Date( Date.parse( $scope.newPto.dateFrom ) );
     var toDate = new Date( Date.parse( $scope.newPto.dateTo ) );
-    ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.halfDays);
+    ptoManager.addPto(fromDate.toJSON(), toDate.toJSON(), $scope.newPto.ptoType, $scope.newPto.note, $scope.newPto.halfDays);
     $scope.resetPto();
   };
-  $scope.editPto = function(obj) {
-    var fromDate = new Date(obj.dateFrom);
-    var toDate = new Date(obj.dateTo);
-    $scope.newPto.id = obj.id;
+  $scope.editPto = function (obj) {
+    var fromDate = new Date(obj.StartDate);
+    var toDate = new Date(obj.EndDate);
     $scope.newPto.dateFrom = fromDate.toLocaleDateString();
     $scope.newPto.dateTo = toDate.toLocaleDateString();
-    $scope.newPto.note = obj.comment;
-    $scope.newPto.halfDays = obj.halfDays;
+    $scope.newPto.note = obj.Note;
+    $scope.newPto.halfDays = obj.HalfDays;
+    $scope.newPto.ptoType = obj.PtoType;
+    $scope.newPto.Url = obj.Url;
   };
 
   $scope.changeFloats = function(id) {
@@ -69,25 +70,34 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
     }
   };
 
-  $scope.startingBalanceChanged = function() {
-    ptoManager.setStartingBalance($scope.startingBalance);
+
+  $scope.setupSettingsChanged = function () {
+
+      ptoManager.setSettings($scope.startingBalance, $scope.prorateStart, $scope.prorateEnd, $scope.hireYearVar, $scope.empStatusVar);
+
   };
 
-  $scope.prorateStartChanged = function() {
-    ptoManager.setProrateStart($scope.prorateStart);
-  };
+  //$scope.startingBalanceChanged = function() {
+  //  ptoManager.setStartingBalance($scope.startingBalance);
+  //};
 
-  $scope.prorateEndChanged = function() {
-    ptoManager.setProrateEnd($scope.prorateEnd);
-  };
+  //$scope.prorateStartChanged = function() {
+    //  ptoManager.setProrateStart($scope.prorateStart);
+  //};
 
-  $scope.hireYearVarChanged = function() {
-    ptoManager.setHireYearVar($scope.hireYearVar);
-  };
+  //$scope.prorateEndChanged = function() {
+  //  ptoManager.setProrateEnd($scope.prorateEnd);
+  //};
 
-  $scope.empStatusVarChanged = function() {
-    ptoManager.setEmpStatusVar($scope.empStatusVar);
-  };
+  //$scope.hireYearVarChanged = function() {
+  //  ptoManager.setHireYearVar($scope.hireYearVar);
+  //};
+
+  //$scope.empStatusVarChanged = function() {
+  //  ptoManager.setEmpStatusVar($scope.empStatusVar);
+  //};
+
+
 
   $scope.dateFromChanged = function() {
     if ($scope.ptoForm.dateFrom.$valid && isValidDate($scope.ptoForm.dateFrom.$modelValue)) {
@@ -132,7 +142,7 @@ app.controller('ptoController', function($scope, ptoManager, $rootScope) { //rem
   }
 
 
-  $scope.$watch('ptoList', updateDaysUsed, true);
+  $scope.$watch('ptoList.', updateDaysUsed, true);
 
   function updateDaysUsed() {
     var i = 0;

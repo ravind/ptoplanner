@@ -1,8 +1,8 @@
 
-var app = angular.module('ptoPlanner', []);
+var app = angular.module('ptoPlanner', ['ngResource']);
 
-app.run(function($rootScope) {
-"use strict";
+app.run(function ($rootScope) {
+    "use strict";
 
     var newDate = new Date();
     var curYear = newDate.getFullYear();
@@ -66,13 +66,6 @@ app.run(function($rootScope) {
     $rootScope.h5 = getThanksDay();// thanks nov thursday
     $rootScope.h6 = getHoliday(curYear,11,25); // Christmas Day
 
-    Storage.prototype.setObject = function(key, value) {
-        this.setItem(key, JSON.stringify(value));
-    };
-    Storage.prototype.getObject = function(key) {
-        var value = this.getItem(key);
-        return value && JSON.parse(value);
-    };
 
     //bind jqueryUI datepicker to
     $('[data-dp]').each(function() {

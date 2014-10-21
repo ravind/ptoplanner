@@ -10,37 +10,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width" />
     <title>PTO Planner</title>
-    <!--<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
-    <link rel="stylesheet" type="text/css" href="/Scripts/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" />
-    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>-->
-    <link rel="stylesheet" type="text/css" href="/Content/screen.css" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/Content/sass/screen.css" />
+    <link rel="stylesheet" href="/Content/sass/modal.css" />
+    <link rel="stylesheet" href="/Content/sass/progressbar.css" />
+
 </head>
 <body class="body" ng-app="ptoPlanner">
     <h1 class="h1">PTO Planner</h1>
     <div class="container" ng-controller="ptoController">
         <h2 class="h2">Setup</h2>
         <fieldset id="divStartingBalance" class="clearfix">
+            <form>
             <div class="inblock">
-                <label class="blocklabel">Carry Over <span class="help" data-info="Unused balance from previous year">I</span></label>
-                <input type="number" step="1" ng-model="startingBalance" ng-change="startingBalanceChanged()" />
+                <label class="blocklabel">Carry Over 
+                    <span class="help" data-info="Unused balance from previous year">
+                    <i class="fa fa-question-circle"></i>
+                    </span>
+                </label>
+                <input type="text" ng-model="startingBalance" />
             </div>
             <div class="inblock">
                 <label class="blocklabel">Employee Status</label>
-                <select name="year" id="selectYear" ng-model="empStatusVar" ng-options="empState.val as empState.label for empState in empStates" ng-change="empStatusVarChanged()"></select>
+                <select name="year" id="selectYear" ng-model="empStatusVar" ng-options="empState.val as empState.label for empState in empStates""></select>
             </div>
             <div class="inblock">
                 <label class="blocklabel">Hire Year</label>
-                <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears" ng-change="hireYearVarChanged()"></select>
+                <select name="year" id="selectYear" ng-model="hireYearVar" ng-options="hireYear.val as hireYear.label for hireYear in hireYears"></select>
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate Start</label>
-                <input type="text" ng-model="prorateStart" ng-change="prorateStartChanged()" data-dp="" placeholder="dd/mm/yyyy" />
+                <input type="text" ng-model="prorateStart" data-dp="" placeholder="dd/mm/yyyy" />
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate End</label>
-                <input type="text" ng-model="prorateEnd" ng-change="prorateEndChanged()" data-dp="" placeholder="dd/mm/yyyy" />
+                <input type="text" ng-model="prorateEnd" data-dp="" placeholder="dd/mm/yyyy" />
             </div>
+            <div class="inblock">
+                <label class="blocklabel">Save setup</label>
+                <button type="submit" class="" ng-click="setupSettingsChanged()">Save</button>
+            </div>
+            </form>
         </fieldset>
         <br>
         <div class="placeholder" data-chart=""></div>
@@ -79,35 +91,19 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <label><input type="checkbox" ng-model="floatsList.q1.used" ng-change="changeFloats('q1')" /><span><br>Q1</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q1.date" ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}' /></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="floatsList.q2.used" ng-change="changeFloats('q2')" /><span><br>Q2</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q2.date" ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}' /></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="floatsList.q3.used" ng-change="changeFloats('q3')" /><span><br>Q3</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q3.date" ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}' /></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="floatsList.q4.used" ng-change="changeFloats('q4')" /><span><br>Q4</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q4.date" ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}' /></label>
+                        <label ng-class="{on:floatsList.q1.used}"><span><input type="checkbox" ng-model="floatsList.q1.used" ng-change="changeFloats('q1')" /><br/>Q1</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q1.date" ng-change="dateFloats('q1')" data-dp='{"qEnd": 3}' /></label>
+                        <label ng-class="{on:floatsList.q2.used}"><span><input type="checkbox" ng-model="floatsList.q2.used" ng-change="changeFloats('q2')" /><br/>Q2</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q2.date" ng-change="dateFloats('q2')" data-dp='{"qEnd": 6}' /></label>
+                        <label ng-class="{on:floatsList.q3.used}"><span><input type="checkbox" ng-model="floatsList.q3.used" ng-change="changeFloats('q3')" /><br/>Q3</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q3.date" ng-change="dateFloats('q3')" data-dp='{"qEnd": 9}' /></label>
+                        <label ng-class="{on:floatsList.q4.used}"><span><input type="checkbox" ng-model="floatsList.q4.used" ng-change="changeFloats('q4')" /><br/>Q4</span><input type="text" placeholder="dd/mm/yyyy" ng-model="floatsList.q4.date" ng-change="dateFloats('q4')" data-dp='{"qEnd": 12}' /></label>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
-                        <label><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><span><div class="nowrap">New Years</div><b ng-bind="h1 | date:'EEEE MMM dd'"></b></span></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><span><div class="nowrap">Memorial</div><b ng-bind="h2 | date:'EEEE MMM dd'"></b></span></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><span><div class="nowrap">Independence</div><b ng-bind="h3 | date:'EEEE MMM dd'"></b></span></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><span><div class="nowrap">Labor</div><b ng-bind="h4 | date:'EEEE MMM dd'"></b></span></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><span><div class="nowrap">Thanksgiving</div><b ng-bind="h5 | date:'EEEE MMM dd'"></b></span></label>
-                        <!--
-                        spacespace -->
-                        <label><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><span><div class="nowrap">Christmas</div><b ng-bind="h6 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h1}"><span><input type="checkbox" ng-model="holidayList.h1" ng-change="changeHoliday('h1')" /><div class="nowrap">New Years</div><b ng-bind="h1 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h2}"><span><input type="checkbox" ng-model="holidayList.h2" ng-change="changeHoliday('h2')" /><div class="nowrap">Memorial</div><b ng-bind="h2 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h3}"><span><input type="checkbox" ng-model="holidayList.h3" ng-change="changeHoliday('h3')" /><div class="nowrap">Independence</div><b ng-bind="h3 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h4}"><span><input type="checkbox" ng-model="holidayList.h4" ng-change="changeHoliday('h4')" /><div class="nowrap">Labor</div><b ng-bind="h4 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h5}"><span><input type="checkbox" ng-model="holidayList.h5" ng-change="changeHoliday('h5')" /><div class="nowrap">Thanksgiving</div><b ng-bind="h5 | date:'EEEE MMM dd'"></b></span></label>
+                        <label ng-class="{on:holidayList.h6}"><span><input type="checkbox" ng-model="holidayList.h6" ng-change="changeHoliday('h6')" /><div class="nowrap">Christmas</div><b ng-bind="h6 | date:'EEEE MMM dd'"></b></span></label>
                     </div>
                 </fieldset>
             </div>
@@ -116,6 +112,7 @@
                 <table id="tblPto" class="tbl">
                     <thead>
                         <tr>
+                            <th>Type</th>
                             <th>From</th>
                             <th>To</th>
                             <th>Note</th>
@@ -124,15 +121,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="pto in ptoList | orderBy:'dateFrom' track by pto.id">
-                            <td ng-bind="pto.dateFrom | date:'shortDate'"></td>
-                            <td ng-bind="pto.dateTo | date:'shortDate'"></td>
-                            <td ng-bind="pto.comment"></td>
-                            <td ng-bind="pto.halfDays ? 'Half' : 'Full'"></td>
+                        <tr ng-repeat="pto in ptoList">
+                            <td ng-bind="pto.PtoType == 2 ? 'FH' : 'PTO'"></td>
+                            <td ng-bind="pto.StartDate | date:'shortDate'"></td>
+                            <td ng-bind="pto.EndDate | date:'shortDate'"></td>
+                            <td ng-bind="pto.Note"></td>
+                            <td ng-bind="pto.HalfDays ? 'Half' : 'Full'"></td>
                             <td class="nowrap">
                                 <span ng-bind="pto.floats.length + pto.holidays.length"></span>&nbsp;&nbsp;
                                 <button type="button" class="btn-change" ng-click="editPto(pto)">Edit</button>
-                                <button type="button" class="btn-delete" ng-click="removePto(pto.id)">&times;</button>
+                                <button type="button" class="btn-delete" ng-click="removePto(pto.Url)">&times;</button>
                             </td>
                         </tr>
                     </tbody>
@@ -184,15 +182,30 @@
     </div>
     <div id='tooltip' class="tooltip"></div>
 
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-    <script src="/Scripts/jquery/1.10.2/jquery.min.js"></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
-    <script src="/Scripts/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <div class="modal in">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+              Loading. If this doesn't go away refresh the page.
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop in"></div>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>*@
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
     <script src="/Scripts/jqueryflot/jquery.flot.min.js"></script>
     <script src="/Scripts/jqueryflot/jquery.flot.time.min.js"></script>
     <script src="/Scripts/jqueryflot/jquery.flot.symbol.js"></script>
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script> -->
-    <script src="/Scripts/angularjs/1.2.4/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-resource.min.js"></script>
     <script src="/Scripts/PtoPlanner/app/app.js"></script>
     <script src="/Scripts/PtoPlanner/services/dataStore.js"></script>
     <script src="/Scripts/PtoPlanner/factories/ptoManager.js"></script>

@@ -1,111 +1,107 @@
-app.factory('ptoManager', function(dataStore, $rootScope) {
+
+
+app.factory('ptoManager', function (dataStore, $rootScope, pto, Setup) {
   "use strict";
-  var factory, ptoKey, sbKey, ptoList;
+  var factory, ptoKey, ptoList = {}, scope = {year:2014};
 
   function init() {
     factory = {};
     ptoKey = "ptoList";
-    dataStore.setDefault(ptoKey, {
-      items: [ {"id": 1,"dateFrom": 1397451600000,"dateTo": 1397797200000,"ptoType": 0,"comment": "Example PTO","floats": []}],
-      cnt: 0,
-      holidays: {},//{ h1:false, h2:false, h3:false, h4:false, h5:false, h6:false }
-      floats: {},//{ q1:{date:null,used:false}, q2:{date:null,used:false}, q3:{date:null,used:false}, q4:{date:null,used:false} }
-      sbKey: 0, //carry over from previous year
-      hireYearVar: 20, //20 or 15
-      empStatusVar: 1, //1 or 2
-      prorateStart: "01/01/2014",
-      prorateEnd: "12/31/2014",
-      halfDays: false
-    });
-    ptoList = dataStore.getObject(ptoKey);
+    ptoList.items = pto.query({ year: 2014 });
+    ptoList.settings = Setup.query();
+    console.log(ptoList.settings);
   }
 
   init();
 
-  //Starting Balance Carry Over
-  factory.getStartingBalance = function() {
-    return ptoList.sbKey;
-  };
-  factory.setStartingBalance = function(startingBalance) {
-    ptoList.sbKey = startingBalance;
-    dataStore.setObject(ptoKey, ptoList);
-  };
 
+  factory.setSettings = function (startingBalance, prorateStart, prorateEnd, hireYearVar, empStatusVar) {
+      ptoList.settings.PtoCarriedOver = startingBalance;
+      ptoList.settings.ProrateStart = prorateStart;
+      ptoList.settings.ProrateEnd = prorateEnd;
+      ptoList.settings.HireYear = hireYearVar;
+      ptoList.settings.EmployeeStatus = empStatusVar;
+      var setObj = {
+        "SettingsYear": 2014,
+        "PtoCarriedOver": startingBalance,
+        "HireYear": hireYearVar,
+        "EmployeeStatus": empStatusVar,
+        "ProrateStart": prorateStart,
+        "ProrateEnd": prorateEnd
+    }
+    //dataStore.setObject("Settings", setObj);
+    Setup.update(setObj);
+  };
+  //Starting Balance Carry Over
+  factory.getStartingBalance = function () {
+      if (!ptoList.settings.PtoCarriedOver) {
+          ptoList.settings.PtoCarriedOver = 0;
+      }
+      return ptoList.settings.PtoCarriedOver;
+  };
   //prorate Start Date
   factory.getProrateStart = function() {
-    return ptoList.prorateStart || "01/01/2014";
-  };
-  factory.setProrateStart = function(prorateStart) {
-    ptoList.prorateStart = prorateStart;
-    dataStore.setObject(ptoKey, ptoList);
+      if (!ptoList.settings.ProrateStart) {
+          ptoList.settings.ProrateStart = "01/01/2014";
+      }
+      return ptoList.settings.ProrateStart;
   };
 
   //prorate End Date
   factory.getProrateEnd = function() {
-    return ptoList.prorateEnd || "12/31/2014";
+      if (!ptoList.settings.ProrateEnd) {
+          ptoList.settings.ProrateEnd = "12/31/2014";
+      }
+      return ptoList.settings.ProrateEnd;
   };
-  factory.setProrateEnd = function(prorateEnd) {
-    ptoList.prorateEnd = prorateEnd;
-    dataStore.setObject(ptoKey, ptoList);
-  };
+
 
   //Hire Year Variable
   factory.getHireYears = function() {
-    var hireYears = [ {label: "Before 2013", val: 20}, {label: "After 2012", val: 15} ];
-    return hireYears;
+    return [ {label: "Before 2013", val: 20}, {label: "After 2012", val: 15} ];
   };
   factory.getHireYearVar = function() {
-    if(!ptoList.hireYearVar){
-      ptoList.hireYearVar = 20;
+    if(!ptoList.settings.HireYear){
+      ptoList.settings.HireYear = 20;
     }
-    return ptoList.hireYearVar;
-  };
-  factory.setHireYearVar = function(hireYearVar) {
-    ptoList.hireYearVar = hireYearVar;
-    dataStore.setObject(ptoKey, ptoList);
+    return ptoList.settings.HireYear;
   };
 
+    
   //Employee Status Variable
   factory.getEmpStates = function() {
-    var empStates = [ {label: "Full time", val: 1}, {label: "Part time", val: 2} ];
-    return empStates;
+    return [ {label: "Full time", val: 1}, {label: "Part time", val: 2} ];
   };
   factory.getEmpStatusVar = function() {
-    if(!ptoList.empStatusVar){
-      ptoList.empStatusVar = 1;
-    }
-    return ptoList.empStatusVar;
-  };
-  factory.setEmpStatusVar = function(empStatusVar) {
-    ptoList.empStatusVar = empStatusVar;
-    dataStore.setObject(ptoKey, ptoList);
+      if (!ptoList.settings.EmployeeStatus) {
+          ptoList.settings.EmployeeStatus = 1;
+      }
+      return ptoList.settings.EmployeeStatus;
   };
 
   //PTO items
-  factory.addPto = function(from, to, type, note, halfDays) {
-    ptoList.cnt += 1;
+  factory.addPto = function(from, to, note, halfDays, type) {
+    //ptoList.cnt += 1;
     var newPto = {
-      id: ptoList.cnt,
-      dateFrom: from,
-      dateTo: to,
-      ptoType: type,
-      comment: note,
-      halfDays: halfDays
+        //"PersonId": 1,
+        "StartDate": from,
+        "EndDate": to,
+        "Note": note,
+        "HalfDays": halfDays,
+        "PtoType": type
     };
     ptoList.items.push(newPto);
     ptoList.items.sort(function(a, b) {
-      return a.dateFrom.valueOf() - b.dateFrom.valueOf();
+        return a.StartDate.valueOf() - b.EndDate.valueOf();
     });
-    dataStore.setObject(ptoKey, ptoList);
+    dataStore.setObject(ptoKey, newPto);
   };
-  factory.getPtoTypes = function() {
-    //var ptoTypes = ["PTO","Standard Holiday","Floating Holiday"];
-    var ptoTypes = ["PTO"];
-    return ptoTypes;
-  };
+
+
   factory.getPtoList = function() {
     //add floating holidays
-    $.each(ptoList.items, function(k,v){
+
+    $.each(ptoList.items, function (k, v) {
       ptoList.items[k].floats = [];
       for(var key in ptoList.floats){
         var val = new Date(ptoList.floats[key].date).valueOf();
@@ -129,16 +125,17 @@ app.factory('ptoManager', function(dataStore, $rootScope) {
     });
     return ptoList.items;
   };
-  factory.removePto = function(id) {
+
+  factory.removePto = function (id) {
     var i = ptoList.items.length - 1;
     while (i >= 0) {
-      if (ptoList.items[i].id === id) {
-        ptoList.items.splice(i, 1);
-        break;
-      }
-      i--;
+        if (ptoList.items[i].Url === id) {
+            ptoList.items.splice(i, 1);
+            break;
+            }
+        i--;
     }
-    dataStore.setObject(ptoKey, ptoList);
+    dataStore.delObject(id);
   };
 
   //floating holidays
@@ -153,7 +150,13 @@ app.factory('ptoManager', function(dataStore, $rootScope) {
     if (qdate) {
       ptoList.floats[id].date = qdate;
     }
-    dataStore.setObject(ptoKey, ptoList);
+    dataStore.setObject(ptoKey, {
+        StartDate: qdate,
+        EndDate: qdate,
+        HalfDays: false,
+        Note: id,
+        PtoType: 2
+    });
   };
   factory.offFloat = function(id) {
     ptoList.floats[id].used = false;

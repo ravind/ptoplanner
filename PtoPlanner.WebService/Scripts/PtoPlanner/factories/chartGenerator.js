@@ -33,8 +33,10 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
         ** In case they are not numbers, they are cast to numbers.
         */
         while (!nextPto & this.curIndex < ptoList.length) {
-          nextPto = ptoList[this.curIndex];
-          this.curIndex++;
+            if (ptoList[this.curIndex].PtoType == ptoType) {
+                nextPto = ptoList[this.curIndex];
+            }
+            this.curIndex++;
         }
         return nextPto;
       }
@@ -107,26 +109,26 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
     lost.commit();
     $rootScope.todateEarned = startingBalance;
 
-    while (curDate.valueOf() <= endDate.valueOf()) {
+    while (curDate.toJSON() <= endDate.toJSON()) {
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
         accrued.setBalance( accrued.getBalance() + ( hireYearVar / empStatusVar ) / 3);
         //if curDate is not passed today then increase todateEarned amount
-        if( curDate.valueOf() < $rootScope.nowDate.valueOf() ){
+        if (curDate.toJSON() < $rootScope.nowDate.toJSON()) {
           $rootScope.todateEarned += ( ( hireYearVar / empStatusVar ) / 3);
         }
       }
+        //if days are in PTO list then subtract
+      if (curPto !== null && curPto.StartDate <= curDate.toJSON() && curDate.toJSON() <= curPto.EndDate) {
 
-      //if days are in PTO list then subtract
-      if (curPto !== null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
-        //if current date is not a floating holiday
-        if( curPto.floats.indexOf( curDate.valueOf() ) < 0 && curPto.holidays.indexOf( curDate.valueOf() ) < 0 ){
+          //if current date is not a floating holiday
+          if (curPto.floats.indexOf(curDate.toJSON()) < 0 && curPto.holidays.indexOf(curDate.toJSON()) < 0) {
           var n = curDate.getDay();
           //weekends do not count against PTO
           if (n !== 0 && n != 6) {
             //if its not a weekend day then subtract from PTO
-            var ptoVar = (curPto.halfDays) ? 4 : 8;
+              var ptoVar = (curPto.HalfDays) ? 4 : 8;
             //if PTO is set as half days then subtract 4 hours intead of 8
             accrued.setBalance(accrued.getBalance() - ptoVar);
           }
@@ -154,7 +156,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
       curDate.setDate( curDate.getDate() + 1 );
 
       //setup next date from ptoList
-      if (curPto !== null && curPto.dateTo < curDate) {
+      if (curPto !== null && curPto.EndDate < curDate) {
         curPto = ptoIterator.next();
       }
 

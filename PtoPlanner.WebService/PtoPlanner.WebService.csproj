@@ -275,7 +275,15 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\docs.css" />
+    <Content Include="Content\sass\modal.css">
+      <DependentUpon>modal.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\sass\progressbar.css">
+      <DependentUpon>progressbar.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\sass\screen.css">
+      <DependentUpon>screen.scss</DependentUpon>
+    </Content>
     <Content Include="Content\screen.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -286,7 +294,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include="Content\sass\docs.scss" />
     <Content Include="Content\sass\screen.scss" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -307,6 +314,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Content\sass\modal.scss" />
+    <Content Include="Content\sass\progressbar.scss" />
     <None Include="Properties\PublishProfiles\PtoPlanner.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
