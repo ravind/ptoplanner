@@ -3,7 +3,7 @@
         restrict: 'A',
         link: function (scope, elem, attrs) {
             var gridMarks = [{ yaxis: { from: 80, to: 80 }, color: "#ff0000" }];
-
+            var getTime = new Date().getTime();
             scope.$watch('ptoList', updateChart, true);
             scope.$watch('startingBalance', updateChart, true);
 
@@ -18,11 +18,68 @@
 
             function updateChart() {
                 var data = chartGenerator.getChartData();
-                $.plot(elem, [{ data: data.ptoBalance, label: "PTO Balance" }, { data: data.lostBalance, label: "Unused Balance" }], {
-                    xaxis: { mode: "time" },
+                $.plot(elem, [{
+                    data: data.ptoBalance,
+                    label: "PTO Balance",
+                    lines: {
+                        show: true
+                    },
+                    color: "#fff",
+                    points: {
+                        fillColor: "#fff"
+                    }
+                }, {
+                    data: data.lostBalance,
+                    label: "Unused Balance",
+                    lines: {
+                        show: true
+                    },
+                    color: "#ffcb32",
+                    points: {
+                        fillColor: "#ffcb32",
+                        symbol: "triangle" // or "diamond", "square", "cross"
+                    }
+                }], {
+                    xaxis: {
+                        mode: "time"
+                    },
                     minTickSize: [1, "month"],
-                    grid: { markings: gridMarks, hoverable: true },
-                    series: { points: { show: true }, lines: { show: true } }
+                    grid: {
+                        aboveData: false,
+                        borderWidth: 0,
+                        borderColor: "#fff",
+                        color: "#fff",
+                        //backgroundColor: '#555',
+                        margin: 5,
+                        labelMargin: 8,
+                        //axisMargin: 0,
+                        //clickable: true,
+                        //autoHighlight: true,
+                        hoverable: true,
+                        markings: [{
+                            yaxis: {
+                                from: 80,
+                                to: 80
+                            },
+                            lineWidth: 2,
+                            color: "#111"
+                        }, {
+                            xaxis: {
+                                from: getTime,
+                                to: getTime
+                            },
+                            lineWidth: 2,
+                            color: "#555"
+                        }]
+                    },
+                    series: {
+                        points: { show: true },
+                        lines: {
+                            lineWidth: 2,
+                            fill: true,
+                            fillColor: "rgba(255, 255, 255, 0.17)"
+                        }
+                    }
                 });
 
 

@@ -4,19 +4,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
     <title>PTO Planner</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/Scripts/jqueryflot/jquery.flot.min.js"></script>
-    <script type="text/javascript" src="/Scripts/jqueryflot/jquery.flot.time.min.js"></script>
+    <script src="/Scripts/jqueryflot/jquery.flot.min.js"></script>
+    <script src="/Scripts/jqueryflot/jquery.flot.time.min.js"></script>
+    <script src="/Scripts/jqueryflot/jquery.flot.symbol.js"></script>
     <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/Content/Version1/style.css" />
 </head>
 <body data-ng-app="ptoPlanner">
+    <h1 class="h1">PTO Planner</h1>
+
     <div id="container" data-ng-controller="ptoController">
 
-        <h1>PTO Planner</h1>
-
+        <h2 class="h2">Setup</h2>
+        <fieldset class="clearfix">
+          <div class="inblock">
+            <label class="blocklabel">Carry Over</label>
+            <input type="number" step="0.01" id="numStartingBalance" data-ng-model="startingBalance" data-ng-change="startingBalanceChanged()" />
+          </div>
+        </fieldset>
+        <br />
         <div id="chartContainer">
             <div id="placeholder" data-chart=""></div>
         </div>
@@ -25,13 +37,9 @@
         </div>
 
         <form name="ptoForm" id="dataEntry">
-            <div id="divStartingBalance">
-                <span class="label">Starting Balance:</span>
-                <input type="number" step="0.01" id="numStartingBalance" data-ng-model="startingBalance" data-ng-change="startingBalanceChanged()" />
-            </div>
 
+            <h2 class="h2">Add PTO</h2>
             <fieldset id="fstAddPto">
-                <legend>Add PTO:</legend>
                 <span class="label">From:</span>
                 <input type="text" name="dateFrom" data-ng-model="newPto.dateFrom" data-ng-change="dateFromChanged()" class="date" />
                 <span class="label">To:</span>
@@ -47,8 +55,8 @@
                 <br />
                 Note: <input type="text" size="51" data-ng-model="newPto.note" />
             </fieldset>
-
-            <table id="tblPto" data-ng-hide="ptoList.length == 0">
+            <h2 class="h2">PTO List</h2>
+            <table id="tblPto" class="tbl" data-ng-hide="ptoList.length == 0">
                 <tr>
                     <th>From</th>
                     <th>To</th>
