@@ -41,19 +41,19 @@
             <h2 class="h2">Add PTO</h2>
             <fieldset id="fstAddPto">
                 <span class="label">From:</span>
-                <input type="text" name="dateFrom" data-ng-model="newPto.dateFrom" data-ng-change="dateFromChanged()" class="date" />
+                <input type="text" name="dateFrom" data-ng-model="currentPto.StartDate" data-ng-change="dateFromChanged()" class="date" />
                 <span class="label">To:</span>
-                <input type="text" name="dateTo" data-ng-model="newPto.dateTo" data-ng-change="dateToChanged()" class="date" />
+                <input type="text" name="dateTo" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" class="date" />
                 <span class="label">Type:</span>
-                <select data-ng-model="newPto.ptoType" data-ng-options="k as v for (k,v) in ptoTypes">
+                <select data-ng-model="currentPto.PtoType" data-ng-options="k as v for (k,v) in ptoTypes">
                     <option value="">-- Select PTO Type --</option>
                 </select>
-                <button type="button" data-ng-click="addPto()"
-                        data-ng-disabled="!newPto.dateFrom || !newPto.dateTo || !newPto.ptoType">
+                <button type="button" data-ng-click="savePto()"
+                        data-ng-disabled="!currentPto.StartDate || !currentPto.EndDate || !currentPto.PtoType">
                     Add
                 </button>
                 <br />
-                Note: <input type="text" size="51" data-ng-model="newPto.note" />
+                Note: <input type="text" size="51" data-ng-model="currentPto.Note" />
             </fieldset>
             <h2 class="h2">PTO List</h2>
             <table id="tblPto" class="tbl" data-ng-hide="ptoList.length == 0">
@@ -63,12 +63,12 @@
                     <th>Type</th>
                     <th>&nbsp;</th>
                 </tr>
-                <tr data-ng-repeat="pto in ptoList track by pto.id | orderBy:'dateFrom'">
-                    <td>{{ pto.dateFrom | date:'shortDate' }}</td>
-                    <td>{{ pto.dateTo | date:'shortDate' }}</td>
-                    <td>{{ ptoTypes[pto.ptoType] }}</td>
-                    <td>{{ pto.comment }}</td>
-                    <td><button data-ng-click="removePto(pto.id)">&times;</button></td>
+                <tr data-ng-repeat="pto in ptoList track by pto.Url | orderBy:'StartDate'">
+                    <td>{{ pto.StartDate | date:'shortDate' }}</td>
+                    <td>{{ pto.EndDate | date:'shortDate' }}</td>
+                    <td>{{ ptoTypes[pto.PtoType] }}</td>
+                    <td>{{ pto.Note }}</td>
+                    <td><button data-ng-click="removePto(pto.Url)">&times;</button></td>
                 </tr>
             </table>
         </form>

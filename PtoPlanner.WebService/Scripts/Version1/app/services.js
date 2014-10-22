@@ -21,50 +21,83 @@
     }
 });
 
-app.factory('ptoManager', function (dataStore) {
-    var factory, ptoKey, sbKey, ptoList;
+app.factory('ptoManager', function (dataStore, $http) {
+    var factory, sbKey, ptoList;
     
     function init() {
         factory = {};
-        ptoKey = "ptoList";
         sbKey = "startingBalance";
-        dataStore.setDefault(ptoKey, { items: new Array(), cnt: 0 });
         dataStore.setDefault(sbKey, 0);
-        ptoList = dataStore.getObject(ptoKey);
+        ptoList = new Array();
     }
 
     init();
 
     factory.getPtoTypes = function () {
         var ptoTypes = new Array(3);
-        ptoTypes[0] = "PTO";
-        //ptoTypes[1] = "Standard Holiday";
+        ptoTypes[1] = "PTO";
         ptoTypes[2] = "Floating Holiday";
         return ptoTypes;
     }
 
     factory.getPtoList = function () {
-        return ptoList.items;
+        return ptoList;
     }
 
-    factory.addPto = function (from, to, type, note) {
-        ptoList.cnt += 1;
-        var newPto = { id: ptoList.cnt, dateFrom: from, dateTo: to, ptoType: type, comment: note };
-        ptoList.items.push(newPto);
-        ptoList.items.sort(function (a, b) {
-            return a.dateFrom.valueOf() - b.dateFrom.valueOf();
-        });
-        dataStore.setObject(ptoKey, ptoList);
+    factory.updatePtoList = updatePtoList;
+    function updatePtoList(callback) {
+        $http.get('/api/PtoList')
+        .success(function (data, status, headers, config) {
+            ptoList = data;
+            callback(true);
+        })
+        .error(function (data, status, headers, config) {
+            console.log("Error fetching PtoList:" + status + ", " + data);
+            callback(false)
+        });    
     }
 
-    factory.removePto = function (id) {
-        for (var i = ptoList.items.length - 1; i >= 0; i--) {
-            if (ptoList.items[i].id === id) {
-                ptoList.items.splice(i, 1);
-                break;
-            }
+    factory.getNewPto = function () {
+        var newPto = {
+            Url: "",
+            StartDate: "",
+            EndDate: "",
+            Note: "",
+            HalfDays: false,
+            PtoType: 1
         }
-        dataStore.setObject(ptoKey, ptoList);
+        return newPto;
+    }
+
+    factory.savePto = function (ptoObj, callback)
+    {
+        if (ptoObj.Url == "") {
+            $http.post('/api/Pto', ptoObj)
+            .success(function (data, status, headers, config) {
+                console.log("Pto inserted.");
+                updatePtoList(callback);
+            })
+            .error(function (data, status, headers, config) {
+                console.log("Error Inserting: Status-" + status + ", Data-" + data);
+                callback(false);
+            });
+        } else {
+            //Code for PUT request comes here
+        }
+    }
+
+    factory.removePto = function (url, callback) {
+        if (url != "") {
+            $http.delete(url)
+            .success(function (data, status, headers, config) {
+                console.log("Pto deleted.");
+                updatePtoList(callback);
+            })
+            .error(function (data, status, headers, config) {
+                console.log("Error Deleting: Status-" + status + ", Data-" + data);
+                callback(false);
+            });
+        }
     }
 
     factory.getStartingBalance = function () {
@@ -78,17 +111,10 @@ app.factory('ptoManager', function (dataStore) {
     return factory;
 });
 
-app.factory('chartGenerator', function (ptoManager) {
+app.factory('chartGenerator', function () {
 
     var factory = {};
-    var ptoList, startingBalance;
-
-    function init() {
-        ptoList = ptoManager.getPtoList();
-        startingBalance = ptoManager.getStartingBalance();
-    }
-
-    init();
+    var m_ptoList;
 
     function getPtoIterator(ptoType) {
         var ptoIterator = {
@@ -96,9 +122,9 @@ app.factory('chartGenerator', function (ptoManager) {
             reset: function () { this.curIndex = 0 },
             next: function () {
                 var nextPto = null;
-                while (!nextPto & this.curIndex < ptoList.length ) {
-                    if (ptoList[this.curIndex].ptoType == ptoType) {
-                        nextPto = ptoList[this.curIndex];
+                while (!nextPto & this.curIndex < m_ptoList.length) {
+                    if (m_ptoList[this.curIndex].PtoType == ptoType) {
+                        nextPto = m_ptoList[this.curIndex];
                     }
                     this.curIndex++;
                 }
@@ -161,11 +187,14 @@ app.factory('chartGenerator', function (ptoManager) {
         }
     }
 
-    factory.getChartData = function () {
-        init();
+    factory.getChartData = function (startingBalance, ptoList) {
+        if (!startingBalance) return;
+        if (!ptoList || !ptoList instanceof Array) return;
+        
+        m_ptoList = ptoList;
         var balanceData = new Array();
         var lossData = new Array();
-        var ptoIterator = getPtoIterator(0);
+        var ptoIterator = getPtoIterator(1);
         var curYear = new Date().getFullYear();
         var curDate = new Date(curYear, 0, 1);
         var curPto = ptoIterator.next();
@@ -177,7 +206,7 @@ app.factory('chartGenerator', function (ptoManager) {
                 accrued.setBalance(accrued.getBalance() + 20 / 3);
             }
 
-            if (curPto != null && curPto.dateFrom <= curDate.valueOf() && curDate.valueOf() <= curPto.dateTo) {
+            if (curPto != null && Date.parse(curPto.StartDate) <= curDate.valueOf() && curDate.valueOf() <= Date.parse(curPto.EndDate)) {
                 var n = curDate.getDay();
                 if (n != 0 && n != 6) {
                     accrued.setBalance(accrued.getBalance() - 8);
@@ -193,7 +222,7 @@ app.factory('chartGenerator', function (ptoManager) {
             addData(lost, curDate, lossData);
 
             curDate.setDate(curDate.getDate() + 1);
-            if (curPto != null && curPto.dateTo < curDate) {
+            if (curPto != null && Date.parse(curPto.EndDate) < curDate.valueOf()) {
                 curPto = ptoIterator.next();
             }
         }
@@ -207,19 +236,12 @@ app.factory('chartGenerator', function (ptoManager) {
     return factory;
 });
 
-app.factory('floatingHolidayChecker', function (ptoManager) {
+app.factory('floatingHolidayChecker', function () {
     var factory = {};
-    var ptoList;
-
-    function init() {
-        ptoList = ptoManager.getPtoList();
-    }
-
-    init();
 
     function getSearchFilter(startDate, endDate) {
         var filter = function (value, index, ar) {
-            if (value.ptoType == 2 && startDate <= value.dateFrom && value.dateFrom <= endDate) {
+            if (value.PtoType == 2 && startDate <= Date.parse(value.StartDate) && Date.parse(value.StartDate) <= endDate) {
                 return true;
             } else {
                 return false;
@@ -228,7 +250,9 @@ app.factory('floatingHolidayChecker', function (ptoManager) {
         return filter;
     }
 
-    factory.getResults = function () {
+    factory.getResults = function (ptoList) {
+        if (!ptoList) return;
+
         var curYear = new Date().getFullYear();
         var result = "";
 

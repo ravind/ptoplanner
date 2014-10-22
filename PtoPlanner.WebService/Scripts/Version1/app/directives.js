@@ -4,8 +4,8 @@
         link: function (scope, elem, attrs) {
             var gridMarks = [{ yaxis: { from: 80, to: 80 }, color: "#ff0000" }];
             var getTime = new Date().getTime();
-            scope.$watch('ptoList', updateChart, true);
-            scope.$watch('startingBalance', updateChart, true);
+            scope.$watch('ptoList', dataChanged, true);
+            scope.$watch('startingBalance', dataChanged, true);
 
             $("<div id='tooltip'></div>").css({
                 position: "absolute",
@@ -16,8 +16,14 @@
                 opacity: 0.80
             }).appendTo("body");
 
-            function updateChart() {
-                var data = chartGenerator.getChartData();
+            function dataChanged()
+            {
+                updateChart(scope.startingBalance, scope.ptoList);
+            }
+
+            function updateChart(startingBalance, ptoList) {
+                var data = chartGenerator.getChartData(startingBalance, ptoList);
+                if (!data) return;
                 $.plot(elem, [{
                     data: data.ptoBalance,
                     label: "PTO Balance",

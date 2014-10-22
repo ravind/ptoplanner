@@ -1,16 +1,37 @@
 ﻿app.controller('ptoController', function ($scope, ptoManager, floatingHolidayChecker) {
     $scope.startingBalance = ptoManager.getStartingBalance();
-    $scope.ptoList = ptoManager.getPtoList();
+    ptoManager.updatePtoList(function (success) {
+        if (success) {
+            $scope.ptoList = ptoManager.getPtoList();
+        } else {
+            alert("Error fetching PTO List.");
+        }
+    });
     $scope.ptoTypes = ptoManager.getPtoTypes();
+    $scope.currentPto = ptoManager.getNewPto();
 
-    $scope.addPto = function () {
-        var fromDate = new Date(Date.parse($scope.newPto.dateFrom));
-        var toDate = new Date(Date.parse($scope.newPto.dateTo));
-        ptoManager.addPto(fromDate.valueOf(), toDate.valueOf(), $scope.newPto.ptoType, $scope.newPto.note);
+    $scope.savePto = function () {
+        $scope.currentPto.StartDate = new Date(Date.parse($scope.currentPto.StartDate));
+        $scope.currentPto.EndDate = new Date(Date.parse($scope.currentPto.EndDate));
+        ptoManager.savePto($scope.currentPto, function (success) {
+            if (success)
+            {
+                $scope.ptoList = ptoManager.getPtoList();
+                $scope.currentPto = ptoManager.getNewPto();
+            } else {
+                alert("Error saving PTO.");
+            }
+        });
     }
 
-    $scope.removePto = function (id) {
-        ptoManager.removePto(id);
+    $scope.removePto = function (url) {
+        ptoManager.removePto(url, function (success) {
+            if (success) {
+                $scope.ptoList = ptoManager.getPtoList();
+            } else {
+                alert("Error deleting PTO.");
+            }
+        });
     }
 
     $scope.startingBalanceChanged = function () {
@@ -19,14 +40,14 @@
 
     $scope.dateFromChanged = function () {
         if ($scope.ptoForm.dateFrom.$valid && isValidDate($scope.ptoForm.dateFrom.$modelValue)) {
-            if (!$scope.newPto.dateTo | $scope.ptoForm.dateTo.$invalid) {
-                $scope.newPto.dateTo = $scope.newPto.dateFrom;
+            if (!$scope.currentPto.EndDate | $scope.ptoForm.dateTo.$invalid) {
+                $scope.currentPto.EndDate = $scope.currentPto.StartDate;
             } else {
-                var fromDate = Date.parse($scope.newPto.dateFrom);
-                var toDate = Date.parse($scope.newPto.dateTo);
+                var fromDate = Date.parse($scope.currentPto.StartDate);
+                var toDate = Date.parse($scope.currentPto.EndDate);
 
                 if (toDate <= fromDate) {
-                    $scope.newPto.dateTo = $scope.newPto.dateFrom;
+                    $scope.currentPto.EndDate = $scope.currentPto.StartDate;
                 }
             }
         }
@@ -34,14 +55,14 @@
 
     $scope.dateToChanged = function () {
         if ($scope.ptoForm.dateTo.$valid && isValidDate($scope.ptoForm.dateTo.$modelValue)) {
-            if (!$scope.newPto.dateFrom | $scope.ptoForm.dateFrom.$invalid) {
-                $scope.newPto.dateFrom = $scope.newPto.dateTo;
+            if (!$scope.currentPto.StartDate | $scope.ptoForm.dateFrom.$invalid) {
+                $scope.currentPto.StartDate = $scope.currentPto.EndDate;
             } else {
-                var fromDate = Date.parse($scope.newPto.dateFrom);
-                var toDate = Date.parse($scope.newPto.dateTo);
+                var fromDate = Date.parse($scope.currentPto.StartDate);
+                var toDate = Date.parse($scope.currentPto.EndDate);
 
                 if (toDate <= fromDate) {
-                    $scope.newPto.dateFrom = $scope.newPto.dateTo;
+                    $scope.currentPto.StartDate = $scope.currentPto.EndDate;
                 }
             }
         }
@@ -63,6 +84,6 @@
     $scope.$watch('ptoList', updateFloatingHolidays, true);
 
     function updateFloatingHolidays() {
-        $scope.floatingHolidayResult = floatingHolidayChecker.getResults();
+        $scope.floatingHolidayResult = floatingHolidayChecker.getResults($scope.ptoList);
     }
 });
