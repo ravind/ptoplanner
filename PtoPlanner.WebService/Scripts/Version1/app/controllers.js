@@ -38,6 +38,10 @@
     }
 
     $scope.savePto = function () {
+        if ($scope.currentPto.Url) {
+            $scope.removePto($scope.currentPto.Url);
+            $scope.currentPto.Url = "";
+        }
         $scope.currentPto.StartDate = new Date(Date.parse($scope.currentPto.StartDate));
         $scope.currentPto.EndDate = new Date(Date.parse($scope.currentPto.EndDate));
         ptoManager.savePto($scope.currentPto, function (success) {
@@ -50,6 +54,15 @@
             }
         });
     }
+
+    $scope.editPto = function (obj) {
+        var startDate = new Date(obj.StartDate);
+        var endDate = new Date(obj.EndDate);
+        obj.StartDate = startDate.toLocaleDateString();
+        obj.EndDate = endDate.toLocaleDateString();
+        $scope.currentPto = obj;
+
+    };
 
     $scope.removePto = function (url) {
         ptoManager.removePto(url, function (success) {
