@@ -85,7 +85,7 @@
                             <span class="help" data-info="Log this PTO as half days (4 hrs per day).">
                                 <i class="fa fa-question-circle"></i>
                             </span>
-                            <input type="checkbox" ng-model="newPto.halfDays" class="ng-pristine ng-valid">
+                                  <input type="checkbox" ng-model="currentPto.HalfDays" class="ng-pristine ng-valid">
                         </div>
                         <div class="float50">
                             <span class="label"></span>
@@ -98,10 +98,7 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <div class="on"><p>Q1</p><input type="text" placeholder="dd/mm/yyyy"></div>
-                        <div class="on"><p>Q2</p><input type="text" placeholder="dd/mm/yyyy"></div>
-                        <div>           <p>Q3</p><input type="text" placeholder="dd/mm/yyyy"></div>
-                        <div>           <p>Q4</p><input type="text" placeholder="dd/mm/yyyy"></div>
+                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="dd/mm/yyyy" value="{{fh.date | date:'shortDate'}}" /></div>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">

@@ -1,4 +1,4 @@
-﻿app.controller('ptoController', function ($scope, ptoManager, settingsManager, floatingHolidayChecker) {
+﻿app.controller('ptoController', function ($scope, ptoManager, settingsManager, holidayManager) {
 
     function init() {
         $scope.ptoTypes = ptoManager.getPtoTypes();
@@ -137,6 +137,6 @@
     $scope.$watch('ptoList', updateFloatingHolidays, true);
 
     function updateFloatingHolidays() {
-        $scope.floatingHolidayResult = floatingHolidayChecker.getResults($scope.ptoList);
+        $scope.floatingHolidays = holidayManager.getFloatingHolidays($scope.ptoList);
     }
 });

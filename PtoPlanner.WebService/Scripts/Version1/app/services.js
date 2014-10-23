@@ -253,7 +253,8 @@ app.factory('chartGenerator', function () {
             if (curPto != null && Date.parse(curPto.StartDate) <= curDate.valueOf() && curDate.valueOf() <= Date.parse(curPto.EndDate)) {
                 var n = curDate.getDay();
                 if (n != 0 && n != 6) {
-                    accrued.setBalance(accrued.getBalance() - 8);
+                    var hoursUsed = curPto.HalfDays ? 4 : 8;
+                    accrued.setBalance(accrued.getBalance() - hoursUsed);
                 }
             }
 
@@ -280,7 +281,7 @@ app.factory('chartGenerator', function () {
     return factory;
 });
 
-app.factory('floatingHolidayChecker', function () {
+app.factory('holidayManager', function () {
     var factory = {};
 
     function getSearchFilter(startDate, endDate) {
@@ -294,11 +295,11 @@ app.factory('floatingHolidayChecker', function () {
         return filter;
     }
 
-    factory.getResults = function (ptoList) {
+    factory.getFloatingHolidays = function (ptoList) {
         if (!ptoList) return;
 
         var curYear = new Date().getFullYear();
-        var result = "";
+        var result = new Array();
 
         for (var q = 0; q < 4; q++) {
             var startDate = new Date(curYear, q * 3, 1);
@@ -309,9 +310,9 @@ app.factory('floatingHolidayChecker', function () {
             
             var floatingHolidays = ptoList.filter(filt);
             if (floatingHolidays.length == 0) {
-                result += qname + " floating holiday not used.\r\n";
-            } else if (floatingHolidays.length > 1) {
-                result += "Cannot use " + floatingHolidays.length + " floating holidays in " + qname + ".\r\n";
+                result.push({name: qname, date: null});
+            } else {
+                result.push({name: qname, date: floatingHolidays[0].StartDate});
             }
         }
 
