@@ -1,60 +1,107 @@
-﻿app.service('dataStore', function () {
+﻿app.factory('settingsManager', function ($http) {
+    var factory, settings;
 
-    var defaults = new Array();
-
-    this.setDefault = function (key, object) {
-        defaults[key] = object;
+    function init() {
+        factory = {};
     }
 
-    this.getObject = function (key) {
-        var obj = localStorage.getObject(key);
-        if (obj === null) {
-            if (defaults[key] != null) {
-                obj = defaults[key];
+    init();
+
+    factory.getEmployeeStatuses = function () {
+        var empStats = [
+            { id: 1, name: "Full Time" },
+            { id: 2, name: "Part Time" }
+        ];
+        return empStats;
+    }
+
+    factory.getAllYears = function (callback) {
+        $http.get('/api/Settings/Years')
+        .success(function (data, status, headers, config) {
+            callback(data);
+        })
+        .error(function (data, status, headers, config) {
+            console.log("Error fetching Years: " + status + ", " + data);
+            callback(null);
+        });
+    }
+
+    factory.getSettings = function (year, callback) {
+        $http.get('/api/Settings/' + year)
+        .success(function (data, status, headers, config) {
+            callback(data);
+        })
+        .error(function (data, status, headers, config) {
+            if (status == 404) {
+                var retVal = {
+                    Url: "",
+                    EmployeeStatus: 1,
+                    HireYear: null,
+                    ProrateStart: null,
+                    ProrateEnd: null,
+                    PtoCarriedOver: 0,
+                    SettingsYear: year
+                };
+                callback(retVal);
+            } else {
+                console.log("Error fetching Settings: " + status + ", " + data);
+                callback(null);
             }
-        }
-        return obj;
+        });
     }
 
-    this.setObject = function (key, object) {
-        localStorage.setObject(key, object);
+    factory.saveSettings = function (settingObj, callback)
+    {
+        if(settingObj.Url == "") {
+            $http.post('/api/Settings', settingObj)
+            .success(function (data, status, headers, config) {
+                callback(true);
+            })
+            .error(function (data, status, headers, config) {
+                console.log("Error inserting Settings: " + status + ", " +data);
+                callback(false);
+            });
+        } else {
+            $http.put('/api/Settings/' + settingObj.SettingsYear, settingObj)
+            .success(function (data, status, headers, config) {
+                callback(true);
+            })
+            .error(function (data, status, headers, config) {
+                console.log("Error updating Settings: " + status + ", " + data);
+                callback(false);
+            });
+        }
     }
+
+    return factory;
 });
 
-app.factory('ptoManager', function (dataStore, $http) {
-    var factory, sbKey, ptoList;
+app.factory('ptoManager', function ($http) {
+    var factory;
     
     function init() {
         factory = {};
-        sbKey = "startingBalance";
-        dataStore.setDefault(sbKey, 0);
-        ptoList = new Array();
     }
 
     init();
 
     factory.getPtoTypes = function () {
-        var ptoTypes = new Array(3);
-        ptoTypes[1] = "PTO";
-        ptoTypes[2] = "Floating Holiday";
+        var ptoTypes = [
+            { id: 1, name: "PTO" },
+            { id: 2, name: "Floating Holiday" }
+        ];
         return ptoTypes;
     }
 
-    factory.getPtoList = function () {
-        return ptoList;
-    }
-
-    factory.updatePtoList = updatePtoList;
-    function updatePtoList(callback) {
-        $http.get('/api/PtoList')
+    factory.refreshPtoList = function (year, callback) {
+        $http.get('/api/PtoList/' + year)
         .success(function (data, status, headers, config) {
-            ptoList = data;
-            callback(true);
+            callback(data);
         })
         .error(function (data, status, headers, config) {
-            console.log("Error fetching PtoList:" + status + ", " + data);
-            callback(false)
-        });    
+            console.log("Error fetching PtoList: " + status + ", " + data);
+            callback(null);
+        });
     }
 
     factory.getNewPto = function () {
@@ -74,11 +121,10 @@ app.factory('ptoManager', function (dataStore, $http) {
         if (ptoObj.Url == "") {
             $http.post('/api/Pto', ptoObj)
             .success(function (data, status, headers, config) {
-                console.log("Pto inserted.");
-                updatePtoList(callback);
+                callback(true);
             })
             .error(function (data, status, headers, config) {
-                console.log("Error Inserting: Status-" + status + ", Data-" + data);
+                console.log("Error Inserting PTO: " + status + ", " + data);
                 callback(false);
             });
         } else {
@@ -90,22 +136,13 @@ app.factory('ptoManager', function (dataStore, $http) {
         if (url != "") {
             $http.delete(url)
             .success(function (data, status, headers, config) {
-                console.log("Pto deleted.");
-                updatePtoList(callback);
+                callback(true);
             })
             .error(function (data, status, headers, config) {
-                console.log("Error Deleting: Status-" + status + ", Data-" + data);
+                console.log("Error Deleting PTO: " + status + ", " + data);
                 callback(false);
             });
         }
-    }
-
-    factory.getStartingBalance = function () {
-        return dataStore.getObject(sbKey);
-    }
-
-    factory.setStartingBalance = function (startingBalance) {
-        dataStore.setObject(sbKey, startingBalance);
     }
 
     return factory;
@@ -187,8 +224,8 @@ app.factory('chartGenerator', function () {
         }
     }
 
-    factory.getChartData = function (startingBalance, ptoList) {
-        if (!startingBalance) return;
+    factory.getChartData = function (currentSettings, ptoList) {
+        if (!currentSettings) return;
         if (!ptoList || !ptoList instanceof Array) return;
         
         m_ptoList = ptoList;
@@ -198,7 +235,7 @@ app.factory('chartGenerator', function () {
         var curYear = new Date().getFullYear();
         var curDate = new Date(curYear, 0, 1);
         var curPto = ptoIterator.next();
-        var accrued = balanceTracker(startingBalance);
+        var accrued = balanceTracker(currentSettings.PtoCarriedOver);
         var lost = balanceTracker(0);
         lost.commit();
         while (curDate.getFullYear() == curYear) {

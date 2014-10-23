@@ -1,14 +1,41 @@
-﻿app.controller('ptoController', function ($scope, ptoManager, floatingHolidayChecker) {
-    $scope.startingBalance = ptoManager.getStartingBalance();
-    ptoManager.updatePtoList(function (success) {
-        if (success) {
-            $scope.ptoList = ptoManager.getPtoList();
-        } else {
-            alert("Error fetching PTO List.");
+﻿app.controller('ptoController', function ($scope, ptoManager, settingsManager, floatingHolidayChecker) {
+
+    function init() {
+        $scope.ptoTypes = ptoManager.getPtoTypes();
+        $scope.empStatuses = settingsManager.getEmployeeStatuses();
+
+        settingsManager.getAllYears(function (data) {
+            $scope.yearList = data;
+
+            //Select current year if present in list, otherwise select latest year in list
+            var curYear = new Date().getFullYear();
+            var selYear = null;
+            for (var i = 0; i < data.length; i++) {
+                selYear = data[i];
+                if (selYear == curYear) break;
+            }
+            $scope.selectedYear = selYear;
+            selectedYearChanged();
+        });
+    };
+
+    init();
+
+    $scope.saveSettings = function () {
+        if ($scope.curSettings.ProrateStart) {
+            $scope.curSettings.ProrateStart = new Date(Date.parse($scope.curSettings.ProrateStart));
         }
-    });
-    $scope.ptoTypes = ptoManager.getPtoTypes();
-    $scope.currentPto = ptoManager.getNewPto();
+        if ($scope.curSettings.ProrateEnd) {
+            $scope.curSettings.ProrateEnd = new Date(Date.parse($scope.curSettings.ProrateEnd));
+        }
+        settingsManager.saveSettings($scope.curSettings, function (success) {
+            if (success) {
+                refreshSettings();
+            } else {
+                alert("Error saving Settings.");
+            }
+        });
+    }
 
     $scope.savePto = function () {
         $scope.currentPto.StartDate = new Date(Date.parse($scope.currentPto.StartDate));
@@ -16,7 +43,7 @@
         ptoManager.savePto($scope.currentPto, function (success) {
             if (success)
             {
-                $scope.ptoList = ptoManager.getPtoList();
+                refreshPtoList();
                 $scope.currentPto = ptoManager.getNewPto();
             } else {
                 alert("Error saving PTO.");
@@ -27,15 +54,32 @@
     $scope.removePto = function (url) {
         ptoManager.removePto(url, function (success) {
             if (success) {
-                $scope.ptoList = ptoManager.getPtoList();
+                refreshPtoList();
             } else {
                 alert("Error deleting PTO.");
             }
         });
     }
 
-    $scope.startingBalanceChanged = function () {
-        ptoManager.setStartingBalance($scope.startingBalance);
+    $scope.selectedYearChanged = selectedYearChanged;
+    function selectedYearChanged() {
+        $scope.currentPto = ptoManager.getNewPto();
+        refreshSettings();
+        refreshPtoList();
+    }
+
+    function refreshSettings()
+    {
+        settingsManager.getSettings($scope.selectedYear, function (data) {
+            $scope.curSettings = data;
+        });
+    }
+
+    function refreshPtoList()
+    {
+        ptoManager.refreshPtoList($scope.selectedYear, function (data) {
+            $scope.ptoList = data;
+        });
     }
 
     $scope.dateFromChanged = function () {

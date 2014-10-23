@@ -5,7 +5,7 @@
             var gridMarks = [{ yaxis: { from: 80, to: 80 }, color: "#ff0000" }];
             var getTime = new Date().getTime();
             scope.$watch('ptoList', dataChanged, true);
-            scope.$watch('startingBalance', dataChanged, true);
+            scope.$watch('curSettings', dataChanged, true);
 
             $("<div id='tooltip'></div>").css({
                 position: "absolute",
@@ -18,11 +18,11 @@
 
             function dataChanged()
             {
-                updateChart(scope.startingBalance, scope.ptoList);
+                updateChart(scope.curSettings, scope.ptoList);
             }
 
-            function updateChart(startingBalance, ptoList) {
-                var data = chartGenerator.getChartData(startingBalance, ptoList);
+            function updateChart(currentSettings, ptoList) {
+                var data = chartGenerator.getChartData(currentSettings, ptoList);
                 if (!data) return;
                 $.plot(elem, [{
                     data: data.ptoBalance,

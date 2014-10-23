@@ -22,7 +22,13 @@ namespace PtoPlanner.WebService.Controllers
         [Route("api/Settings/Years")]
         public IEnumerable<int> GetAllYears()
         {
-            return _repo.GetAllYears();
+            var years = new List<int>(_repo.GetAllYears());
+            int currentYear = DateTime.Today.Year;
+            for (int i = currentYear; i < currentYear + 2; i++)
+			{
+			    if (!years.Contains(i)) years.Add(i);
+			}
+            return years;
         }
 
         public HttpResponseMessage Get(int? year = null)
