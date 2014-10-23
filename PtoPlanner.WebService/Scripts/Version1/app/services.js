@@ -62,7 +62,7 @@
                 callback(false);
             });
         } else {
-            $http.put('/api/Settings/' + settingObj.SettingsYear, settingObj)
+            $http.put(settingObj.Url, settingObj)
             .success(function (data, status, headers, config) {
                 callback(true);
             })
@@ -128,7 +128,14 @@ app.factory('ptoManager', function ($http) {
                 callback(false);
             });
         } else {
-            //Code for PUT request comes here
+            $http.put(ptoObj.Url, ptoObj)
+            .success(function (data, status, headers, config) {
+                callback(true);
+            })
+            .error(function(data, status, headers, config) {
+                console.log("Error updating PTO: " + status + ", " + data);
+                callback(false);
+            });
         }
     }
 

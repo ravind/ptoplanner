@@ -88,10 +88,9 @@
                             <input type="checkbox" ng-model="newPto.halfDays" class="ng-pristine ng-valid">
                         </div>
                         <div class="float50">
-
                             <span class="label"></span>
                             <button type="button" data-ng-click="savePto()" data-ng-disabled="!currentPto.StartDate || !currentPto.EndDate || !currentPto.PtoType">
-                                Add
+                                {{ currentPto.Url ? 'Update' : 'Add' }}
                             </button>
                         </div>
                     </form>
