@@ -75,6 +75,7 @@
         $scope.currentPto = ptoManager.getNewPto();
         refreshSettings();
         refreshPtoList();
+        $scope.standardHolidays = holidayManager.getStandardHolidays($scope.selectedYear);
     }
 
     function refreshSettings()

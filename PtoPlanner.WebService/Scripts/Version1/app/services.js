@@ -319,5 +319,59 @@ app.factory('holidayManager', function () {
         return result;
     }
 
+    factory.getStandardHolidays = function(year) {
+        var retVal = new Array();
+
+        retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1) });
+        retVal.push({ name: 'Memorial', date: getLastMonday(5) });
+        retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4) });
+        retVal.push({ name: 'Labor', date: getLastMonday(9) });
+        retVal.push({ name: 'Thanksgiving', date: getThanksDay() });
+        retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25) });
+
+        var curDate = new Date();
+        for (var i = 0; i < retVal.length; i++) {
+            var sh = retVal[i];
+            sh.inPast = (sh.date.valueOf() < curDate.valueOf());
+        }
+
+        return retVal;
+
+        function getLastMonday(month) {
+            var d = new Date();
+            d.setDate(1); // Roll to the first day of ...
+            d.setMonth(month);//the month after because of zero base
+            do { // Roll the days backwards until Monday.
+                d.setDate(d.getDate() - 1);
+            } while (d.getDay() !== 1);
+
+            return new Date(year, d.getMonth(), d.getDate());
+        }
+
+        function getThanksDay() {
+            var first = new Date(year, 10, 1);
+            var day_of_week = first.getDay();
+            var thanksday = 22 + (11 - day_of_week) % 7;
+            return new Date(year, 10, thanksday);
+        }
+
+        function getHoliday(y, m, d) {
+            var date = new Date(y, m, d);
+            //push sunday to monday
+            if (date.getDay() === 0) {
+                date.setDate(date.getDate() + 1);
+            }
+            //push saturday to friday
+            if (date.getDay() === 6) {
+                date.setDate(date.getDate() - 1);
+                //if new years moved to previous year push it the other way
+                if (date.getDate() === 31) {
+                    date.setDate(date.getDate() + 3);
+                }
+            }
+            return date;
+        }
+    }
+
     return factory;
 });

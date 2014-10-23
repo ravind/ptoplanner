@@ -98,16 +98,11 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="dd/mm/yyyy" value="{{fh.date | date:'shortDate'}}" /></div>
+                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="dd/mm/yyyy" value="{{fh.date | date:'shortDate'}}" /></div>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
-                        <div class="on"><p>New Years<br>Wednesday Jan 01</p></div>
-                        <div class="on"><p>Memorial<br>Monday May 26</p></div>
-                        <div class="on"><p>Independence<br>Friday Jul 04</p></div>
-                        <div>           <p>Labor<br>Monday Sep 29</p></div>
-                        <div>           <p>Thanksgiving<br>Thursday Nov 27</p></div>
-                        <div>           <p>Christmas <br>Thursday Dec 25</p></div>
+                        <div ng-repeat="sh in standardHolidays" class="{{sh.inPast ? 'on' : 'off'}}"><p>{{sh.name}}<br />{{sh.date | date:'EEEE'}}<br />{{sh.date | date:'MMM dd'}}</p></div>
                     </div>
                 </fieldset>
             </div><div class="float50">
