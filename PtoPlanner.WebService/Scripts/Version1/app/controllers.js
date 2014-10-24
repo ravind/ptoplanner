@@ -205,4 +205,19 @@
     function updateFloatingHolidays() {
         $scope.floatingHolidays = holidayManager.getFloatingHolidays($scope.ptoList);
     }
+
+    $scope.$watch('floatingHolidays', saveFloatingHolidays, true);
+    function saveFloatingHolidays() {
+        var fhList = $scope.floatingHolidays;
+
+        if (fhList) {
+            for (var i = 0; i < fhList.length; i++) {
+                holidayManager.saveFloatingHoliday(fhList[i], function (success) {
+                    if (success) {
+                        refreshPtoList();
+                    }
+                });
+            }
+        }
+    }
 });

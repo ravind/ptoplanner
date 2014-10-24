@@ -94,7 +94,7 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="mm/dd/yyyy" value="{{fh.date | date:'MM/dd/yyyy'}}" data-qdp='{"qEnd": {{fh.quarter * 3}}}' on-last-repeat /></div>
+                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}" on-last-repeat><p>{{fh.name}}</p><input type="text" placeholder="mm/dd/yyyy" ng-model="fh.date" data-qdp='{"qEnd": {{fh.quarter * 3}}}' /></div>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
