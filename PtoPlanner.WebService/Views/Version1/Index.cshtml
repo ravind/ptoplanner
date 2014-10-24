@@ -149,17 +149,17 @@
                     <tbody>
                         <tr>
                             <td>Hours</td>
-                            <td>0.00</td>
-                            <td ng-bind="tdDaysUsed * 8 | number:2">0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="todateEarned | number:2">0</td>
+                            <td ng-bind="tdDaysUsed * 8 | number:2">0</td>
+                            <td ng-bind="todateHoursLost | number:2">0</td>
+                            <td ng-bind="todateHoursAvailable | number:2">0</td>
                         </tr>
                         <tr>
                             <td>Days</td>
-                            <td>0.00</td>
-                            <td ng-bind="tdDaysUsed | number:2">0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="todateEarned / 8 | number:2">0</td>
+                            <td ng-bind="tdDaysUsed | number:2">0</td>
+                            <td ng-bind="todateHoursLost / 8 | number:2">0</td>
+                            <td ng-bind="todateHoursAvailable / 8 | number:2">0</td>
                         </tr>
                     </tbody>
                     <thead>
@@ -168,17 +168,17 @@
                     <tbody>
                         <tr>
                             <td>Hours</td>
-                            <td ng-bind="( ( curSettings.HireYear * 8 ) / curSettings.EmployeeStatus ) + curSettings.PtoCarriedOver | number:2">0.00</td>
-                            <td ng-bind="yeDaysUsed * 8 | number:2">0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="( ( curSettings.HireYear * 8 ) / curSettings.EmployeeStatus ) + curSettings.PtoCarriedOver | number:2">0</td>
+                            <td ng-bind="yeDaysUsed * 8 | number:2">0</td>
+                            <td ng-bind="lostBalance | number:2">0</td>
+                            <td ng-bind="ptoBalance | number:2">0</td>
                         </tr>
                         <tr>
                             <td>Days</td>
-                            <td ng-bind="( curSettings.HireYear / curSettings.EmployeeStatus ) + ( curSettings.PtoCarriedOver / 8 ) | number:2">0.00</td>
-                            <td ng-bind="yeDaysUsed | number:2">0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="( curSettings.HireYear / curSettings.EmployeeStatus ) + ( curSettings.PtoCarriedOver / 8 ) | number:2">0</td>
+                            <td ng-bind="yeDaysUsed | number:2">0</td>
+                            <td ng-bind="lostBalance / 8 | number:2">0</td>
+                            <td ng-bind="ptoBalance / 8 | number:2">0</td>
                         </tr>
                     </tbody>
                 </table>

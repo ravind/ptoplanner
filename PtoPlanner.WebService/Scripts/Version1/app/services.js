@@ -248,17 +248,36 @@ app.factory('chartGenerator', function () {
         var balanceData = new Array();
         var lossData = new Array();
         var ptoIterator = getPtoIterator(1);
+        var nowDate = new Date();
         var curYear = new Date().getFullYear();
         var curDate = new Date(curYear, 0, 1);
         var curPto = ptoIterator.next();
+
         var accrued = balanceTracker(currentSettings.PtoCarriedOver);
         var lost = balanceTracker(0);
-        var empStatusVar = 80 / currentSettings.EmployeeStatus;
+        var employeeStatus = currentSettings.EmployeeStatus;
+        var hireYearVar = currentSettings.HireYear;
+        var empAccrueVar = (hireYearVar / employeeStatus) / 3;
+        var empStatusVar = 80 / employeeStatus;
+
+        var todateEarned = currentSettings.PtoCarriedOver;
+        var todateHoursAvailable = 0;
+        var todateHoursLost = 0;
+
         lost.commit();
         while (curDate.getFullYear() == curYear) {
+
+            //if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
+            //    accrued.setBalance(accrued.getBalance() + 20 / 3);
+            //}
             if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
-                accrued.setBalance(accrued.getBalance() + 20 / 3);
+                accrued.setBalance(accrued.getBalance() + empAccrueVar);
+                //if curDate is not passed today then increase todateEarned amount
+                if (curDate.toJSON() < nowDate.toJSON()) {
+                    todateEarned += empAccrueVar;
+                }
             }
+
 
             if (curPto != null && Date.parse(curPto.StartDate) <= curDate.valueOf() && curDate.valueOf() <= Date.parse(curPto.EndDate)) {
                 var n = curDate.getDay();
@@ -273,6 +292,12 @@ app.factory('chartGenerator', function () {
                 accrued.setBalance(empStatusVar);
             }
 
+            //get total hours earned todate variable
+            if ((curDate.getMonth() + "-" + curDate.getDate()) === (nowDate.getMonth() + "-" + nowDate.getDate())) {
+                todateHoursAvailable = accrued.getBalance();
+                todateHoursLost = lost.getBalance();
+            }
+
             addData(accrued, curDate, balanceData);
             addData(lost, curDate, lossData);
 
@@ -285,7 +310,12 @@ app.factory('chartGenerator', function () {
         return {
             ptoBalance: balanceData,
             lostBalance: lossData,
-            empStatusVar: empStatusVar
+            empStatusVar: empStatusVar,
+            ptoBalanceEnd: balanceData[balanceData.length - 1],
+            lostBalanceEnd: lossData[lossData.length - 1],
+            todateHoursAvailable: todateHoursAvailable,
+            todateHoursLost: todateHoursLost,
+            todateEarned: todateEarned
         };
     }
 

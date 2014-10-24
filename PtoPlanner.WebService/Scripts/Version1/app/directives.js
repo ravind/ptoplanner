@@ -22,7 +22,17 @@
             }
 
             function updateChart(currentSettings, ptoList) {
+
                 var data = chartGenerator.getChartData(currentSettings, ptoList);
+                if(!data){
+                return;
+                }
+                scope.todateHoursAvailable = data.todateHoursAvailable;
+                scope.todateHoursLost = data.todateHoursLost;
+                scope.todateEarned = data.todateEarned;
+                scope.lostBalance = Math.floor(data.lostBalanceEnd[1]);
+                scope.ptoBalance = Math.floor(data.ptoBalanceEnd[1]);
+
                 if (!data) return;
                 $.plot(elem, [{
                     data: data.ptoBalance,
