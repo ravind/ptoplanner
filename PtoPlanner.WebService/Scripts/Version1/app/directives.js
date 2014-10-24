@@ -64,8 +64,8 @@
                         hoverable: true,
                         markings: [{
                             yaxis: {
-                                from: 80,
-                                to: 80
+                                from: data.empStatusVar,
+                                to: data.empStatusVar
                             },
                             lineWidth: 2,
                             color: "#111"

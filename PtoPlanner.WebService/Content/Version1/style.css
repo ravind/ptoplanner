@@ -271,12 +271,21 @@ fieldset
     width: 50%;
     padding-right: 10px;
 }
-
+.label
+{
+    display:block;
+    font-weight:bold;
+}
     .float50:nth-child(even)
     {
         padding-right: 0;
     }
-
+.float50 input[type=text]
+{
+    display:block;
+    min-width:100%;
+    max-width:100%;
+}
 .help
 {
     position: relative;
