@@ -318,6 +318,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Content\sass\modal.scss" />
     <Content Include="Content\sass\progressbar.scss" />
+    <None Include="Properties\PublishProfiles\pto-planner.pubxml" />
     <None Include="Properties\PublishProfiles\PtoPlanner.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
