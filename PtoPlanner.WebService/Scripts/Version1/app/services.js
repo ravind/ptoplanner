@@ -323,10 +323,10 @@ app.factory('holidayManager', function () {
         var retVal = new Array();
 
         retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1) });
-        retVal.push({ name: 'Memorial', date: getLastMonday(5) });
+        retVal.push({ name: 'Memorial', date: getNthDayOfMonth(0, 1, 5) }); //Last Monday in May
         retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4) });
-        retVal.push({ name: 'Labor', date: getLastMonday(9) });
-        retVal.push({ name: 'Thanksgiving', date: getThanksDay() });
+        retVal.push({ name: 'Labor', date: getNthDayOfMonth(1, 1, 9) }); //First Monday in Sept
+        retVal.push({ name: 'Thanksgiving', date: getNthDayOfMonth(4, 4, 11) }); //4th Thurs in Nov
         retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25) });
 
         var curDate = new Date();
@@ -337,22 +337,26 @@ app.factory('holidayManager', function () {
 
         return retVal;
 
-        function getLastMonday(month) {
-            var d = new Date();
-            d.setDate(1); // Roll to the first day of ...
-            d.setMonth(month);//the month after because of zero base
-            do { // Roll the days backwards until Monday.
-                d.setDate(d.getDate() - 1);
-            } while (d.getDay() !== 1);
-
-            return new Date(year, d.getMonth(), d.getDate());
-        }
-
-        function getThanksDay() {
-            var first = new Date(year, 10, 1);
-            var day_of_week = first.getDay();
-            var thanksday = 22 + (11 - day_of_week) % 7;
-            return new Date(year, 10, thanksday);
+        function getNthDayOfMonth(n, day, month)
+        {
+            month = month - 1; //Month is zero based
+            var firstDate = new Date(year, month, 1); 
+            while (firstDate.getDay() != day) //Day of week starting w/ Sunday = 0
+            {
+                firstDate.setDate(firstDate.getDate() + 1);
+            }
+            var matchingDays = new Array();
+            while (firstDate.getMonth() == month)
+            {
+                matchingDays.push(new Date(firstDate));
+                firstDate.setDate(firstDate.getDate() + 7);
+            }
+            if (n == 0) //last day desired
+            {
+                return matchingDays[matchingDays.length - 1];
+            } else {
+                return matchingDays[n - 1];
+            }
         }
 
         function getHoliday(y, m, d) {
