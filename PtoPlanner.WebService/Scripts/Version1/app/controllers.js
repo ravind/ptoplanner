@@ -45,6 +45,7 @@
             {
                 refreshPtoList();
                 $scope.currentPto = ptoManager.getNewPto();
+                updatePtoDatePickers();
             } else {
                 alert("Error saving PTO.");
             }
@@ -57,7 +58,7 @@
         obj.StartDate = startDate.toLocaleDateString();
         obj.EndDate = endDate.toLocaleDateString();
         $scope.currentPto = obj;
-
+        updatePtoDatePickers();
     };
 
     $scope.removePto = function (url) {
@@ -76,6 +77,7 @@
         refreshSettings();
         refreshPtoList();
         $scope.standardHolidays = holidayManager.getStandardHolidays($scope.selectedYear);
+        updateDatePickers();
     }
 
     function refreshSettings()
@@ -89,6 +91,53 @@
     {
         ptoManager.refreshPtoList($scope.selectedYear, function (data) {
             $scope.ptoList = data;
+        });
+    }
+
+    function updateDatePickers()
+    {
+        var curYear = $scope.selectedYear;
+
+        //bind jqueryUI datepicker to
+        $('[data-dp]').each(function () {
+            var $this = $(this);
+            $this.datepicker("destroy");
+            $this.datepicker({
+                minDate: new Date("01/01/" + curYear),
+                maxDate: new Date("12/31/" + curYear)
+            });
+        });
+
+        updatePtoDatePickers();
+    }
+
+    function updatePtoDatePickers()
+    {
+        var curYear = $scope.selectedYear;
+
+        //Bind datepicker with min & max to the from & to inputs
+        $dateFrom = $("#dateFrom");
+        $dateTo = $("#dateTo");
+        $dateFrom.datepicker("destroy");
+        $dateFrom.datepicker({
+            minDate: new Date("01/01/" + curYear),
+            maxDate: new Date("12/31/" + curYear),
+            onClose: function (selectedDate) {
+                if (selectedDate) {
+                    $dateTo.datepicker("option", "minDate", selectedDate);
+                }
+            }
+        });
+
+        $dateTo.datepicker("destroy");
+        $dateTo.datepicker({
+            minDate: new Date("01/01/" + curYear),
+            maxDate: new Date("12/31/" + curYear),
+            onClose: function (selectedDate) {
+                if (selectedDate) {
+                    $dateFrom.datepicker("option", "maxDate", selectedDate);
+                }
+            }
         });
     }
 
@@ -135,8 +184,24 @@
         return isValid;
     }
 
-    $scope.$watch('ptoList', updateFloatingHolidays, true);
+    $scope.$on('onLastRepeated', function (scope, element, attrs) {
+        var curYear = $scope.selectedYear;
+        //bind jqueryUI datepicker to
+        $('[data-qdp]').each(function () {
+            var $this = $(this);
+            $this.datepicker("destroy");
+            var dpData = $this.data("qdp");
+            //if it has quarter end month number add min & max
+            if (dpData.qEnd) {
+                $this.datepicker({
+                    minDate: new Date(curYear, dpData.qEnd - 3, 1),
+                    maxDate: new Date(curYear, dpData.qEnd, 0)
+                });
+            }
+        });
+    });
 
+    $scope.$watch('ptoList', updateFloatingHolidays, true);
     function updateFloatingHolidays() {
         $scope.floatingHolidays = holidayManager.getFloatingHolidays($scope.ptoList);
     }

@@ -310,9 +310,9 @@ app.factory('holidayManager', function () {
             
             var floatingHolidays = ptoList.filter(filt);
             if (floatingHolidays.length == 0) {
-                result.push({name: qname, date: null});
+                result.push({ name: qname, date: null, quarter: q + 1});
             } else {
-                result.push({name: qname, date: floatingHolidays[0].StartDate});
+                result.push({ name: qname, date: floatingHolidays[0].StartDate, quarter: q + 1});
             }
         }
 

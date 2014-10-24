@@ -42,11 +42,11 @@
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate Start</label>
-                <input type="text" ng-model="curSettings.ProrateStart" placeholder="dd/mm/yyyy" class="hasDatepicker">
+                <input type="text" ng-model="curSettings.ProrateStart" placeholder="mm/dd/yyyy" data-dp="">
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate End</label>
-                <input type="text" ng-model="curSettings.ProrateEnd" placeholder="dd/mm/yyyy" class="hasDatepicker">
+                <input type="text" ng-model="curSettings.ProrateEnd" placeholder="mm/dd/yyyy" data-dp="">
             </div>
             <div class="inblock">
                 <label class="blocklabel">&nbsp;</label>
@@ -58,10 +58,6 @@
         <div id="chartContainer">
             <div id="placeholder" data-chart=""></div>
         </div>
-        <div id="notes" data-ng-show="floatingHolidayResult != ''">
-            <strong>Floating Holiday Alert!</strong> - {{floatingHolidayResult}}
-        </div>
-
         <div class="clearfix">
             <div class="float50">
 
@@ -70,10 +66,10 @@
                     <form name="ptoForm" id="dataEntry">
                         <div class="float50">
                             <span class="label">From:</span>
-                            <input type="text" name="dateFrom" data-ng-model="currentPto.StartDate" data-ng-change="dateFromChanged()" class="date" />
+                            <input type="text" id="dateFrom" name="dateFrom" placeholder="mm/dd/yyyy" data-ng-model="currentPto.StartDate" data-ng-change="dateFromChanged()" />
                         </div><div class="float50">
                             <span class="label">To:</span>
-                            <input type="text" name="dateTo" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" class="date" />
+                            <input type="text" id="dateTo" name="dateTo" placeholder="mm/dd/yyyy" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" />
                         </div><div class="float50">
                             <span class="label">Type:</span>
                             <select data-ng-model="currentPto.PtoType" data-ng-options="p.id as p.name for p in ptoTypes"></select>
@@ -98,7 +94,7 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="dd/mm/yyyy" value="{{fh.date | date:'shortDate'}}" /></div>
+                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}"><p>{{fh.name}}</p><input type="text" placeholder="mm/dd/yyyy" value="{{fh.date | date:'MM/dd/yyyy'}}" data-qdp='{"qEnd": {{fh.quarter * 3}}}' on-last-repeat /></div>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
