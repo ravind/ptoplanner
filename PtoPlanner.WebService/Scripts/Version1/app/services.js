@@ -281,7 +281,7 @@ app.factory('chartGenerator', function () {
     return factory;
 });
 
-app.factory('holidayManager', function () {
+app.factory('holidayManager', function (ptoManager) {
     var factory = {};
 
     function getSearchFilter(startDate, endDate) {
@@ -310,71 +310,114 @@ app.factory('holidayManager', function () {
             
             var floatingHolidays = ptoList.filter(filt);
             if (floatingHolidays.length == 0) {
-                result.push({ name: qname, date: null, quarter: q + 1});
+                result.push({
+                    Url: "",
+                    name: qname,
+                    originalDate: null,
+                    date: null,
+                    quarter: q + 1
+                });
             } else {
-                result.push({ name: qname, date: floatingHolidays[0].StartDate, quarter: q + 1});
+                result.push({
+                    Url: floatingHolidays[0].Url,
+                    name: qname,
+                    originalDate: new Date(floatingHolidays[0].StartDate),
+                    date: new Date(floatingHolidays[0].StartDate).toLocaleDateString(),
+                    quarter: q + 1
+                });
             }
         }
 
         return result;
     }
 
-    factory.getStandardHolidays = function(year) {
+    factory.saveFloatingHoliday = function (fhObj, callback) {
+        var oldDate = null;
+        if (fhObj.originalDate) oldDate = fhObj.originalDate.valueOf();
+        var newDate = null;
+        if (fhObj.date) newDate = Date.parse(fhObj.date);
+        if (newDate != oldDate) {
+            //Need to save
+            var newPto = {
+                Url: fhObj.Url,
+                StartDate: new Date(newDate),
+                EndDate: new Date(newDate),
+                Note: fhObj.name,
+                HalfDays: false,
+                PtoType: 2
+            }
+
+            if (newDate != null)
+            {
+                ptoManager.savePto(newPto, callback);
+            }
+            else if (newPto.Url != "") //Date is null but is in DB
+            {
+                ptoManager.removePto(newPto.Url, callback);
+            }
+        }
+    }
+
+    factory.getStandardHolidays = function (year) {
         var retVal = new Array();
 
-        retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1) });
-        retVal.push({ name: 'Memorial', date: getNthDayOfMonth(0, 1, 5) }); //Last Monday in May
-        retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4) });
-        retVal.push({ name: 'Labor', date: getNthDayOfMonth(1, 1, 9) }); //First Monday in Sept
-        retVal.push({ name: 'Thanksgiving', date: getNthDayOfMonth(4, 4, 11) }); //4th Thurs in Nov
-        retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25) });
+        retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1)
+        });
+        retVal.push({ name: 'Memorial', date: getNthDayOfMonth(0, 1, 5)
+    }); //Last Monday in May
+    retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4)
+    });
+    retVal.push({ name: 'Labor', date: getNthDayOfMonth(1, 1, 9)
+    }); //First Monday in Sept
+    retVal.push({ name: 'Thanksgiving', date: getNthDayOfMonth(4, 4, 11)
+    }); //4th Thurs in Nov
+    retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25)
+    });
 
-        var curDate = new Date();
-        for (var i = 0; i < retVal.length; i++) {
-            var sh = retVal[i];
-            sh.inPast = (sh.date.valueOf() < curDate.valueOf());
+    var curDate = new Date() ;
+    for (var i = 0; i < retVal.length; i++) {
+        var sh = retVal[i];
+        sh.inPast = (sh.date.valueOf() < curDate.valueOf());
         }
 
         return retVal;
 
-        function getNthDayOfMonth(n, day, month)
-        {
-            month = month - 1; //Month is zero based
-            var firstDate = new Date(year, month, 1); 
+        function getNthDayOfMonth(n, day, month) {
+            month = month -1; //Month is zero based
+            var firstDate = new Date(year, month, 1);
             while (firstDate.getDay() != day) //Day of week starting w/ Sunday = 0
             {
-                firstDate.setDate(firstDate.getDate() + 1);
-            }
-            var matchingDays = new Array();
-            while (firstDate.getMonth() == month)
-            {
+                firstDate.setDate(firstDate.getDate() +1);
+        }
+        var matchingDays = new Array();
+        while (firstDate.getMonth() == month) {
                 matchingDays.push(new Date(firstDate));
-                firstDate.setDate(firstDate.getDate() + 7);
-            }
-            if (n == 0) //last day desired
-            {
-                return matchingDays[matchingDays.length - 1];
-            } else {
-                return matchingDays[n - 1];
-            }
+                firstDate.setDate(firstDate.getDate() +7);
+        }
+        if (n == 0) //last day desired
+        {
+                return matchingDays[matchingDays.length -1];
+        } else {
+                return matchingDays[n -1];
+    }
         }
 
         function getHoliday(y, m, d) {
             var date = new Date(y, m, d);
             //push sunday to monday
-            if (date.getDay() === 0) {
-                date.setDate(date.getDate() + 1);
-            }
-            //push saturday to friday
-            if (date.getDay() === 6) {
-                date.setDate(date.getDate() - 1);
-                //if new years moved to previous year push it the other way
-                if (date.getDate() === 31) {
-                    date.setDate(date.getDate() + 3);
-                }
-            }
-            return date;
+            if(date.getDay() === 0) {
+                date.setDate(date.getDate() +1);
         }
+            //push saturday to friday
+            if(date.getDay() === 6) {
+                date.setDate(date.getDate() -1);
+                //if new years moved to previous year push it the other way
+                if(date.getDate() === 31) {
+                    date.setDate(date.getDate() +3);
+            }
+        }
+            return date;
+    }
     }
 
     return factory;
