@@ -15,6 +15,15 @@
         return empStats;
     }
 
+    //Hire Year Variable
+    factory.getHireYears = function () {
+        var HYs = [
+            { val: 20, label: "Before 2013" },
+            { val: 15, label: "After 2012" }
+        ];
+        return HYs;
+    }
+
     factory.getAllYears = function (callback) {
         $http.get('/api/Settings/Years')
         .success(function (data, status, headers, config) {
@@ -36,7 +45,7 @@
                 var retVal = {
                     Url: "",
                     EmployeeStatus: 1,
-                    HireYear: null,
+                    HireYear: 20,
                     ProrateStart: null,
                     ProrateEnd: null,
                     PtoCarriedOver: 0,
@@ -234,21 +243,41 @@ app.factory('chartGenerator', function () {
     factory.getChartData = function (currentSettings, ptoList) {
         if (!currentSettings) return;
         if (!ptoList || !ptoList instanceof Array) return;
-        
+
         m_ptoList = ptoList;
         var balanceData = new Array();
         var lossData = new Array();
         var ptoIterator = getPtoIterator(1);
+        var nowDate = new Date();
         var curYear = new Date().getFullYear();
         var curDate = new Date(curYear, 0, 1);
         var curPto = ptoIterator.next();
+
         var accrued = balanceTracker(currentSettings.PtoCarriedOver);
         var lost = balanceTracker(0);
+        var employeeStatus = currentSettings.EmployeeStatus;
+        var hireYearVar = currentSettings.HireYear;
+        var empAccrueVar = (hireYearVar / employeeStatus) / 3;
+        var empStatusVar = 80 / employeeStatus;
+
+        var todateEarned = currentSettings.PtoCarriedOver;
+        var todateHoursAvailable = 0;
+        var todateHoursLost = 0;
+
         lost.commit();
         while (curDate.getFullYear() == curYear) {
+
+            //if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
+            //    accrued.setBalance(accrued.getBalance() + 20 / 3);
+            //}
             if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
-                accrued.setBalance(accrued.getBalance() + 20 / 3);
+                accrued.setBalance(accrued.getBalance() + empAccrueVar);
+                //if curDate is not passed today then increase todateEarned amount
+                if (curDate.toJSON() < nowDate.toJSON()) {
+                    todateEarned += empAccrueVar;
+                }
             }
+
 
             if (curPto != null && Date.parse(curPto.StartDate) <= curDate.valueOf() && curDate.valueOf() <= Date.parse(curPto.EndDate)) {
                 var n = curDate.getDay();
@@ -258,9 +287,15 @@ app.factory('chartGenerator', function () {
                 }
             }
 
-            if (accrued.getBalance() > 80) {
-                lost.setBalance(lost.getBalance() + accrued.getBalance() - 80);
-                accrued.setBalance(80);
+            if (accrued.getBalance() > empStatusVar) {
+                lost.setBalance(lost.getBalance() + accrued.getBalance() - empStatusVar);
+                accrued.setBalance(empStatusVar);
+            }
+
+            //get total hours earned todate variable
+            if ((curDate.getMonth() + "-" + curDate.getDate()) === (nowDate.getMonth() + "-" + nowDate.getDate())) {
+                todateHoursAvailable = accrued.getBalance();
+                todateHoursLost = lost.getBalance();
             }
 
             addData(accrued, curDate, balanceData);
@@ -274,7 +309,13 @@ app.factory('chartGenerator', function () {
 
         return {
             ptoBalance: balanceData,
-            lostBalance: lossData
+            lostBalance: lossData,
+            empStatusVar: empStatusVar,
+            ptoBalanceEnd: balanceData[balanceData.length - 1],
+            lostBalanceEnd: lossData[lossData.length - 1],
+            todateHoursAvailable: todateHoursAvailable,
+            todateHoursLost: todateHoursLost,
+            todateEarned: todateEarned
         };
     }
 
@@ -361,18 +402,12 @@ app.factory('holidayManager', function (ptoManager) {
     factory.getStandardHolidays = function (year) {
         var retVal = new Array();
 
-        retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1)
-        });
-        retVal.push({ name: 'Memorial', date: getNthDayOfMonth(0, 1, 5)
-    }); //Last Monday in May
-    retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4)
-    });
-    retVal.push({ name: 'Labor', date: getNthDayOfMonth(1, 1, 9)
-    }); //First Monday in Sept
-    retVal.push({ name: 'Thanksgiving', date: getNthDayOfMonth(4, 4, 11)
-    }); //4th Thurs in Nov
-    retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25)
-    });
+        retVal.push({ name: 'New Year', date: getHoliday(year, 0, 1)});
+        retVal.push({ name: 'Memorial', date: getNthDayOfMonth(0, 1, 5)}); //Last Monday in May
+        retVal.push({ name: 'Independence', date: getHoliday(year, 6, 4)});
+        retVal.push({ name: 'Labor', date: getNthDayOfMonth(1, 1, 9)}); //First Monday in Sept
+        retVal.push({ name: 'Thanksgiving', date: getNthDayOfMonth(4, 4, 11)}); //4th Thurs in Nov
+        retVal.push({ name: 'Christmas', date: getHoliday(year, 11, 25)});
 
     var curDate = new Date() ;
     for (var i = 0; i < retVal.length; i++) {

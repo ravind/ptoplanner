@@ -110,6 +110,7 @@ app.factory('chartGenerator', function(ptoManager, $rootScope) {
     $rootScope.todateEarned = startingBalance;
 
     while (curDate.toJSON() <= endDate.toJSON()) {
+
       //if its the 15th or last day of the month
       //increase the accrued by the emps accrue amount
       if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {

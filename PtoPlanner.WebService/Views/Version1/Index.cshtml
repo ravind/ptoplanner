@@ -11,14 +11,14 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=latin">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">*@
     <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/Content/Version1/style.css" />
 </head>
 <body data-ng-controller="ptoController">
     <div class="hdr">
         <div class="pullright">
-            <span class="label">Year:</span>
+            <span>Year:</span>
             <select ng-model="selectedYear" ng-options="yr as yr for yr in yearList" ng-change="selectedYearChanged()"></select>
         </div>
         <h1>PTO Planner</h1>
@@ -29,23 +29,23 @@
         <h2 class="h2">Setup</h2>
         <fieldset class="clearfix">
             <div class="inblock">
-                <label class="blocklabel">Carry Over</label>
+                <label class="blocklabel">Carry Over:</label>
                 <input type="number" step="0.01" id="numStartingBalance" data-ng-model="curSettings.PtoCarriedOver" />
             </div>
             <div class="inblock">
-                <label class="blocklabel">Employee Status</label>
+                <label class="blocklabel">Employee Status:</label>
                 <select ng-model="curSettings.EmployeeStatus" ng-options="emp.id as emp.name for emp in empStatuses"></select>
             </div>
             <div class="inblock">
-                <label class="blocklabel">Hire Year</label>
-                <input type="text" ng-model="curSettings.HireYear" placeholder="yyyy">
+                <label class="blocklabel">Hire Year:</label>
+                <select ng-model="curSettings.HireYear" ng-options="hireYear.val as hireYear.label for hireYear in hireYears"></select>
             </div>
             <div class="inblock">
-                <label class="blocklabel">Prorate Start</label>
+                <label class="blocklabel">Prorate Start:</label>
                 <input type="text" ng-model="curSettings.ProrateStart" placeholder="mm/dd/yyyy" data-dp="">
             </div>
             <div class="inblock">
-                <label class="blocklabel">Prorate End</label>
+                <label class="blocklabel">Prorate End:</label>
                 <input type="text" ng-model="curSettings.ProrateEnd" placeholder="mm/dd/yyyy" data-dp="">
             </div>
             <div class="inblock">
@@ -67,24 +67,32 @@
                         <div class="float50">
                             <span class="label">From:</span>
                             <input type="text" id="dateFrom" name="dateFrom" placeholder="mm/dd/yyyy" data-ng-model="currentPto.StartDate" data-ng-change="dateFromChanged()" />
-                        </div><div class="float50">
-                            <span class="label">To:</span>
-                            <input type="text" id="dateTo" name="dateTo" placeholder="mm/dd/yyyy" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" />
-                        </div><div class="float50">
-                            <span class="label">Type:</span>
-                            <select data-ng-model="currentPto.PtoType" data-ng-options="p.id as p.name for p in ptoTypes"></select>
-                        </div><div class="float50">
-                            <span class="label">Note:</span>
-                            <input type="text" size="51" data-ng-model="currentPto.Note" />
-                        </div><div class="float50">
-                            <span class="label">Full PTO or half.</span>
-                            <span class="help" data-info="Log this PTO as half days (4 hrs per day).">
-                                <i class="fa fa-question-circle"></i>
-                            </span>
-                                  <input type="checkbox" ng-model="currentPto.HalfDays" class="ng-pristine ng-valid">
                         </div>
                         <div class="float50">
-                            <span class="label"></span>
+                            <span class="label">To:</span>
+                            <input type="text" id="dateTo" name="dateTo" placeholder="mm/dd/yyyy" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" />
+                        </div>
+                        @*<div class="float50">
+                            <span class="label">Type:</span>
+                            <select data-ng-model="currentPto.PtoType" data-ng-options="p.id as p.name for p in ptoTypes"></select>
+                        </div>*@
+                        <div class="float50">
+                            <span class="label">Note:</span>
+                            <input type="text" size="51" data-ng-model="currentPto.Note" />
+                        </div>
+                        <div class="float50">
+                            <span class="label">Full days or half days.</span>
+                            <input type="checkbox" ng-model="currentPto.HalfDays">
+                            @*<input type="radio" ng-model="currentPto.HalfDays" value="0" name="HalfDays"> 8 hrs.
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" ng-model="currentPto.HalfDays" value="1" name="HalfDays"> 4 hrs.*@
+
+                        </div>
+                        <div class="float50">
+                            <span class="label">&nbsp;</span>
+                        </div>
+                        <div class="float50">
+                            <span class="label">&nbsp;</span>
                             <button type="button" data-ng-click="savePto()" data-ng-disabled="!currentPto.StartDate || !currentPto.EndDate || !currentPto.PtoType">
                                 {{ currentPto.Url ? 'Update' : 'Add' }}
                             </button>
@@ -98,7 +106,7 @@
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
-                        <div ng-repeat="sh in standardHolidays" class="{{sh.inPast ? 'on' : 'off'}}"><p>{{sh.name}}<br />{{sh.date | date:'EEEE'}}<br />{{sh.date | date:'MMM dd'}}</p></div>
+                        <div ng-repeat="sh in standardHolidays" class="{{sh.inPast ? 'on' : 'off'}}"><p><span ng-bind="sh.name"></span><br /><span ng-bind="sh.date | date:'EEEE'"></span><br /><span ng-bind="sh.date | date:'MMM dd'"></span></p></div>
                     </div>
                 </fieldset>
             </div><div class="float50">
@@ -122,7 +130,7 @@
                             <td ng-bind="pto.EndDate | date:'shortDate'"></td>
                             <td ng-bind="pto.Note"></td>
                             <td ng-bind="pto.HalfDays ? 'Half' : 'Full'"></td>
-                            <td>0/1/2...</td>
+                            <td>0</td>
                             <td class="nowrap">
                                 <button type="button" class="btn-change" ng-click="editPto(pto)" ng-hide="pto.PtoType == 2">Edit</button>
                                 <button data-ng-click="removePto(pto.Url)" ng-hide="pto.PtoType == 2">&times;</button>
@@ -141,17 +149,17 @@
                     <tbody>
                         <tr>
                             <td>Hours</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="todateEarned | number:2">0</td>
+                            <td ng-bind="tdDaysUsed * 8 | number:2">0</td>
+                            <td ng-bind="todateHoursLost | number:2">0</td>
+                            <td ng-bind="todateHoursAvailable | number:2">0</td>
                         </tr>
                         <tr>
                             <td>Days</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="todateEarned / 8 | number:2">0</td>
+                            <td ng-bind="tdDaysUsed | number:2">0</td>
+                            <td ng-bind="todateHoursLost / 8 | number:2">0</td>
+                            <td ng-bind="todateHoursAvailable / 8 | number:2">0</td>
                         </tr>
                     </tbody>
                     <thead>
@@ -160,17 +168,17 @@
                     <tbody>
                         <tr>
                             <td>Hours</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="( ( curSettings.HireYear * 8 ) / curSettings.EmployeeStatus ) + curSettings.PtoCarriedOver | number:2">0</td>
+                            <td ng-bind="yeDaysUsed * 8 | number:2">0</td>
+                            <td ng-bind="lostBalance | number:2">0</td>
+                            <td ng-bind="ptoBalance | number:2">0</td>
                         </tr>
                         <tr>
                             <td>Days</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
+                            <td ng-bind="( curSettings.HireYear / curSettings.EmployeeStatus ) + ( curSettings.PtoCarriedOver / 8 ) | number:2">0</td>
+                            <td ng-bind="yeDaysUsed | number:2">0</td>
+                            <td ng-bind="lostBalance / 8 | number:2">0</td>
+                            <td ng-bind="ptoBalance / 8 | number:2">0</td>
                         </tr>
                     </tbody>
                 </table>
