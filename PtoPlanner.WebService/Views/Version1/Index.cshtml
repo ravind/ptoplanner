@@ -37,8 +37,11 @@
                 <select ng-model="curSettings.EmployeeStatus" ng-options="emp.id as emp.name for emp in empStatuses"></select>
             </div>
             <div class="inblock">
-                <label class="blocklabel">Hire Year:</label>
-                <select ng-model="curSettings.HireYear" ng-options="hireYear.val as hireYear.label for hireYear in hireYears"></select>
+                <label class="blocklabel">Hire Date:</label>
+                @*<select ng-model="curSettings.HireYear" ng-options="hireYear.val as hireYear.label for hireYear in hireYears"></select>*@
+                <input type="radio" name="hy" ng-model="curSettings.HireYear" value="20"> 2012 or before
+                <br />
+                <input type="radio" name="hy" ng-model="curSettings.HireYear" value="15"> 2013 or later
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate Start:</label>
@@ -63,39 +66,33 @@
 
                 <h2 class="h2">Add PTO</h2>
                 <fieldset id="fstAddPto">
-                    <form name="ptoForm" id="dataEntry">
-                        <div class="float50">
+                    <form name="ptoForm" id="dataEntry" class="clearfix">
+                        <div class="float33">
                             <span class="label">From:</span>
                             <input type="text" id="dateFrom" name="dateFrom" placeholder="mm/dd/yyyy" data-ng-model="currentPto.StartDate" data-ng-change="dateFromChanged()" />
                         </div>
-                        <div class="float50">
+                        <div class="float33">
                             <span class="label">To:</span>
                             <input type="text" id="dateTo" name="dateTo" placeholder="mm/dd/yyyy" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" />
                         </div>
-                        @*<div class="float50">
+                        @*<div class="float33">
                             <span class="label">Type:</span>
                             <select data-ng-model="currentPto.PtoType" data-ng-options="p.id as p.name for p in ptoTypes"></select>
                         </div>*@
-                        <div class="float50">
+                        <div class="float33">
                             <span class="label">Note:</span>
                             <input type="text" size="51" data-ng-model="currentPto.Note" />
                         </div>
-                        <div class="float50">
-                            <span class="label">Full days or half days.</span>
-                            <input type="checkbox" ng-model="currentPto.HalfDays">
+                        <div class="float66">
+                            <span class="label">Full PTO or half.</span>
+                            <input type="checkbox" ng-model="currentPto.HalfDays"> Log this PTO as half days (4 hrs per day).
                             @*<input type="radio" ng-model="currentPto.HalfDays" value="0" name="HalfDays"> 8 hrs.
                             &nbsp;&nbsp;&nbsp;
                             <input type="radio" ng-model="currentPto.HalfDays" value="1" name="HalfDays"> 4 hrs.*@
-
                         </div>
-                        <div class="float50">
+                        <div class="float33">
                             <span class="label">&nbsp;</span>
-                        </div>
-                        <div class="float50">
-                            <span class="label">&nbsp;</span>
-                            <button type="button" data-ng-click="savePto()" data-ng-disabled="!currentPto.StartDate || !currentPto.EndDate || !currentPto.PtoType">
-                                {{ currentPto.Url ? 'Update' : 'Add' }}
-                            </button>
+                            <button type="button" data-ng-click="savePto()" data-ng-disabled="!currentPto.StartDate || !currentPto.EndDate || !currentPto.PtoType" ng-bind="currentPto.Url ? 'Update' : 'Add'"></button>
                         </div>
                     </form>
                 </fieldset>

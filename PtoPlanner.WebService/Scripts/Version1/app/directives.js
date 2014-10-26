@@ -46,7 +46,7 @@
                     }
                 }, {
                     data: data.lostBalance,
-                    label: "Unused Balance",
+                    label: "Expired Balance",
                     lines: {
                         show: true
                     },

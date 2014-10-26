@@ -203,9 +203,9 @@ fieldset
 .inblock
 {
     display: inline-block;
-    width: 180px;
+    vertical-align:top;
+    width:16%;
 }
-
 .tbl
 {
     width: 100%;
@@ -264,12 +264,22 @@ fieldset
 {
     float: right !important;
 }
-
+.float66 {
+float: left;
+width: 66.66%;
+padding-right: 10px;
+}
 .float50
 {
     float: left;
     width: 50%;
     padding-right: 10px;
+}
+
+.float33 {
+float: left;
+width: 33.33%;
+padding-right: 10px;
 }
 .label
 {
@@ -353,6 +363,7 @@ fieldset
 #holidaysSTD div
 {
     width: 16%;
+    font-size: .8em;
 }
 
     #holidaysSTD div p
@@ -409,10 +420,14 @@ fieldset
 
 @media (max-width: 700px)
 {
+    .inblock{
+    width:145px;
+}
     .float50
     {
         float: none;
         width: auto;
+        padding-right:0;
     }
 }
 
@@ -427,6 +442,7 @@ fieldset
     {
         width: 750px;
     }
+
 }
 
 @media (min-width: 992px)
