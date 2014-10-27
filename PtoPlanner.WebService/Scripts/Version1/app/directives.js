@@ -16,16 +16,15 @@
                 opacity: 0.80
             }).appendTo("body");
 
-            function dataChanged()
-            {
-                updateChart(scope.curSettings, scope.ptoList);
+            function dataChanged(){
+                updateChart(scope.curSettings, scope.ptoList, scope.standardHoliDates, scope.floatingHoliDates);
             }
 
-            function updateChart(currentSettings, ptoList) {
+            function updateChart(currentSettings, ptoList, standardHoliDates, floatingHoliDates) {
 
-                var data = chartGenerator.getChartData(currentSettings, ptoList);
+                var data = chartGenerator.getChartData(currentSettings, ptoList, standardHoliDates, floatingHoliDates);
                 if(!data){
-                return;
+                    return;
                 }
                 scope.todateHoursAvailable = data.todateHoursAvailable;
                 scope.todateHoursLost = data.todateHoursLost;

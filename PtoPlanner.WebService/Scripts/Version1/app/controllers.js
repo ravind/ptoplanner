@@ -56,9 +56,12 @@
     $scope.editPto = function (obj) {
         var startDate = new Date(obj.StartDate);
         var endDate = new Date(obj.EndDate);
-        obj.StartDate = startDate.toLocaleDateString();
-        obj.EndDate = endDate.toLocaleDateString();
-        $scope.currentPto = obj;
+        $scope.currentPto.StartDate = startDate.toLocaleDateString();
+        $scope.currentPto.EndDate = endDate.toLocaleDateString();
+        $scope.currentPto.Note = obj.Note;
+        $scope.currentPto.HalfDays = obj.HalfDays;
+        $scope.currentPto.PtoType = obj.PtoType;
+        $scope.currentPto.Url = obj.Url;
         updatePtoDatePickers();
     };
 
@@ -78,6 +81,9 @@
         refreshSettings();
         refreshPtoList();
         $scope.standardHolidays = holidayManager.getStandardHolidays($scope.selectedYear);
+        $scope.standardHoliDates = $.map($scope.standardHolidays, function (val, key) {
+            return Date.parse(val.date);
+        });
         updateDatePickers();
     }
 
@@ -221,8 +227,18 @@
             }
         }
     }
-    $scope.$watch('ptoList', updateDaysUsed, true);
 
+    $scope.$watch('floatingHolidays', makeFloatingHolidaysArray, true);
+    function makeFloatingHolidaysArray() {
+        if (!$scope.floatingHolidays) {
+            return;
+        }
+        $scope.floatingHoliDates = $.map($scope.floatingHolidays, function (val, key) {
+            return Date.parse(val.date);
+        });
+    }
+
+    $scope.$watch('ptoList', updateDaysUsed, true);
     function updateDaysUsed() {
         //cancel if no list yet
         if (!$scope.ptoList) {
@@ -272,42 +288,35 @@
             i++;
         }
 
-        var standardHoliDates = $.map($scope.standardHolidays, function (v, k) {
-            return v.date.valueOf();
-        });
-        var floatingHoliDates = $.map($scope.floatingHolidays, function (v, k) {
-            return new Date(v.date).valueOf();
-        });
 
         //remove  holidays from pto dates
         fullDays.pre = fullDays.pre.filter(function (el) {
-            return standardHoliDates.indexOf(el) < 0;
+            return $scope.standardHoliDates.indexOf(el) < 0;
         });
         halfDays.pre = halfDays.pre.filter(function (el) {
-            return standardHoliDates.indexOf(el) < 0;
+            return $scope.standardHoliDates.indexOf(el) < 0;
         });
         fullDays.post = fullDays.post.filter(function (el) {
-            return standardHoliDates.indexOf(el) < 0;
+            return $scope.standardHoliDates.indexOf(el) < 0;
         });
         halfDays.post = halfDays.post.filter(function (el) {
-            return standardHoliDates.indexOf(el) < 0;
+            return $scope.standardHoliDates.indexOf(el) < 0;
         });
         //remove floating holidays from pto dates
         fullDays.pre = fullDays.pre.filter(function (el) {
-            return floatingHoliDates.indexOf(el) < 0;
+            return $scope.floatingHoliDates.indexOf(el) < 0;
         });
         halfDays.pre = halfDays.pre.filter(function (el) {
-            return floatingHoliDates.indexOf(el) < 0;
+            return $scope.floatingHoliDates.indexOf(el) < 0;
         });
         fullDays.post = fullDays.post.filter(function (el) {
-            return floatingHoliDates.indexOf(el) < 0;
+            return $scope.floatingHoliDates.indexOf(el) < 0;
         });
         halfDays.post = halfDays.post.filter(function (el) {
-            return floatingHoliDates.indexOf(el) < 0;
+            return $scope.floatingHoliDates.indexOf(el) < 0;
         });
 
         $scope.tdDaysUsed = fullDays.pre.length + (halfDays.pre.length / 2);
-
         var fullDayslength = fullDays.pre.length + fullDays.post.length;
         var halfDayslength = halfDays.pre.length + halfDays.post.length;
         $scope.yeDaysUsed = fullDayslength + (halfDayslength / 2);

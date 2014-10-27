@@ -12,5 +12,5 @@ app.run(function () {
         return value && JSON.parse(value);
     }
 
-    $("input.date").datepicker();
+    //$("input.date").datepicker();
 });

@@ -43,14 +43,14 @@
                 <br />
                 <input type="radio" name="hy" ng-model="curSettings.HireYear" value="15"> 2013 or later
             </div>
-            <div class="inblock">
+            @*<div class="inblock">
                 <label class="blocklabel">Prorate Start:</label>
                 <input type="text" ng-model="curSettings.ProrateStart" placeholder="mm/dd/yyyy" data-dp="">
             </div>
             <div class="inblock">
                 <label class="blocklabel">Prorate End:</label>
                 <input type="text" ng-model="curSettings.ProrateEnd" placeholder="mm/dd/yyyy" data-dp="">
-            </div>
+            </div>*@
             <div class="inblock">
                 <label class="blocklabel">&nbsp;</label>
                 <button type="submit" ng-click="saveSettings()">Save</button>
@@ -75,10 +75,6 @@
                             <span class="label">To:</span>
                             <input type="text" id="dateTo" name="dateTo" placeholder="mm/dd/yyyy" data-ng-model="currentPto.EndDate" data-ng-change="dateToChanged()" />
                         </div>
-                        @*<div class="float33">
-                            <span class="label">Type:</span>
-                            <select data-ng-model="currentPto.PtoType" data-ng-options="p.id as p.name for p in ptoTypes"></select>
-                        </div>*@
                         <div class="float33">
                             <span class="label">Note:</span>
                             <input type="text" size="51" data-ng-model="currentPto.Note" />
@@ -86,9 +82,6 @@
                         <div class="float66">
                             <span class="label">Full PTO or half.</span>
                             <input type="checkbox" ng-model="currentPto.HalfDays"> Log this PTO as half days (4 hrs per day).
-                            @*<input type="radio" ng-model="currentPto.HalfDays" value="0" name="HalfDays"> 8 hrs.
-                            &nbsp;&nbsp;&nbsp;
-                            <input type="radio" ng-model="currentPto.HalfDays" value="1" name="HalfDays"> 4 hrs.*@
                         </div>
                         <div class="float33">
                             <span class="label">&nbsp;</span>
@@ -99,11 +92,20 @@
                 <h2 class="h2">Holidays</h2>
                 <fieldset>
                     <div id="holidaysFLT" class="holiday-section">
-                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}" on-last-repeat><p>{{fh.name}}</p><input type="text" placeholder="mm/dd/yyyy" ng-model="fh.date" data-qdp='{"qEnd": {{fh.quarter * 3}}}' /></div>
+                        <div ng-repeat="fh in floatingHolidays" class="{{fh.date ? 'on' : 'off'}}" on-last-repeat>
+                            <p ng-bind="fh.name"></p>
+                            <input type="text" placeholder="mm/dd/yyyy" ng-model="fh.date" data-qdp='{"qEnd": {{fh.quarter * 3}}}' />
+                        </div>
                     </div>
                     <hr>
                     <div id="holidaysSTD" class="holiday-section">
-                        <div ng-repeat="sh in standardHolidays" class="{{sh.inPast ? 'on' : 'off'}}"><p><span ng-bind="sh.name"></span><br /><span ng-bind="sh.date | date:'EEEE'"></span><br /><span ng-bind="sh.date | date:'MMM dd'"></span></p></div>
+                        <div ng-repeat="sh in standardHolidays" class="{{sh.inPast ? 'on' : 'off'}}">
+                            <p>
+                                <span ng-bind="sh.name"></span><br />
+                                <span ng-bind="sh.date | date:'EEEE'"></span><br />
+                                <span ng-bind="sh.date | date:'MMM dd'"></span>
+                            </p>
+                        </div>
                     </div>
                 </fieldset>
             </div><div class="float50">
@@ -116,7 +118,7 @@
                             <th>To</th>
                             <th>Note</th>
                             <th>Full/Half</th>
-                            <th class="nowrap" title="Contains Holiday">*</th>
+                            @*<th class="nowrap" title="Contains Holiday">*</th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -127,16 +129,18 @@
                             <td ng-bind="pto.EndDate | date:'shortDate'"></td>
                             <td ng-bind="pto.Note"></td>
                             <td ng-bind="pto.HalfDays ? 'Half' : 'Full'"></td>
-                            <td>0</td>
+                            @*<td>0</td>*@
                             <td class="nowrap">
+                                <button data-ng-click="removePto(pto.Url)" @*ng-hide="pto.PtoType == 2"*@>&times;</button>
                                 <button type="button" class="btn-change" ng-click="editPto(pto)" ng-hide="pto.PtoType == 2">Edit</button>
-                                <button data-ng-click="removePto(pto.Url)" ng-hide="pto.PtoType == 2">&times;</button>
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr><td colspan="7" class="allign-right">* Contains Holiday(s)</td></tr>
-                    </tfoot>
+                    @*<tfoot>
+                        <tr>
+                        <td colspan="7" class="allign-right">* Contains Holiday(s)</td>
+                        </tr>
+                    </tfoot>*@
                 </table>
                 <h2 class="h2">Totals</h2>
                 <table class="tbl totals">

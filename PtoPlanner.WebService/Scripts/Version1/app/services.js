@@ -240,7 +240,7 @@ app.factory('chartGenerator', function () {
         }
     }
 
-    factory.getChartData = function (currentSettings, ptoList) {
+    factory.getChartData = function (currentSettings, ptoList, standardHoliDates, floatingHoliDates) {
         if (!currentSettings) return;
         if (!ptoList || !ptoList instanceof Array) return;
 
@@ -270,6 +270,7 @@ app.factory('chartGenerator', function () {
             //if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
             //    accrued.setBalance(accrued.getBalance() + 20 / 3);
             //}
+
             if (isLastDayOfMonth(curDate) || curDate.getDate() == 15) {
                 accrued.setBalance(accrued.getBalance() + empAccrueVar);
                 //if curDate is not passed today then increase todateEarned amount
@@ -278,12 +279,21 @@ app.factory('chartGenerator', function () {
                 }
             }
 
+            //iterate through vacation days
+            if (curPto != null) {
+                //MUST ADD A "Z" TO THE END SO ALL BROWSERS KNOW WHAT TIME ZONE
+                if (curDate.valueOf() >= Date.parse(curPto.StartDate+'Z') && curDate.valueOf() <= Date.parse(curPto.EndDate+'Z')) {
+                    if (standardHoliDates.indexOf(curDate.valueOf()) === -1 && floatingHoliDates.indexOf(curDate.valueOf()) === -1) {
+                        var n = curDate.getDay();
+                        //if not weekends
+                        if (n != 0 && n != 6) {
+                            //if HalfDays is true subtract by 4
+                            var hoursUsed = curPto.HalfDays ? 4 : 8;
+                            //subtract 8 or 4
+                            accrued.setBalance(accrued.getBalance() - hoursUsed);
+                        }
+                    }
 
-            if (curPto != null && Date.parse(curPto.StartDate) <= curDate.valueOf() && curDate.valueOf() <= Date.parse(curPto.EndDate)) {
-                var n = curDate.getDay();
-                if (n != 0 && n != 6) {
-                    var hoursUsed = curPto.HalfDays ? 4 : 8;
-                    accrued.setBalance(accrued.getBalance() - hoursUsed);
                 }
             }
 

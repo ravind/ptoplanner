@@ -204,7 +204,7 @@ fieldset
 {
     display: inline-block;
     vertical-align:top;
-    width:16%;
+    width:20%;
 }
 .tbl
 {
@@ -364,6 +364,7 @@ padding-right: 10px;
 {
     width: 16%;
     font-size: .8em;
+    font-weight:normal;
 }
 
     #holidaysSTD div p
